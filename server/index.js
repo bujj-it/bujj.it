@@ -1,11 +1,18 @@
+const path = require('path');
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const pool = require("./db")
+const pool = require("./db");
+
+const app = express();
+const buildPath = path.join(__dirname, '..', 'client/build')
+
 
 // middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve the static files from the React app
+app.use(express.static(buildPath));
 
 // Routes
 app.post("/users", async (req, res) => {
@@ -22,6 +29,15 @@ app.post("/users", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("server has started on port 5000");
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(buildPath + '/index.html'));
+});
+
+
+// Serve on port
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log('Server is listening on port ' + port);
 });
