@@ -46,18 +46,19 @@ Users who are inexperienced in personal financial matters, lacking information/e
 
 ### 2. Features & Requirements
 
-| No# | Section        | Requirement                                                                                       | Status           | Priority | Comments | Owner |
-| --- | -------------- | ------------------------------------------------------------------------------------------------- | ---------------- | -------- | -------- | ----- |
-| 1   | General Design | Designed mobile first                                                                             | Pending sign off | MVP      |          |       |
-| 2   | General Design | Site design/layout should be visually appealing and clear/easy to understand.                     | Pending sign off | MVP      |          |       |
-| 3   | Landing Page   | Landing Page should have succinct, appealing summary of service.                                  | Pending sign off | MVP      |          |       |
-| 4   | Landing Page   | Landing page should have CTA linking to user sign up.                                             | Pending sign off | MVP      |          |       |
-| 5   | User Accounts  | Users can sign up for account with name, DOB(?), email & password.                                | Pending sign off | MVP      |          |       |
-| 6   | User Accounts  | Users can log in and out.                                                                         | Pending sign off | MVP      |          |       |
-| 7   | Budget Calc    | User able to input expenses                                                                       | Pending sign off | MVP      |          |       |
-| 8   | Budget Calc    | User able to input income                                                                         | Pending sign off | MVP      |          |       |
-| 9   | Budget Calc    | Calc should determine multiple savings rates & associated surplus cash for weekly spend for each. | Pending sign off | MVP      |          |       |
-| 10  | Budget Calc    | Process of inputting data should be split into stages.                                            | Pending sign off | MVP      |          |       |
-| 11  | Budget Calc    | Each stage of data input should have a clear & succinct explanation                               | Pending sign off | MVP      |          |       |
-|     |                |                                                                                                   |                  |          |          |       |
-|     |                |                                                                                                   |                  |          |          |       |
+| No# | Section        | Requirement                                                                                       | Status     | Priority | Comments | Owner |
+| --- | -------------- | ------------------------------------------------------------------------------------------------- | ---------- | -------- | -------- | ----- |
+| 1   | General Design | Designed mobile first                                                                             | Signed off | MVP      |          |       |
+| 2   | General Design | Site design/layout should be visually appealing and clear/easy to understand.                     | Signed off | MVP      |          |       |
+| 3   | Landing Page   | Landing Page should have succinct, appealing summary of service.                                  | Signed off | MVP      |          |       |
+| 4   | Landing Page   | Landing page should have CTA linking to user sign up.                                             | Signed off | MVP      |          |       |
+| 5   | User Accounts  | Users can sign up for account with name, DOB, email & password.                                   | Signed off | MVP      |
+| 6   | User Accounts  | Users can amend account details (name, password, email address)                                   | Signed off | MVP      |          |       |
+| 7   | User Accounts  | Users can log in and out.                                                                         | Signed off | MVP      |          |       |
+| 8   | Budget Calc    | User able to input expenses                                                                       | Signed off | MVP      |          |       |
+| 9   | Budget Calc    | User able to input income                                                                         | Signed off | MVP      |          |       |
+| 10  | Budget Calc    | Calc should determine multiple savings rates & associated surplus cash for weekly spend for each. | Signed off | MVP      |          |       |
+| 11  | Budget Calc    | Process of inputting data should be split into stages.                                            | Signed off | MVP      |          |       |
+| 12  | Budget Calc    | Each stage of data input should have a clear & succinct explanation/instructions.                 | Signed off | MVP      |          | 13    | Budget Calc |
+|     |                |                                                                                                   |            |          |          |       |
+|     |                |                                                                                                   |            |          |          |       |
