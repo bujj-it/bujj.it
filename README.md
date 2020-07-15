@@ -52,7 +52,7 @@ Users who are inexperienced in personal financial matters, lacking information/e
 | 2   | General Design | Site design/layout should be visually appealing and clear/easy to understand.                     | Signed off | MVP      |          |       |
 | 3   | Landing Page   | Landing Page should have succinct, appealing summary of service.                                  | Signed off | MVP      |          |       |
 | 4   | Landing Page   | Landing page should have CTA linking to user sign up.                                             | Signed off | MVP      |          |       |
-| 5   | User Accounts  | Users can sign up for account with name, DOB, email & password.                                   | Signed off | MVP      |
+| 5   | User Accounts  | Users can sign up for account with name, username, DOB, email & password.                         | Signed off | MVP      |
 | 6   | User Accounts  | Users can amend account details (name, password, email address)                                   | Signed off | MVP      |          |       |
 | 7   | User Accounts  | Users can log in and out.                                                                         | Signed off | MVP      |          |       |
 | 8   | Budget Calc    | User able to input expenses                                                                       | Signed off | MVP      |          |       |
