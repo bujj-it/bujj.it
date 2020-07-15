@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_client": "cd ../client && yarn build",
-    "start": "yarn build_client && node index.js"
+    "build_client": "cd ../client && yarn install --production && yarn build --production",
+    "start_prod": "yarn install --production && yarn build_client && node index.js",
+    "start_dev": "node index.js"
   },
   "author": "",
   "license": "ISC",
