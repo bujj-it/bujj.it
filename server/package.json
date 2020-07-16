@@ -5,9 +5,9 @@
   "main": "index.js",
   "homepage": "/",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
-    "start": "node index.js" 
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,31 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "babel-jest": "^26.1.0",
+    "jest": "^26.1.0"
+  },
+  "jest": {
+    "testRegex": ".*_spec.js",
+    "roots": [
+      "<rootDir>/spec"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>/src"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/spec/__mocks__/styleMock.js"
+    },
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }
