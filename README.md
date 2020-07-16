@@ -73,3 +73,33 @@ Users who are inexperienced in personal financial matters, lacking information/e
 | 12  | Budget Calc    | Each stage of data input should have a clear & succinct explanation/instructions.                 | Signed off | MVP      |          | 13    | Budget Calc |
 |     |                |                                                                                                   |            |          |          |       |
 |     |                |                                                                                                   |            |          |          |       |
+
+
+### 3. How to Install
+
+#### 3.1 Clone from github
+
+```cd projects```
+```git clone <repo-tag>```
+
+#### 3.2 Add environment variables
+
+Create a ```.env``` file in the server root directory based off the ```.env.template``` file included. Ensure the new ```.env``` file is not checked into any version control system.**
+
+#### 3.3 Install dependencies
+
+Run ```yarn install``` in both the server and client directories to install dependencies, use the appropirate flags for the environment you are install the application for.
+
+#### 3.4 Running tests
+
+Unit tests can be run for both the client and server sides of the project by running ```yarn test``` in each directory.
+
+#### 3.5a Start development servers
+
+When running the application server in a development environemnt, nodemon is used to refresh the server when changes are made. Additionally, the client assets are also hosted on their own server to allow for quick refreshing. Therefore, to start the application servers run ```yarn start_dev``` in both the server and client directories.
+
+#### 3.5b Start production server
+
+To run the application server in a production environment, move the server directory and build the static assets by running ```yarn build_prod```. Then, also in the server directory, start the application server by running ```yarn start_prod```. The application server will then listen for requests on port 5000 and a reverse proxy can be setup to pass requests. 
+
+Note: In non-containerised depolyments, a process controller (such as systemd) should be used manage the application server and prevent downtime from errors being raised.

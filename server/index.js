@@ -1,46 +1,65 @@
-const path = require('path');
-const express = require("express");
-const cors = require("cors");
-const pool = require("./db");
-
 const app = express();
-const buildPath = path.join(__dirname, '..', 'client/public')
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const db = require("./app/models");
 
-if ( app.get('env') === 'production' ) {
-  buildPath = path.join(__dirname, '..', 'client/build')
+// ==========================================
+// Middleware
+// ==========================================
+
+// use cors for local development server
+if (app.get("env") === "development") {
+  const cors = require("cors");
+  var corsOptions = {
+    origin: "http://localhost:3000",
+  };
+  app.use(cors(corsOptions));
 }
 
-// middleware
-app.use(cors());
-app.use(express.json());
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
 
-// Serve the static files from the React app
-app.use(express.static(buildPath));
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// ==========================================
+// Database
+// ==========================================
+
+// sync db with models
+db.sequelize.sync({ alter: true }).then(() => {
+  console.log("Resync Db");
+  initial();
+});
+
+// ==========================================
 // Routes
-app.post("/users", async (req, res) => {
-  try {
-    const { first_name, surname, username, dob, email, password_hash } = req.body;
-    const newUser = await pool.query(
-      "INSERT INTO users (first_name, surname, username, dob, email, password_hash) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-      [first_name, surname, username, dob, email, password_hash]
-    );
-    res.json(newUser.rows[0]);
-  } catch (error) {
-    console.log(error.message);
-  }
+// ==========================================
+
+// serve the static files from the React app in production environment
+if (app.get("env") === "production") {
+  const buildPath = path.join(__dirname, "..", "client/build");
+  app.use(express.static(buildPath));
+}
+
+// test route
+app.get("/api", (req, res) => {
+  res.json({ message: "Welcome to bujj.it." });
 });
 
-// Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
-  res.sendFile(path.join(buildPath + '/index.html'));
+// handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath + "/index.html"));
 });
 
 
-// Serve on port
+// ==========================================
+// Server
+// ==========================================
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-  console.log(`Starting server in ${app.get('env')} mode`)
-  console.log('Server is listening on port ' + port);
+  console.log(`Starting server in ${app.get("env")} mode`);
+  console.log("Server is listening on port " + port);
 });

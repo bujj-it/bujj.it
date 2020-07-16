@@ -12,10 +12,10 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest --no-cache",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start_dev": "nodemon src/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"
