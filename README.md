@@ -14,13 +14,13 @@ Scope to add tips/suggestions for improvements & social/game-ified content once 
 
 **MVP:**
 
-1. Landing page with pitch (simple infographic) and Call to Action (sign up/get started) 
-2. User sign up
-3. User can input income
-4. User can input expenses
-5. User can choose from several savings rate options, each with associated weekly spend amounts:
+1. Landing page with pitch (simple infographic) and Call to Action (get started) 
+2. User can input income
+3. User can input expenses
+4. User can choose from several savings rate options, each with associated weekly spend amounts:
 
    ``` 10% savings rate = £X Weekly Spend | 15% = £Y Weekly Spend | 20% = £Z Weekly Spend  ```
+5. User sign up - this will come after the tool to allow them to save their work. 
 
 ### 1.1 Purpose
 
@@ -30,8 +30,19 @@ To provide an extremely simple framework to help users create a budget so they c
 
 Users who are inexperienced in personal financial matters, lacking information/education. Specifically younger people: teens, students, early 20s, etc.
 
+### 1.3 Team
 
-### 1.3 Tech Stack
+**Dev team:**
+
+[Ben Gittins](https://github.com/squareben1)
+
+[Chris Wood](https://github.com/cpcwood)
+
+**Logo Design:** 
+
+[Joe Carter](http://joecarterdesign.co.uk/)
+
+### 1.4 Tech Stack
 
 | **Function**         | **Tech**          |
 | -------------------- | ----------------- |
@@ -51,7 +62,7 @@ Users who are inexperienced in personal financial matters, lacking information/e
 | 1   | General Design | Designed mobile first                                                                             | Signed off | MVP      |          |       |
 | 2   | General Design | Site design/layout should be visually appealing and clear/easy to understand.                     | Signed off | MVP      |          |       |
 | 3   | Landing Page   | Landing Page should have succinct, appealing summary of service.                                  | Signed off | MVP      |          |       |
-| 4   | Landing Page   | Landing page should have CTA linking to user sign up.                                             | Signed off | MVP      |          |       |
+| 4   | Landing Page   | Landing page should have CTA linking to Calc.                                                     | Signed off | MVP      |          |       |
 | 5   | User Accounts  | Users can sign up for account with name, username, DOB, email & password.                         | Signed off | MVP      |
 | 6   | User Accounts  | Users can amend account details (name, password, email address)                                   | Signed off | MVP      |          |       |
 | 7   | User Accounts  | Users can log in and out.                                                                         | Signed off | MVP      |          |       |
