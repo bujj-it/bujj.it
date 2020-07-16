@@ -4,8 +4,11 @@ const cors = require("cors");
 const pool = require("./db");
 
 const app = express();
-const buildPath = path.join(__dirname, '..', 'client/build')
+const buildPath = path.join(__dirname, '..', 'client/public')
 
+if ( app.get('env') === 'production' ) {
+  buildPath = path.join(__dirname, '..', 'client/build')
+}
 
 // middleware
 app.use(cors());
@@ -22,7 +25,6 @@ app.post("/users", async (req, res) => {
       "INSERT INTO users (first_name, surname, username, dob, email, password_hash) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [first_name, surname, username, dob, email, password_hash]
     );
-
     res.json(newUser.rows[0]);
   } catch (error) {
     console.log(error.message);
@@ -39,5 +41,6 @@ app.get('*', (req,res) =>{
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
+  console.log(`Starting server in ${app.get('env')} mode`)
   console.log('Server is listening on port ' + port);
 });
