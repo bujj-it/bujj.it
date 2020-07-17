@@ -38,9 +38,9 @@ Users who are inexperienced in personal financial matters, lacking information/e
 
 [Chris Wood](https://github.com/cpcwood)
 
-**Logo Design:** 
+<!-- **Logo Design:** 
 
-[Joe Carter](http://joecarterdesign.co.uk/)
+[Joe Carter](http://joecarterdesign.co.uk/) -->
 
 ### 1.4 Tech Stack
 
