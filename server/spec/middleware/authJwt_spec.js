@@ -1,4 +1,5 @@
 jest.mock('jsonwebtoken')
+const jsonwebtoken = require('jsonwebtoken')
 
 const authJwt = require('middleware/authJwt')
 
@@ -11,15 +12,13 @@ describe('authJwt', () => {
       request = {
         headers: {}
       }
-      const send = {
-        send: obj => {
-          response.message = obj.message
-        }
-      }
       response = {
         status: code => {
           response.code = code 
-          return send
+          return response
+        },
+        send: obj => {
+          response.message = obj.message
         },
         code: null,
         message: null
@@ -30,6 +29,17 @@ describe('authJwt', () => {
       authJwt.verifyToken(request, response)
       expect(response.code).toEqual(403)
       expect(response.message).toEqual("No token provided!")
+    })
+
+    it('invalid token', () => { 
+      request.headers["x-access-token"] = true
+      const mockVerify = jest.fn((token, secret, callback) => {
+        callback(true)
+      })
+      jsonwebtoken.verify = mockVerify
+      authJwt.verifyToken(request, response)
+      expect(response.code).toEqual(401)
+      expect(response.message).toEqual("Unauthorized!")
     })
   })
 })
