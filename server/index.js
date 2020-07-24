@@ -37,22 +37,20 @@ db.sequelize.sync({ alter: true }).then(() => {
 // Routes
 // ==========================================
 
+require('./app/routes/base.routes')(app);
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
 // serve the static files from the React app in production environment
 if (app.get("env") === "production") {
   const buildPath = path.join(__dirname, "..", "client/build");
   app.use(express.static(buildPath));
 }
 
-// test route
-app.get("/api", (req, res) => {
-  res.json({ message: "Welcome to bujj.it." });
-});
-
 // handles any requests that don't match the ones above
 app.get("*", (req, res) => {
   res.sendFile(path.join(buildPath + "/index.html"));
 });
-
 
 // ==========================================
 // Server
