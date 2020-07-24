@@ -1,8 +1,11 @@
-const app = express();
-const path = require("path");
+require('dotenv').config()
+
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./app/models");
+
+const app = express();
 
 // ==========================================
 // Middleware
@@ -29,8 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // sync db with models
 db.sequelize.sync({ alter: true }).then(() => {
-  console.log("Resync Db");
-  initial();
+  console.log("Resync database complete");
 });
 
 // ==========================================
@@ -45,12 +47,17 @@ require('./app/routes/user.routes')(app);
 if (app.get("env") === "production") {
   const buildPath = path.join(__dirname, "..", "client/build");
   app.use(express.static(buildPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(buildPath + "/index.html"));
+  });
+} else {
+  app.get("*", (req, res) => {
+    res.redirect('/api')
+  });
 }
 
 // handles any requests that don't match the ones above
-app.get("*", (req, res) => {
-  res.sendFile(path.join(buildPath + "/index.html"));
-});
 
 // ==========================================
 // Server
