@@ -1,1 +1,6 @@
 @use '../vendor/normalize.css';
+
+body, div, section, img, button, a {
+  position: relative;
+  box-sizing: border-box;
+}

@@ -1,0 +1,61 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+// Variables
+$sidebar-transition: 0.3s;
+$btn-hover-animation: 0.2s;
+
+// Vendor
+@use '../vendor/hamburger' with(
+  $container_position: relative,
+  $container_height: 55px,
+  $container_width: 55px,
+  $container_z_index: 7,
+  $container_color: none,
+  $hamburger_padding: 6px 6px,
+  $bar_height: 5px,
+  $bar_color_normal: black,
+  $bar_color_clicked: black,
+  $animation_duration: $sidebar-transition,
+  $length_scale: 0.96
+);
+
+.navBarContainerSection {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: globals.$nav-bar-height;
+  display: flex;
+  justify-content: center;
+  background-color: blue;
+}
+
+.navBarContainerResponsive {
+  width: 100%;
+  min-width: 200px;
+  @include respond-to(tablet) {
+    background-color: green;
+  }
+  @include respond-to(desktop) {
+    max-width: globals.$breakpoint-desktop;
+    background-color: red;
+  }
+}
+
+.navItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  & + .left {
+    margin-left: 10px;
+  }
+
+  & + .right {
+    margin-right: 10px;
+  }
+}
+
+
