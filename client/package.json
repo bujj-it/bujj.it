@@ -7,15 +7,21 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "dart-sass": "^1.25.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "jest": "^24.9.0"
   },
   "scripts": {
     "build": "react-scripts build",
     "test": "jest --no-cache",
     "eject": "react-scripts eject",
-    "start_dev": "nodemon src/index.js"
+    "start_dev": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,12 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "babel-jest": "^26.1.0",
-    "jest": "^26.1.0"
   },
   "jest": {
     "testRegex": ".*_spec.js",
