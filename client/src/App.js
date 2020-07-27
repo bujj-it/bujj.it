@@ -1,16 +1,26 @@
-import React from "react";
-import logo from './assets/chubby_budgie.jpeg';
-import NavBar from './components/NavBar';
+import React, { Component } from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import NavBar from "./components/NavBar";
 import "./styles/App.scss";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <NavBar />
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <div className="App">
+            <Route path="/">
+              <header className="App-header">
+                <NavBar />
+              </header>
+              Home
+            </Route>
+            <Route path="/test">Test</Route>
+          </div>
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;

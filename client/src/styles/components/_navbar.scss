@@ -34,6 +34,10 @@ $btn-hover-animation: 0.2s;
 .navBarContainerResponsive {
   width: 100%;
   min-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 5px;
+
   @include respond-to(tablet) {
     background-color: green;
   }
@@ -48,14 +52,11 @@ $btn-hover-animation: 0.2s;
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  & + .left {
-    margin-left: 10px;
-  }
-
-  & + .right {
-    margin-right: 10px;
-  }
 }
 
-
+.navTitle {
+  // align-self: flex-start;
+  flex: 1 1 100%;
+  padding-top: 100px;
+  font-size: 60px;
+}
