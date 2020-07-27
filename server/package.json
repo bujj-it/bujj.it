@@ -5,22 +5,30 @@
   "main": "index.js",
   "homepage": "/",
   "scripts": {
-    "test": "jest",
+    "test": "jest --no-cache",
     "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
-    "start": "node index.js"
+    "start_prod": "node index.js",
+    "start_dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pg": "^8.3.0"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "babel-jest": "^26.1.0",
-    "jest": "^26.1.0"
+    "cors": "^2.8.5",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
   },
   "jest": {
     "testRegex": ".*_spec.js",
@@ -32,7 +40,7 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "<rootDir>/src"
+      "<rootDir>/app"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/__mocks__/fileMock.js",

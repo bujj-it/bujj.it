@@ -1,0 +1,5 @@
+# Development
+yarn start_dev    =>    starts development server
+
+# Create database
+psql -U <username> -c "CREATE DATABASE bujj_it WITH OWNER=<username> ENCODING='UTF8'"
