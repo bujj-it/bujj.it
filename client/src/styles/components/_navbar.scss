@@ -28,7 +28,7 @@ $btn-hover-animation: 0.2s;
   height: globals.$nav-bar-height;
   display: flex;
   justify-content: center;
-  background-color: blue;
+  background-color: globals.$background-color;
   z-index: 999;
 }
 
@@ -38,13 +38,14 @@ $btn-hover-animation: 0.2s;
   display: flex;
   justify-content: space-between;
   padding: 0px 5px;
+  font-size: 30px;
 
   @include respond-to(tablet) {
-    background-color: green;
+    // background-color: green;
   }
   @include respond-to(desktop) {
     max-width: globals.$breakpoint-desktop;
-    background-color: red;
+    // background-color: red;
   }
 }
 
@@ -58,7 +59,9 @@ $btn-hover-animation: 0.2s;
 .navTitle {
   // align-self: flex-start;
   flex: 1 1 100%;
-  top: globals.$nav-title-offset;
-  // padding-top: globals.$nav-title-offset;
+} 
+
+.navTitleHomepage {
   font-size: 65px;
+  top: globals.$nav-title-offset;
 }

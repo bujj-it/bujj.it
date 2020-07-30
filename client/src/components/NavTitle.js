@@ -8,6 +8,7 @@ class NavTitle extends React.Component {
       baseTopOffset: null,
       currentTopOffset: null,
       baseFontSize: null,
+      targetFontSize: null,
       currentFontSize: null,
       navBarHeight: null
     };
@@ -18,7 +19,7 @@ class NavTitle extends React.Component {
       const navBarElement = this.divRef.current.parentElement.parentElement
       const navBarStyle = getComputedStyle(navBarElement)
       const navBarHeight = parseInt(navBarStyle.height, 10)
-
+      const targetFontSize = parseInt(navBarStyle.fontSize, 10)
       const thisStyle = getComputedStyle(this.divRef.current) // gets all styles for current element 
       const topOffset = parseInt(thisStyle.top, 10)
       const fontSize = parseInt(thisStyle.fontSize, 10)
@@ -26,6 +27,7 @@ class NavTitle extends React.Component {
         baseTopOffset: topOffset,
         currentTopOffset: topOffset,
         baseFontSize: fontSize,
+        targetFontSize: targetFontSize,
         currentFontSize: fontSize,
         navBarHeight: navBarHeight
       })
@@ -50,13 +52,13 @@ class NavTitle extends React.Component {
     })
     // Adjust font size if title is entering navbar area
     if (newTopOffset < this.state.navBarHeight) {
-      const newFontSize = Math.max(0, this.state.baseFontSize - 10)
+      const fontSizeDifference = this.state.baseFontSize - this.state.targetFontSize
+      const sizeRatio = newTopOffset / this.state.navBarHeight
+      const newFontSize = Math.floor(sizeRatio*fontSizeDifference) + this.state.targetFontSize
       this.setState({currentFontSize: newFontSize})
     } else {
       this.setState({currentFontSize: this.state.baseFontSize})
     }
-    
-
   }
   
   render() {
