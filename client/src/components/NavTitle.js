@@ -15,7 +15,7 @@ class NavTitle extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.props.location.pathname == "/") {
+    if (this.props.location.pathname === "/") {
       const navBarElement = this.divRef.current.parentElement.parentElement
       const navBarStyle = getComputedStyle(navBarElement)
       const navBarHeight = parseInt(navBarStyle.height, 10)
@@ -36,15 +36,12 @@ class NavTitle extends React.Component {
   }
   
   componentWillUnmount = () => {
-    if (this.props.location.pathname == "/") {
+    if (this.props.location.pathname === "/") {
       window.removeEventListener('scroll', this.handleScroll)
     }
   }
 
   handleScroll = (event) => {
-    const elementStyle = getComputedStyle(this.divRef.current)
-    const currentFontSize = parseInt(elementStyle.fontSize, 10)
-    // const newFontSize = try make this change size relative to max and min we like (Add data to element? Get from SASS? Get from somewhere?)
     const scrollTop = event.srcElement.documentElement.scrollTop
     const newTopOffset = Math.max(0, this.state.baseTopOffset - scrollTop)
     this.setState({
@@ -64,7 +61,7 @@ class NavTitle extends React.Component {
   render() {
     let titleClass = "navTitle";
 
-    if ( this.props.location.pathname == "/") {
+    if ( this.props.location.pathname === "/") {
       titleClass += " navTitleHomepage";
     }
 
