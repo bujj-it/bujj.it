@@ -8,20 +8,26 @@ class NavTitle extends React.Component {
       baseTopOffset: null,
       currentTopOffset: null,
       baseFontSize: null,
-      currentFontSize: null
+      currentFontSize: null,
+      navBarHeight: null
     };
   }
 
   componentDidMount = () => {
     if (this.props.location.pathname == "/") {
-      const elementStyle = getComputedStyle(this.divRef.current) // gets all styles for current element 
-      const topOffset = parseInt(elementStyle.top, 10)
-      const fontSize = parseInt(elementStyle.fontSize, 10)
+      const navBarElement = this.divRef.current.parentElement.parentElement
+      const navBarStyle = getComputedStyle(navBarElement)
+      const navBarHeight = parseInt(navBarStyle.height, 10)
+
+      const thisStyle = getComputedStyle(this.divRef.current) // gets all styles for current element 
+      const topOffset = parseInt(thisStyle.top, 10)
+      const fontSize = parseInt(thisStyle.fontSize, 10)
       this.setState({
         baseTopOffset: topOffset,
         currentTopOffset: topOffset,
         baseFontSize: fontSize,
-        currentFontSize: fontSize
+        currentFontSize: fontSize,
+        navBarHeight: navBarHeight
       })
       window.addEventListener('scroll', this.handleScroll)
     }
@@ -42,6 +48,15 @@ class NavTitle extends React.Component {
     this.setState({
       currentTopOffset: newTopOffset
     })
+    // Adjust font size if title is entering navbar area
+    if (newTopOffset < this.state.navBarHeight) {
+      const newFontSize = Math.max(0, this.state.baseFontSize - 10)
+      this.setState({currentFontSize: newFontSize})
+    } else {
+      this.setState({currentFontSize: this.state.baseFontSize})
+    }
+    
+
   }
   
   render() {
