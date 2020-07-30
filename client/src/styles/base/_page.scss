@@ -1,3 +1,6 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +8,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: globals.$background-color;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.page {
+  position: relative;
+  top: globals.$nav-bar-height;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }

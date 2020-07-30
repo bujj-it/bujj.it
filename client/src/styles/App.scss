@@ -1,0 +1,39 @@
+/*
+Sass Styles
+┬
+|– App.scss                   # Primary Site Sass file
+|   
+|– styles/           
+|   |
+|   |– base/
+|   |   |– _normalize.scss    # Import vendor normalize.css
+|   |   |– _typography.scss   # Typography rules
+|   |   |– _globals.scss      # Sass variables
+|   |   |– _mixins.scss       # Sass mixins
+|   |   |– _page.scss         # General page structure
+|   |   ┴
+|   |
+|   |– components/
+|   |   |– _buttons.scss      # Buttons
+|   |   |– _navbar.scss       # Global navbar
+|   |   ┴
+|   |
+|   |– vendor/
+|   |   |– normalize.css      # Normalize.css https://github.com/necolas/normalize.css
+|   |   ┴
+┴   ┴
+*/
+
+// Application Partials
+@use 'base/normalize';
+@use 'base/globals';
+@use 'base/mixins';
+@use 'base/typography';
+@use 'base/page';
+
+// Application Components
+@use 'components/buttons';
+@use 'components/navbar';
+@use 'components/homepage-content'
+
+// Site Wide Vendor

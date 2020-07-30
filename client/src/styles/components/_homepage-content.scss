@@ -1,0 +1,6 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.homepage-content {
+  top: globals.$nav-title-offset + 40;
+}
