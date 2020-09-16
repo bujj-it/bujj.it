@@ -14,12 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // setup db
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const db = {dynamoDb, users: USERS_TABLE}
 
-require('./app/routes/user.routes')(app, dynamoDb);
+require('./app/routes/user.routes')(app, db);
 // require('./app/routes/base.routes')(app);
 // require('./app/routes/auth.routes')(app);
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.status(200).json({
     message: 'Welcome to bujj.it API'
   })

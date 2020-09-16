@@ -1,10 +1,10 @@
 service: bujjit-serverless
 app: bujjit
 org: bujjit
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 custom:
-  tableName: 'users-table-${self:provider.stage}'
+  tableName: "users-table-${self:provider.stage}"
 
 provider:
   name: aws
@@ -20,8 +20,12 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource:
-        - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}/index/*"
   environment:
     USERS_TABLE: ${self:custom.tableName}
 
@@ -29,30 +33,44 @@ functions:
   api:
     handler: index.handler
     events:
-      - http: 'ANY {proxy+}'
+      - http: "ANY /{proxy+}"
 
 resources:
   Resources:
     UsersDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
+      Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: userId
+          - AttributeName: userId
             AttributeType: S
-          -
-            AttributeName: username
+          - AttributeName: username
             AttributeType: S
-          -
-            AttributeName: email
+          - AttributeName: email
             AttributeType: S
-          -
-            AttributeName: password
-            AttributeType: S
+          # - AttributeName: password
+          #   AttributeType: S
         KeySchema:
-          -
-            AttributeName: userId
+          - AttributeName: userId
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: usernameIndex
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+            Projection:
+              ProjectionType: "ALL"
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+          - IndexName: emailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: "ALL"
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
