@@ -1,38 +1,46 @@
-const db = require("../models");
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const bcrypt = require("bcryptjs");
-const User = db.user;
+const uuid = require('uuid')
 
-exports.signup = (req, res) => {
-  User.create({
-    first_name: req.body.first_name,
-    surname: req.body.surname,
-    username: req.body.username,
-    dob: req.body.dob,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
-  }).then((user) => {
-    var token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 86400, // 24 hours
-    });
+function signup(db) {
+  const database = db.dynamoDb
+  const userTable = db.users
 
-    res.status(200).send({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      first_name: user.first_name,
-      surname: user.surname,
-      accessToken: token
-    });
-  }).catch((err) => {
-    res.status(500).send({ message: err.message });
+  return (req, res) => {
+    try {
+      const createUserParams = {
+        TableName: userTable,
+        Item: {
+          userId: uuid.v1(),
+          username: req.body.username,
+          email: req.body.email,
+          password: bcrypt.hashSync(req.body.password, 8)
+        },
+      };
+      const newUser = await dynamoDb.put(createUserParams).promise();
+      const sessionToken = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: config.expiresIn
+      });
+      res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
+      res.status(200).send({
+        message: 'User signup successful',
+        user: newUser
+      });
+    } catch (err) {
+      console.log(err)
+      res.status(500).send({ message: 'Something went wrong!' });
+    }
+  }
+}
+
+function userPage(req, res) {
+  res.status(200).json({ 
+    message: "Successful login"
   });
-};
+}
 
-exports.userPage = (req, res) => {
-  res.json({ 
-    message: "Successful login",
-    status: 200 
-  });
-};
+module.exports = {
+  signup,
+  userPage
+}

@@ -28,6 +28,7 @@ provider:
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}/index/*"
   environment:
     USERS_TABLE: ${self:custom.tableName}
+    NODE_ENV: development
 
 functions:
   api:
@@ -47,8 +48,8 @@ resources:
             AttributeType: S
           - AttributeName: email
             AttributeType: S
-          # - AttributeName: password
-          #   AttributeType: S
+          - AttributeName: password
+            AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH

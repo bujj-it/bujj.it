@@ -14,6 +14,6 @@ module.exports = function(app, db) {
     [
       verifySignUp.checkDuplicateUsernameOrEmail(db),
     ],
-    userController.signup
+    userController.signup(db)
   );
 };
