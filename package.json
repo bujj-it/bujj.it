@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "sass": "^1.26.10",
-    "serverless": "^2.0.0"
-  }
-}
