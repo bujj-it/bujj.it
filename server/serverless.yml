@@ -1,0 +1,16 @@
+service: bujjit-serverless
+app: bujjit
+org: bujjit
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-2
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - http: 'ANY {proxy+}'
