@@ -1,15 +1,19 @@
 const serverless = require('serverless-http');
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
 const AWS = require('aws-sdk');
 
 const app = express();
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json())
+
+// manage and sign cookies
+app.use(cookieParser(process.env.SITE_SECRET))
 
 // setup db
 const USERS_TABLE = process.env.USERS_TABLE;

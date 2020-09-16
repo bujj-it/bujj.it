@@ -16,7 +16,7 @@ function checkDuplicateUsernameOrEmail(db) {
         }
       }
       const usersWithUsername = await database.query(searchForExistingUsername).promise()
-      if (usersWithUsername.length > 0) {
+      if (usersWithUsername.Count > 0) {
         return res.status(400).send({
           message: "Failed! Username is already in use!"
         });
@@ -34,7 +34,7 @@ function checkDuplicateUsernameOrEmail(db) {
         }
       }
       const usersWithEmail = await database.query(searchForExistingEmail).promise()
-      if (usersWithEmail.length > 0) {
+      if (usersWithEmail.Count > 0) {
         return res.status(400).send({
           message: "Failed! Email is already in use!"
         });

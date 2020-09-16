@@ -29,6 +29,7 @@ provider:
   environment:
     USERS_TABLE: ${self:custom.tableName}
     NODE_ENV: development
+    SITE_SECRET: 28716240d24227ef537f3f637b62c94592154b54a788c16881e00a82e141205bed2f6b2897ec2d0c09c3d363dbe91cc0d410cb11bac45b0da6d710eef032e54a
 
 functions:
   api:

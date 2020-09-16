@@ -7,7 +7,7 @@ function signup(db) {
   const database = db.dynamoDb
   const userTable = db.users
 
-  return (req, res) => {
+  return async (req, res) => {
     try {
       const createUserParams = {
         TableName: userTable,
@@ -16,16 +16,15 @@ function signup(db) {
           username: req.body.username,
           email: req.body.email,
           password: bcrypt.hashSync(req.body.password, 8)
-        },
+        }
       };
-      const newUser = await dynamoDb.put(createUserParams).promise();
-      const sessionToken = jwt.sign({ id: user.id }, config.secret, {
+      await database.put(createUserParams).promise()
+      const sessionToken = jwt.sign({ id: createUserParams.Item.userId }, config.secret, {
         expiresIn: config.expiresIn
       });
       res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
       res.status(200).send({
-        message: 'User signup successful',
-        user: newUser
+        message: 'User signup successful'
       });
     } catch (err) {
       console.log(err)
