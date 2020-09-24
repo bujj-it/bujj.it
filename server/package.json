@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "homepage": "/",
   "scripts": {
     "test": "jest --no-cache",
@@ -36,7 +36,6 @@
     "nodemon": "^2.0.4"
   },
   "jest": {
-    "testRegex": ".*_spec.js",
     "roots": [
       "<rootDir>/spec"
     ],

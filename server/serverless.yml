@@ -42,7 +42,7 @@ provider:
 
 functions:
   api:
-    handler: index.handler
+    handler: server.handler
     events:
       - http: 'ANY /{proxy+}'
 
