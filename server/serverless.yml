@@ -26,9 +26,19 @@ provider:
         - dynamodb:Query
         - dynamodb:Scan
       Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}/index/*'
+    - Effect: 'Allow'
+      Action: 'ssm:GetParameters'
+      Resource:
+        - 'arn:aws:ssm:${self:provider.region}:*:parameter/bujjit-serverless/site-secret'
+    - Effect: Allow
+      Action:
+        - KMS:Decrypt
+      Resource:
+        - 'arn:aws:kms:${self:provider.region}:*:key/*'
   environment:
     USERS_TABLE: ${self:custom.tableName}
     NODE_ENV: development
+    SITE_SECRET: ${ssm:/${self:service}/${self:provider.stage}/site-secret~true}
 
 functions:
   api:

@@ -1,54 +1,57 @@
 function checkDuplicateUsernameOrEmail(db) {
-  const database = db.dynamoDb
-  const userTable = db.users
+  const database = db.dynamoDb;
+  const userTable = db.users;
 
   return async (req, res, next) => {
     try {
       const searchForExistingUsername = {
         TableName: userTable,
-        IndexName: 'usernameIndex',
-        KeyConditionExpression: '#username = :username',
+        IndexName: "usernameIndex",
+        KeyConditionExpression: "#username = :username",
         ExpressionAttributeNames: {
-          "#username": "username"
+          "#username": "username",
         },
         ExpressionAttributeValues: {
-          ":username": req.body.username
-        }
-      }
-      const usersWithUsername = await database.query(searchForExistingUsername).promise()
+          ":username": req.body.username,
+        },
+      };
+      const usersWithUsername = await database
+        .query(searchForExistingUsername)
+        .promise();
       if (usersWithUsername.Count > 0) {
         return res.status(400).send({
-          message: "Failed! Username is already in use!"
+          message: "Failed! Username is already in use!",
         });
       }
 
       const searchForExistingEmail = {
         TableName: userTable,
-        IndexName: 'emailIndex',
-        KeyConditionExpression: '#email = :email',
+        IndexName: "emailIndex",
+        KeyConditionExpression: "#email = :email",
         ExpressionAttributeNames: {
-          "#email": "email"
+          "#email": "email",
         },
         ExpressionAttributeValues: {
-          ":email": req.body.email
-        }
-      }
-      const usersWithEmail = await database.query(searchForExistingEmail).promise()
+          ":email": req.body.email,
+        },
+      };
+      const usersWithEmail = await database
+        .query(searchForExistingEmail)
+        .promise();
       if (usersWithEmail.Count > 0) {
         return res.status(400).send({
-          message: "Failed! Email is already in use!"
+          message: "Failed! Email is already in use!",
         });
       }
 
       next();
-
     } catch (err) {
-      console.log(err)
-      return res.status(500).send({message: 'Sorry something went wrong!'})
+      console.log(err);
+      return res.status(500).send({ message: "Sorry something went wrong!" });
     }
   };
 }
 
 module.exports = {
-  checkDuplicateUsernameOrEmail
+  checkDuplicateUsernameOrEmail,
 };
