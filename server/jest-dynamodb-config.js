@@ -1,26 +1,26 @@
 module.exports = {
   tables: [
     {
-      TableName: `users-table-test`,
+      TableName: 'users-table-test',
       AttributeDefinitions: [
         {
           AttributeName: 'userId',
-          AttributeType: 'S'
+          AttributeType: 'S',
         },
         {
           AttributeName: 'username',
-          AttributeType: 'S'
+          AttributeType: 'S',
         },
         {
           AttributeName: 'email',
-          AttributeType: 'S'
+          AttributeType: 'S',
         },
       ],
       KeySchema: [
-        { 
+        {
           AttributeName: 'userId',
-          KeyType: 'HASH'
-        }
+          KeyType: 'HASH',
+        },
       ],
       GlobalSecondaryIndexes: [
         {
@@ -28,39 +28,39 @@ module.exports = {
           KeySchema: [
             {
               AttributeName: 'username',
-              KeyType: 'HASH'
+              KeyType: 'HASH',
             },
           ],
           Projection: {
-            ProjectionType: 'ALL'
+            ProjectionType: 'ALL',
           },
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1
-          }
+            WriteCapacityUnits: 1,
+          },
         },
         {
           IndexName: 'emailIndex',
           KeySchema: [
             {
               AttributeName: 'email',
-              KeyType: 'HASH'
+              KeyType: 'HASH',
             },
           ],
           Projection: {
-            ProjectionType: 'ALL'
+            ProjectionType: 'ALL',
           },
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1
-          }
-        }
+            WriteCapacityUnits: 1,
+          },
+        },
       ],
       ProvisionedThroughput: {
         ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1
+        WriteCapacityUnits: 1,
       },
-    }
+    },
   ],
-  port: 8000
+  port: 8000,
 };

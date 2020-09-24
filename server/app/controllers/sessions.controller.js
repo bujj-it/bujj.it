@@ -1,6 +1,7 @@
-const config = require("../config/auth.config");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+// const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcryptjs');
+// const config = require('../config/auth.config');
+const debug = require('debug')('express:error:sessionsController');
 
 exports.signin = (db) => {
   const database = db.dynamoDb;
@@ -10,24 +11,24 @@ exports.signin = (db) => {
     try {
       const searchForUsername = {
         TableName: userTable,
-        IndexName: "usernameIndex",
-        KeyConditionExpression: "#username = :username",
+        IndexName: 'usernameIndex',
+        KeyConditionExpression: '#username = :username',
         ExpressionAttributeNames: {
-          "#username": "username",
+          '#username': 'username',
         },
         ExpressionAttributeValues: {
-          ":username": req.body.user,
+          ':username': req.body.user,
         },
       };
       const searchForUserEmail = {
         TableName: userTable,
-        IndexName: "emailIndex",
-        KeyConditionExpression: "#email = :email",
+        IndexName: 'emailIndex',
+        KeyConditionExpression: '#email = :email',
         ExpressionAttributeNames: {
-          "#email": "email",
+          '#email': 'email',
         },
         ExpressionAttributeValues: {
-          ":email": req.body.user,
+          ':email': req.body.user,
         },
       };
       const dbRequests = [
@@ -40,21 +41,21 @@ exports.signin = (db) => {
 
       if (usernameResult.Count === 0 && userEmailResult === 0) {
         return res.status(404).send({
-          message: "User not found",
+          message: 'User not found',
         });
-      } else if (usernameResult.Count > 0) {
-        const user = usernameResult;
-        console.log("user found: ", usernameResult);
+      } if (usernameResult.Count > 0) {
+        // const user = usernameResult;
+
       } else {
-        const user = userEmailResult;
-        console.log("email found: ", userEmailResult);
+        // const user = userEmailResult;
+
       }
       return res
         .status(200)
         .send({ username: usernameResult, email: userEmailResult });
-    } catch (error) {
-      console.log(err);
-      res.status(500).send({ message: "Something went wrong!" });
+    } catch (err) {
+      debug(err);
+      return res.status(500).send({ message: 'Something went wrong!' });
     }
   };
 };

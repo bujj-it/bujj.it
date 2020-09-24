@@ -1,4 +1,4 @@
-const SITE_SECRET = process.env.SITE_SECRET;
+const { SITE_SECRET } = process.env;
 
 module.exports = {
   secret: SITE_SECRET,
@@ -7,6 +7,6 @@ module.exports = {
     secure: (process.env.NODE_ENV === 'production'),
     sameSite: true,
     httpOnly: true,
-    signed: true
-  }
+    signed: true,
+  },
 };

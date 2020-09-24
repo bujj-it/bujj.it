@@ -1,6 +1,6 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 module.exports = (db) => {
   const app = express();
@@ -14,12 +14,12 @@ module.exports = (db) => {
   // manage and sign cookies
   app.use(cookieParser(process.env.SITE_SECRET));
 
-  require("./app/routes/users.routes")(app, db);
-  require("./app/routes/sessions.routes")(app, db);
+  require('./app/routes/users.routes')(app, db);
+  require('./app/routes/sessions.routes')(app, db);
 
-  app.get("/api", (req, res) => {
+  app.get('/api', (req, res) => {
     res.status(200).json({
-      message: "Welcome to bujj.it API",
+      message: 'Welcome to bujj.it API',
     });
   });
 

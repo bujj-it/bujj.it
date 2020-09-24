@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config");
-const bcrypt = require("bcryptjs");
-const uuid = require("uuid");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
+const debug = require('debug')('express:error:usersController');
+const config = require('../config/auth.config');
 
 function signup(db) {
   const database = db.dynamoDb;
@@ -24,22 +25,22 @@ function signup(db) {
         config.secret,
         {
           expiresIn: config.expiresIn,
-        }
+        },
       );
-      res.cookie("x-access-token", sessionToken, config.tokenCookieOptions);
+      res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
       res.status(200).send({
-        message: "User signup successful",
+        message: 'User signup successful',
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).send({ message: "Something went wrong!" });
+      debug(err);
+      res.status(500).send({ message: 'Something went wrong!' });
     }
   };
 }
 
 function usersPage(req, res) {
   res.status(200).json({
-    message: "Successful login",
+    message: 'Successful login',
   });
 }
 

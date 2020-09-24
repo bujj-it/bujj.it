@@ -1,1 +1,1 @@
-process.env.SITE_SECRET = 'testSecret'
+process.env.SITE_SECRET = 'testSecret';

@@ -13,4 +13,4 @@ const config = {
 const dynamoDb = new DocumentClient(config);
 const db = { dynamoDb, users: 'users-table-test' };
 
-module.exports = db
+module.exports = db;
