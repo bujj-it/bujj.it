@@ -1,10 +1,10 @@
 service: bujjit-serverless
 app: bujjit
 org: bujjit
-frameworkVersion: "2"
+frameworkVersion: '2'
 
 custom:
-  tableName: "users-table-${self:provider.stage}"
+  tableName: 'users-table-${self:provider.stage}'
 
 provider:
   name: aws
@@ -20,27 +20,26 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}"
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}'
     - Effect: Allow
       Action:
         - dynamodb:Query
         - dynamodb:Scan
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}/index/*"
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName}/index/*'
   environment:
     USERS_TABLE: ${self:custom.tableName}
     NODE_ENV: development
-    SITE_SECRET: 28716240d24227ef537f3f637b62c94592154b54a788c16881e00a82e141205bed2f6b2897ec2d0c09c3d363dbe91cc0d410cb11bac45b0da6d710eef032e54a
 
 functions:
   api:
     handler: index.handler
     events:
-      - http: "ANY /{proxy+}"
+      - http: 'ANY /{proxy+}'
 
 resources:
   Resources:
     UsersDynamoDBTable:
-      Type: "AWS::DynamoDB::Table"
+      Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
           - AttributeName: userId
@@ -60,7 +59,7 @@ resources:
               - AttributeName: username
                 KeyType: HASH
             Projection:
-              ProjectionType: "ALL"
+              ProjectionType: 'ALL'
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
@@ -69,7 +68,7 @@ resources:
               - AttributeName: email
                 KeyType: HASH
             Projection:
-              ProjectionType: "ALL"
+              ProjectionType: 'ALL'
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
