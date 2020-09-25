@@ -5,7 +5,7 @@
   "main": "server.js",
   "homepage": "/",
   "scripts": {
-    "test": "jest --no-cache",
+    "test": "DEBUG=express:error:* jest --no-cache",
     "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
     "start_prod": "node index.js",
     "start_dev": "nodemon index.js",

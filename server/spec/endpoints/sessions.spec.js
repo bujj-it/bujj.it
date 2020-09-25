@@ -71,5 +71,31 @@ describe("sessions endpoint", () => {
           jwtMock.mockRestore();
         });
     });
+
+    test("successful email login", async () => {
+      const bcryptMock = jest
+        .spyOn(bcrypt, "compare")
+        .mockImplementation(() => Promise.resolve(true));
+      const jwtMock = jest
+        .spyOn(jwt, "sign")
+        .mockImplementation(() => "testJwtToken");
+      await request
+        .post("/api/sessions")
+        .send({
+          user: "test@example.com",
+          password: "password",
+        })
+        .then((response) => {
+          expect(response.statusCode).toBe(200);
+          expect(response.body.message).toBe("Login Successful");
+          expect(
+            response.header["set-cookie"].some((cookie) =>
+              cookie.match(/x-access-token.+testJwtToken/i)
+            )
+          ).toBe(true);
+          bcryptMock.mockRestore();
+          jwtMock.mockRestore();
+        });
+    });
   });
 });
