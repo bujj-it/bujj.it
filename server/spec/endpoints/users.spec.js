@@ -1,9 +1,11 @@
 require('spec/specHelper');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const db = require('spec/dbSetup');
 const app = require('app')(db);
 const request = require('supertest')(app);
 
-beforeAll(async () => {
+beforeEach(async () => {
   await db.dynamoDb.put({
     TableName: db.users,
     Item: {
@@ -15,7 +17,7 @@ beforeAll(async () => {
   }).promise();
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await db.dynamoDb.delete({
     TableName: db.users,
     Key: {
@@ -24,7 +26,7 @@ afterAll(async () => {
   }).promise();
 });
 
-describe('users resource', () => {
+describe('users endpoint', () => {
   describe('POST /api/users', () => {
     test('duplicate username', async () => {
       await request
@@ -55,6 +57,27 @@ describe('users resource', () => {
           expect(response.body.message).toBe(
             'Failed! Email is already in use!',
           );
+        });
+    });
+
+    test('successful signup', async () => {
+      const bcryptMock = jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => Promise.resolve(true));
+      const jwtMock = jest.spyOn(jwt, 'sign').mockImplementation(() => 'testJwtToken');
+      await request
+        .post('/api/users')
+        .send({
+          username: 'unique username',
+          email: 'unique@example.com',
+          password: 'password',
+        })
+        .then((response) => {
+          expect(response.statusCode).toBe(200);
+          expect(response.body.message).toBe(
+            'User signup successful',
+          );
+          expect(response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i))).toBe(true);
+          bcryptMock.mockRestore();
+          jwtMock.mockRestore();
         });
     });
   });
