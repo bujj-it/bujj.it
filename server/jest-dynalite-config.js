@@ -62,5 +62,5 @@ module.exports = {
       },
     },
   ],
-  port: 8000,
+  basePort: 8000,
 };

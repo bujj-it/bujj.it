@@ -39,7 +39,7 @@ exports.signin = (db) => {
       const usernameResult = results[0];
       const userEmailResult = results[1];
 
-      if (usernameResult.Count === 0 && userEmailResult === 0) {
+      if (usernameResult.Count === 0 && userEmailResult.Count === 0) {
         return res.status(404).send({
           message: 'User not found',
         });
@@ -50,9 +50,6 @@ exports.signin = (db) => {
         // const user = userEmailResult;
 
       }
-      return res
-        .status(200)
-        .send({ username: usernameResult, email: userEmailResult });
     } catch (err) {
       debug(err);
       return res.status(500).send({ message: 'Something went wrong!' });
