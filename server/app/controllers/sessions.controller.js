@@ -1,7 +1,7 @@
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcryptjs');
-// const config = require('../config/auth.config');
-const debug = require('debug')('express:error:sessionsController');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const config = require("../config/auth.config");
+const debug = require("debug")("express:error:sessionsController");
 
 exports.signin = (db) => {
   const database = db.dynamoDb;
@@ -11,24 +11,24 @@ exports.signin = (db) => {
     try {
       const searchForUsername = {
         TableName: userTable,
-        IndexName: 'usernameIndex',
-        KeyConditionExpression: '#username = :username',
+        IndexName: "usernameIndex",
+        KeyConditionExpression: "#username = :username",
         ExpressionAttributeNames: {
-          '#username': 'username',
+          "#username": "username",
         },
         ExpressionAttributeValues: {
-          ':username': req.body.user,
+          ":username": req.body.user,
         },
       };
       const searchForUserEmail = {
         TableName: userTable,
-        IndexName: 'emailIndex',
-        KeyConditionExpression: '#email = :email',
+        IndexName: "emailIndex",
+        KeyConditionExpression: "#email = :email",
         ExpressionAttributeNames: {
-          '#email': 'email',
+          "#email": "email",
         },
         ExpressionAttributeValues: {
-          ':email': req.body.user,
+          ":email": req.body.user,
         },
       };
       const dbRequests = [
@@ -39,20 +39,28 @@ exports.signin = (db) => {
       const usernameResult = results[0];
       const userEmailResult = results[1];
 
+      let user;
       if (usernameResult.Count === 0 && userEmailResult.Count === 0) {
         return res.status(404).send({
-          message: 'User not found',
+          message: "User not found",
         });
-      } if (usernameResult.Count > 0) {
-        // const user = usernameResult;
-
+      }
+      if (usernameResult.Count > 0) {
+        user = usernameResult.Items[0];
       } else {
         // const user = userEmailResult;
-
       }
+
+      const sessionToken = jwt.sign({ id: user.userId }, config.secret, {
+        expiresIn: config.expiresIn,
+      });
+      res.cookie("x-access-token", sessionToken, config.tokenCookieOptions);
+      res.status(200).send({
+        message: "Login Successful",
+      });
     } catch (err) {
       debug(err);
-      return res.status(500).send({ message: 'Something went wrong!' });
+      return res.status(500).send({ message: "Something went wrong!" });
     }
   };
 };
