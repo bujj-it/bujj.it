@@ -97,5 +97,26 @@ describe("sessions endpoint", () => {
           jwtMock.mockRestore();
         });
     });
+
+    test("invalid password", async () => {
+      const bcryptMock = jest
+        .spyOn(bcrypt, "compare")
+        .mockImplementation(() => Promise.resolve(false));
+      const jwtMock = jest
+        .spyOn(jwt, "sign")
+        .mockImplementation(() => "testJwtToken");
+      await request
+        .post("/api/sessions")
+        .send({
+          user: "test@example.com",
+          password: "password",
+        })
+        .then((response) => {
+          expect(response.statusCode).toBe(401);
+          expect(response.body.message).toBe("Password incorrect");
+          bcryptMock.mockRestore();
+          jwtMock.mockRestore();
+        });
+    });
   });
 });

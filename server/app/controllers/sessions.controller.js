@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcryptjs');
-const debug = require('debug')('express:error:sessionsController');
-const config = require('../config/auth.config');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const debug = require("debug")("express:error:sessionsController");
+const config = require("../config/auth.config");
 
 exports.signin = (db) => {
   const database = db.dynamoDb;
@@ -11,24 +11,24 @@ exports.signin = (db) => {
     try {
       const searchForUsername = {
         TableName: userTable,
-        IndexName: 'usernameIndex',
-        KeyConditionExpression: '#username = :username',
+        IndexName: "usernameIndex",
+        KeyConditionExpression: "#username = :username",
         ExpressionAttributeNames: {
-          '#username': 'username',
+          "#username": "username",
         },
         ExpressionAttributeValues: {
-          ':username': req.body.user,
+          ":username": req.body.user,
         },
       };
       const searchForUserEmail = {
         TableName: userTable,
-        IndexName: 'emailIndex',
-        KeyConditionExpression: '#email = :email',
+        IndexName: "emailIndex",
+        KeyConditionExpression: "#email = :email",
         ExpressionAttributeNames: {
-          '#email': 'email',
+          "#email": "email",
         },
         ExpressionAttributeValues: {
-          ':email': req.body.user,
+          ":email": req.body.user,
         },
       };
       const dbRequests = [
@@ -41,23 +41,35 @@ exports.signin = (db) => {
 
       if (usernameResult.Count === 0 && userEmailResult.Count === 0) {
         return res.status(404).send({
-          message: 'User not found',
+          message: "User not found",
         });
       }
-      const user = usernameResult.Count > 0
-        ? usernameResult.Items[0]
-        : userEmailResult.Items[0];
+      const user =
+        usernameResult.Count > 0
+          ? usernameResult.Items[0]
+          : userEmailResult.Items[0];
 
-      const sessionToken = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: config.expiresIn,
-      });
-      res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
-      res.status(200).send({
-        message: 'Login Successful',
-      });
+      const isPasswordValid = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
+
+      if (isPasswordValid) {
+        const sessionToken = jwt.sign({ id: user.userId }, config.secret, {
+          expiresIn: config.expiresIn,
+        });
+        res.cookie("x-access-token", sessionToken, config.tokenCookieOptions);
+        return res.status(200).send({
+          message: "Login Successful",
+        });
+      } else {
+        return res.status(401).send({
+          message: "Password incorrect",
+        });
+      }
     } catch (err) {
       debug(err);
-      return res.status(500).send({ message: 'Something went wrong!' });
+      return res.status(500).send({ message: "Something went wrong!" });
     }
   };
 };
