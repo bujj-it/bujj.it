@@ -4,11 +4,11 @@ const uuid = require('uuid');
 const debug = require('debug')('express:error:usersController');
 const config = require('../config/auth.config');
 
-function signup(db) {
+module.exports = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
-  return async (req, res) => {
+  const signup = async (req, res) => {
     try {
       const createUserParams = {
         TableName: userTable,
@@ -36,15 +36,33 @@ function signup(db) {
       res.status(500).send({ message: 'Something went wrong!' });
     }
   };
+
+  const usersPage = async (req, res) => {
+    try {
+      const userLookUpParams = {
+        AttributesToGet: [ 'userId', 'username', 'email' ],
+        ConsistentRead: true,
+        Key: {
+          'userId': req.userId
+        }, 
+        TableName: userTable
+      }
+      const userLookUp = await database.get(userLookUpParams).promise();
+      console.log(userLookUp.Count)
+      if (userLookUp.userId == null) {
+        return res.status(401).send({
+          message: 'Unauthorized!',
+        });
+      }
+    } catch (err) {
+      debug(err);
+      res.status(500).send({ message: 'Something went wrong!' });
+    }
+  }
+
+  return {
+    signup,
+    usersPage,
+  };
 }
 
-function usersPage(req, res) {
-  res.status(200).json({
-    message: 'Successful login',
-  });
-}
-
-module.exports = {
-  signup,
-  usersPage,
-};

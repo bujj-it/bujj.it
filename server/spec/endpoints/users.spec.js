@@ -75,6 +75,22 @@ describe('users endpoint', () => {
       expect(response.body.message).toEqual('Unauthorized!');
       timeMock.mockRestore();
     });
+
+    test('deleted user', async () => {
+
+      await db.dynamoDb.delete({
+        TableName: db.users,
+        Key: {
+          userId: testUser.userId,
+        },
+      }).promise();
+
+      const response = await request
+        .get(`/api/users/${testUser.userId}`)
+        .set('cookie', accessToken)
+      expect(response.status).toBe(401);
+      expect(response.body.message).toBe('Unauthorized!');
+    })
   });
 
   describe('POST /api/users', () => {
