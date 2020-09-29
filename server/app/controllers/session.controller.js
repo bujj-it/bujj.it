@@ -71,11 +71,19 @@ module.exports = (db) => {
     }
   };
 
-  const signout = (res, req) => {
-    res.clearCookie('x-access-token');
-    res.status(200).send({
-      message: 'Logout successful',
-    });
+  const signout = (req, res) => {
+    try {
+      const token = req.signedCookies['x-access-token'];
+      if (token) {
+        res.clearCookie('x-access-token');
+      }
+      return res.status(200).send({
+        message: 'Logout successful',
+      });
+    } catch (err) {
+      debug(err);
+      return res.status(500).send({ message: 'Something went wrong!' });
+    }
   };
 
   return {
