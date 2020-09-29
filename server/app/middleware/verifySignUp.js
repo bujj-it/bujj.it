@@ -1,40 +1,59 @@
-const db = require("../models");
-const User = db.user;
+const debug = require('debug')('express:error:middleware:verifySignUp');
 
-checkDuplicateUsernameOrEmail = (req, res, next) => {
-  // Username
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  }).then((user) => {
-    if (user) {
-      res.status(400).send({
-        message: "Failed! Username is already in use!",
-      });
-      return;
-    }
+function checkDuplicateUsernameOrEmail(db) {
+  const database = db.dynamoDb;
+  const userTable = db.users;
 
-    // Email
-    User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    }).then((user) => {
-      if (user) {
-        res.status(400).send({
-          message: "Failed! Email is already in use!",
+  return async (req, res, next) => {
+    try {
+      const searchForExistingUsername = {
+        TableName: userTable,
+        IndexName: 'usernameIndex',
+        KeyConditionExpression: '#username = :username',
+        ExpressionAttributeNames: {
+          '#username': 'username',
+        },
+        ExpressionAttributeValues: {
+          ':username': req.body.username,
+        },
+      };
+      const usersWithUsername = await database
+        .query(searchForExistingUsername)
+        .promise();
+      if (usersWithUsername.Count > 0) {
+        return res.status(400).send({
+          message: 'Failed! Username is already in use!',
         });
-        return;
       }
 
-      next(); 
-    });
-  });
-};
+      const searchForExistingEmail = {
+        TableName: userTable,
+        IndexName: 'emailIndex',
+        KeyConditionExpression: '#email = :email',
+        ExpressionAttributeNames: {
+          '#email': 'email',
+        },
+        ExpressionAttributeValues: {
+          ':email': req.body.email,
+        },
+      };
+      const usersWithEmail = await database
+        .query(searchForExistingEmail)
+        .promise();
+      if (usersWithEmail.Count > 0) {
+        return res.status(400).send({
+          message: 'Failed! Email is already in use!',
+        });
+      }
 
-const verifySignUp = {
-  checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail
-};
+      next();
+    } catch (err) {
+      debug(err);
+      return res.status(500).send({ message: 'Sorry something went wrong!' });
+    }
+  };
+}
 
-module.exports = verifySignUp;
+module.exports = {
+  checkDuplicateUsernameOrEmail,
+};

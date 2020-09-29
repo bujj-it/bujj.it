@@ -2,52 +2,41 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "homepage": "/",
   "scripts": {
-    "test": "jest --no-cache",
+    "test": "DEBUG=express:error:* jest --no-cache",
     "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
     "start_prod": "node index.js",
-    "start_dev": "nodemon index.js"
+    "start_dev": "nodemon index.js",
+    "lint": "eslint --fix ."
   },
-  "author": "",
+  "author": "Chris Wood <contact@cpcwood.com, Ben Gittins",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.753.0",
+    "babel-preset-env": "^1.7.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.3.0",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.3"
+    "serverless": "^2.0.0",
+    "serverless-http": "^2.5.0",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "babel-jest": "^26.1.0",
     "cors": "^2.8.5",
-    "jest": "^26.1.0",
-    "nodemon": "^2.0.4"
-  },
-  "jest": {
-    "testRegex": ".*_spec.js",
-    "roots": [
-      "<rootDir>/spec"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "<rootDir>/app"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/spec/__mocks__/styleMock.js"
-    },
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    }
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.2",
+    "jest-dynalite": "^3.0.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
   }
 }
