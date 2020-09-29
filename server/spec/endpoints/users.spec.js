@@ -41,7 +41,7 @@ afterEach(async () => {
 
 describe('users endpoint', () => {
   describe('GET /api/users/:id', () => {
-    let validAccessToken;
+    let accessToken;
 
     beforeEach(async () => {
       const bcryptMock = jest
@@ -53,70 +53,76 @@ describe('users endpoint', () => {
           user: testUser.username,
           password: 'a strong password',
         });
-      validAccessToken = response.header['set-cookie'].find((cookie) => cookie.match(/x-access-token/i));
+      accessToken = response.header['set-cookie'].find((cookie) => cookie.match(/x-access-token/i));
       bcryptMock.mockRestore();
     });
 
-    test('invalid login token', async () => {
+    test('no login token', async () => {
       const response = await request
         .get(`/api/users/${testUser.userId}`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
     });
+
+    test('expired cookie', async () => {
+      const sessionsConfig = require('app/config/auth.config');
+      const slidingTime = Date.now() + ((sessionsConfig.expiresIn + 1) * 1000);
+      const timeMock = jest.spyOn(Date, 'now').mockImplementation(() => slidingTime);
+      const response = await request
+        .get(`/api/users/${testUser.userId}`)
+        .set('cookie', accessToken);
+      expect(response.statusCode).toBe(401);
+      expect(response.body.message).toEqual('Unauthorized!');
+      timeMock.mockRestore();
+    });
   });
 
   describe('POST /api/users', () => {
     test('duplicate username', async () => {
-      await request
+      const response = await request
         .post('/api/users')
         .send({
           username: 'test',
           email: 'test@example.com',
           password: 'password',
-        })
-        .then((response) => {
-          expect(response.statusCode).toBe(400);
-          expect(response.body.message).toBe(
-            'Failed! Username is already in use!',
-          );
         });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toBe(
+        'Failed! Username is already in use!',
+      );
     });
 
     test('duplicate email', async () => {
-      await request
+      const response = await request
         .post('/api/users')
         .send({
           username: 'unique username',
           email: 'test@example.com',
           password: 'password',
-        })
-        .then((response) => {
-          expect(response.statusCode).toBe(400);
-          expect(response.body.message).toBe(
-            'Failed! Email is already in use!',
-          );
         });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toBe(
+        'Failed! Email is already in use!',
+      );
     });
 
     test('successful signup', async () => {
       const bcryptMock = jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => Promise.resolve(true));
       const jwtMock = jest.spyOn(jwt, 'sign').mockImplementation(() => 'testJwtToken');
-      await request
+      const response = await request
         .post('/api/users')
         .send({
           username: 'unique username',
           email: 'unique@example.com',
           password: 'password',
-        })
-        .then((response) => {
-          expect(response.statusCode).toBe(200);
-          expect(response.body.message).toBe(
-            'User signup successful',
-          );
-          expect(response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i))).toBe(true);
-          bcryptMock.mockRestore();
-          jwtMock.mockRestore();
         });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toBe(
+        'User signup successful',
+      );
+      expect(response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i))).toBe(true);
+      bcryptMock.mockRestore();
+      jwtMock.mockRestore();
     });
   });
 });
