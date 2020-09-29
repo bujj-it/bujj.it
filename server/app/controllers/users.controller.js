@@ -40,29 +40,28 @@ module.exports = (db) => {
   const usersPage = async (req, res) => {
     try {
       const userLookUpParams = {
-        AttributesToGet: [ 'userId', 'username', 'email' ],
+        AttributesToGet: ['userId', 'username', 'email'],
         ConsistentRead: true,
         Key: {
-          'userId': req.userId
-        }, 
-        TableName: userTable
-      }
+          userId: req.userId,
+        },
+        TableName: userTable,
+      };
       const userLookUp = await database.get(userLookUpParams).promise();
-      console.log(userLookUp.Count)
-      if (userLookUp.userId == null) {
+      if (userLookUp.Item == null) {
         return res.status(401).send({
           message: 'Unauthorized!',
         });
       }
+      return res.status(200).send(userLookUp.Item);
     } catch (err) {
       debug(err);
       res.status(500).send({ message: 'Something went wrong!' });
     }
-  }
+  };
 
   return {
     signup,
     usersPage,
   };
-}
-
+};

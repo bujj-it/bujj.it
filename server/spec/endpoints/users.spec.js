@@ -77,7 +77,6 @@ describe('users endpoint', () => {
     });
 
     test('deleted user', async () => {
-
       await db.dynamoDb.delete({
         TableName: db.users,
         Key: {
@@ -87,10 +86,19 @@ describe('users endpoint', () => {
 
       const response = await request
         .get(`/api/users/${testUser.userId}`)
-        .set('cookie', accessToken)
+        .set('cookie', accessToken);
       expect(response.status).toBe(401);
       expect(response.body.message).toBe('Unauthorized!');
-    })
+    });
+
+    test('valid request', async () => {
+      const response = await request
+        .get(`/api/users/${testUser.userId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(200);
+      expect(response.body.username).toBe(testUser.username);
+      expect(response.body.password).toBe(undefined);
+    });
   });
 
   describe('POST /api/users', () => {

@@ -1,7 +1,6 @@
 const { verifyToken } = require('../middleware/authJwt');
 const verifySignUp = require('../middleware/verifySignUp');
 
-
 module.exports = (app, db) => {
   const usersController = require('../controllers/users.controller')(db);
 
