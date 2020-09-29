@@ -15,7 +15,7 @@ module.exports = (db) => {
   app.use(cookieParser(process.env.SITE_SECRET));
 
   require('./app/routes/users.routes')(app, db);
-  require('./app/routes/sessions.routes')(app, db);
+  require('./app/routes/session.routes')(app, db);
 
   app.get('/api', (req, res) => {
     res.status(200).json({

@@ -24,19 +24,23 @@ beforeAll(() => {
 });
 
 beforeEach(async () => {
-  await db.dynamoDb.put({
-    TableName: db.users,
-    Item: testUser,
-  }).promise();
+  await db.dynamoDb
+    .put({
+      TableName: db.users,
+      Item: testUser,
+    })
+    .promise();
 });
 
 afterEach(async () => {
-  await db.dynamoDb.delete({
-    TableName: db.users,
-    Key: {
-      userId: testUser.userId,
-    },
-  }).promise();
+  await db.dynamoDb
+    .delete({
+      TableName: db.users,
+      Key: {
+        userId: testUser.userId,
+      },
+    })
+    .promise();
 });
 
 describe('users endpoint', () => {
@@ -47,27 +51,26 @@ describe('users endpoint', () => {
       const bcryptMock = jest
         .spyOn(bcrypt, 'compare')
         .mockImplementation(() => Promise.resolve(true));
-      const response = await request
-        .post('/api/sessions')
-        .send({
-          user: testUser.username,
-          password: 'a strong password',
-        });
+      const response = await request.post('/api/session').send({
+        user: testUser.username,
+        password: 'a strong password',
+      });
       accessToken = response.header['set-cookie'].find((cookie) => cookie.match(/x-access-token/i));
       bcryptMock.mockRestore();
     });
 
     test('no login token', async () => {
-      const response = await request
-        .get(`/api/users/${testUser.userId}`);
+      const response = await request.get(`/api/users/${testUser.userId}`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
     });
 
     test('expired cookie', async () => {
-      const sessionsConfig = require('app/config/auth.config');
-      const slidingTime = Date.now() + ((sessionsConfig.expiresIn + 1) * 1000);
-      const timeMock = jest.spyOn(Date, 'now').mockImplementation(() => slidingTime);
+      const sessionConfig = require('app/config/auth.config');
+      const slidingTime = Date.now() + (sessionConfig.expiresIn + 1) * 1000;
+      const timeMock = jest
+        .spyOn(Date, 'now')
+        .mockImplementation(() => slidingTime);
       const response = await request
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);
@@ -77,12 +80,14 @@ describe('users endpoint', () => {
     });
 
     test('deleted user', async () => {
-      await db.dynamoDb.delete({
-        TableName: db.users,
-        Key: {
-          userId: testUser.userId,
-        },
-      }).promise();
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        })
+        .promise();
 
       const response = await request
         .get(`/api/users/${testUser.userId}`)
@@ -103,48 +108,42 @@ describe('users endpoint', () => {
 
   describe('POST /api/users', () => {
     test('duplicate username', async () => {
-      const response = await request
-        .post('/api/users')
-        .send({
-          username: 'test',
-          email: 'test@example.com',
-          password: 'password',
-        });
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: 'password',
+      });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe(
-        'Failed! Username is already in use!',
-      );
+      expect(response.body.message).toBe('Failed! Username is already in use!');
     });
 
     test('duplicate email', async () => {
-      const response = await request
-        .post('/api/users')
-        .send({
-          username: 'unique username',
-          email: 'test@example.com',
-          password: 'password',
-        });
+      const response = await request.post('/api/users').send({
+        username: 'unique username',
+        email: 'test@example.com',
+        password: 'password',
+      });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe(
-        'Failed! Email is already in use!',
-      );
+      expect(response.body.message).toBe('Failed! Email is already in use!');
     });
 
     test('successful signup', async () => {
-      const bcryptMock = jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => Promise.resolve(true));
-      const jwtMock = jest.spyOn(jwt, 'sign').mockImplementation(() => 'testJwtToken');
-      const response = await request
-        .post('/api/users')
-        .send({
-          username: 'unique username',
-          email: 'unique@example.com',
-          password: 'password',
-        });
+      const bcryptMock = jest
+        .spyOn(bcrypt, 'hashSync')
+        .mockImplementation(() => Promise.resolve(true));
+      const jwtMock = jest
+        .spyOn(jwt, 'sign')
+        .mockImplementation(() => 'testJwtToken');
+      const response = await request.post('/api/users').send({
+        username: 'unique username',
+        email: 'unique@example.com',
+        password: 'password',
+      });
       expect(response.statusCode).toBe(200);
-      expect(response.body.message).toBe(
-        'User signup successful',
-      );
-      expect(response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i))).toBe(true);
+      expect(response.body.message).toBe('User signup successful');
+      expect(
+        response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
+      ).toBe(true);
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
     });
