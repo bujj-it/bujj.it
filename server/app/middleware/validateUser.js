@@ -17,6 +17,8 @@ const validateSignUpParams = [
 const validateLoginParams = [
   body('user')
     .not().isEmpty().withMessage('User field cannot be blank!'),
+  body('password')
+    .not().isEmpty().withMessage('Password field cannot be blank!'),
 ];
 
 const processValidationErrors = (req, res, next) => {
