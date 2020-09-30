@@ -5,7 +5,11 @@ const verifySignUpParams = [
   body('username')
     .isLength({ min: 1 }).withMessage('Username cannot be blank!')
     .matches(/[a-zA-Z0-9 ]+/)
-    .withMessage('Username can only be letters, numbers, and spaces!'),
+    .withMessage('Username can only be letters, numbers, and spaces!')
+    .trim(),
+  body('email')
+    .isEmail().withMessage('Please provide valid email!')
+    .normalizeEmail(),
 ];
 
 const processValidationErrors = (req, res, next) => {

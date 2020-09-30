@@ -127,6 +127,16 @@ describe('users endpoint', () => {
       expect(response.body.message).toEqual({ username: 'Username can only be letters, numbers, and spaces!' });
     });
 
+    test('invalid email', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'not an email',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ email: 'Please provide valid email!' });
+    });
+
     test('duplicate username', async () => {
       const response = await request.post('/api/users').send({
         username: 'test',
