@@ -1,5 +1,5 @@
 const { verifyToken } = require('../middleware/authJwt');
-const verifySignUp = require('../middleware/verifySignUp');
+const validateUser = require('../middleware/validateUser');
 
 module.exports = (app, db) => {
   const usersController = require('../controllers/users.controller')(db);
@@ -8,9 +8,9 @@ module.exports = (app, db) => {
 
   app.post(
     '/api/users', [
-      verifySignUp.verifySignUpParams,
-      verifySignUp.processValidationErrors,
-      verifySignUp.checkDuplicateUsernameOrEmail(db),
+      validateUser.validateSignUpParams,
+      validateUser.processValidationErrors,
+      validateUser.checkDuplicateUsernameOrEmail(db),
     ],
     usersController.signup,
   );

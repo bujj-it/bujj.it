@@ -1,7 +1,7 @@
 const debug = require('debug')('express:error:middleware:verifySignUp');
 const { body, validationResult } = require('express-validator');
 
-const verifySignUpParams = [
+const validateSignUpParams = [
   body('username')
     .not().isEmpty().withMessage('Username cannot be blank!')
     .matches(/[a-zA-Z0-9 ]+/)
@@ -83,7 +83,7 @@ const checkDuplicateUsernameOrEmail = (db) => {
 };
 
 module.exports = {
-  verifySignUpParams,
+  validateSignUpParams,
   processValidationErrors,
   checkDuplicateUsernameOrEmail,
 };
