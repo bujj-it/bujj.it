@@ -107,6 +107,16 @@ describe('users endpoint', () => {
   });
 
   describe('POST /api/users', () => {
+    test('blank username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '',
+        email: 'test2@example.com',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual(['Username cannot be blank!']);
+    });
+
     test('duplicate username', async () => {
       const response = await request.post('/api/users').send({
         username: 'test',

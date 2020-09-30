@@ -7,8 +7,11 @@ module.exports = (app, db) => {
   app.get('/api/users/:id', verifyToken, usersController.usersPage);
 
   app.post(
-    '/api/users',
-    verifySignUp.checkDuplicateUsernameOrEmail(db),
+    '/api/users', [
+      verifySignUp.verifySignUpParams,
+      verifySignUp.processValidationErrors,
+      verifySignUp.checkDuplicateUsernameOrEmail(db),
+    ],
     usersController.signup,
   );
 };

@@ -1,4 +1,5 @@
 const debug = require('debug')('express:error:middleware:verifySignUp');
+const { body, validationResult } = require('express-validator');
 
 function checkDuplicateUsernameOrEmail(db) {
   const database = db.dynamoDb;
@@ -54,6 +55,21 @@ function checkDuplicateUsernameOrEmail(db) {
   };
 }
 
+const verifySignUpParams = [
+  body('username')
+    .isLength({ min: 1 }).withMessage('Username cannot be blank!'),
+];
+
+const processValidationErrors = (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.status(400).json({ message: result.errors.map((err) => err.msg) });
+  }
+  next();
+};
+
 module.exports = {
   checkDuplicateUsernameOrEmail,
+  verifySignUpParams,
+  processValidationErrors,
 };
