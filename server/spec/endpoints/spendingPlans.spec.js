@@ -144,6 +144,38 @@ describe('spendingPlans endpoint', () => {
       });
     });
 
+    test('blank saving_percentage', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [{ name: 'rent', value: 500 }],
+        saving_percentage: null,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        saving_percentage: 'Saving percentage cannot be blank!',
+      });
+    });
+
+    test('invalid saving_percentage', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [{ name: 'rent', value: 500 }],
+        saving_percentage: 'not a number',
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        saving_percentage: 'Saving percentage format invalid, must be number!',
+      });
+    });
+
     test('successful spendingPlan creation - 1 expense', async () => {
       const uniqueId1 = 'uniqueId1';
       const mockUuidV1 = jest.spyOn(uuid, 'v1').mockReturnValue(uniqueId1);

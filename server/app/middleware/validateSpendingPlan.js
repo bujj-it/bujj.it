@@ -38,6 +38,11 @@ const validateSpendingPlanParams = [
   body('expenses')
     .not().isEmpty().withMessage('Expenses cannot be blank!')
     .custom(validateExpenses),
+  body('saving_percentage')
+    .not().isEmpty().withMessage('Saving percentage cannot be blank!')
+    .isNumeric()
+    .withMessage('Saving percentage format invalid, must be number!')
+    .customSanitizer((value) => Number(value)),
 ];
 
 module.exports = validateSpendingPlanParams;
