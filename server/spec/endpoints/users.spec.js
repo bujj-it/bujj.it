@@ -137,6 +137,16 @@ describe('users endpoint', () => {
       expect(response.body.message).toEqual({ email: 'Please provide valid email!' });
     });
 
+    test('invalid password', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: '',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ password: 'Password cannot be blank!' });
+    });
+
     test('duplicate username', async () => {
       const response = await request.post('/api/users').send({
         username: 'test',
