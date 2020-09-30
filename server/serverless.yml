@@ -61,6 +61,8 @@ resources:
             AttributeType: S
           - AttributeName: password
             AttributeType: S
+          - AttributeName: spendingPlan
+            AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
