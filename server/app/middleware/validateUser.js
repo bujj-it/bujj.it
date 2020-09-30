@@ -14,6 +14,11 @@ const validateSignUpParams = [
     .not().isEmpty().withMessage('Password cannot be blank!'),
 ];
 
+const validateLoginParams = [
+  body('user')
+    .not().isEmpty().withMessage('User field cannot be blank!'),
+];
+
 const processValidationErrors = (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
@@ -84,6 +89,7 @@ const checkDuplicateUsernameOrEmail = (db) => {
 
 module.exports = {
   validateSignUpParams,
+  validateLoginParams,
   processValidationErrors,
   checkDuplicateUsernameOrEmail,
 };
