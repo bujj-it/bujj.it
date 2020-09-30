@@ -1,17 +1,18 @@
 // setup environment
-require("spec/specHelper");
+require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser } = require("spec/helpers/usersHelper");
+const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
 
 // require modules
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // require app
-const db = require("spec/dbSetup");
-const app = require("app");
-const supertest = require("supertest");
+const db = require('spec/dbSetup');
+const app = require('app');
+const supertest = require('supertest');
+
 let request;
 
 beforeAll(() => {
@@ -38,35 +39,35 @@ afterEach(async () => {
     .promise();
 });
 
-describe("users endpoint", () => {
-  describe("GET /api/users/:id", () => {
+describe('users endpoint', () => {
+  describe('GET /api/users/:id', () => {
     let accessToken;
 
     beforeEach(async () => {
       accessToken = await getAccessToken();
     });
 
-    test("no login token", async () => {
+    test('no login token', async () => {
       const response = await request.get(`/api/users/${testUser.userId}`);
       expect(response.status).toBe(403);
-      expect(response.body.message).toBe("No token provided!");
+      expect(response.body.message).toBe('No token provided!');
     });
 
-    test("expired cookie", async () => {
-      const sessionConfig = require("app/config/auth.config");
+    test('expired cookie', async () => {
+      const sessionConfig = require('app/config/auth.config');
       const slidingTime = Date.now() + (sessionConfig.expiresIn + 1) * 1000;
       const timeMock = jest
-        .spyOn(Date, "now")
+        .spyOn(Date, 'now')
         .mockImplementation(() => slidingTime);
       const response = await request
         .get(`/api/users/${testUser.userId}`)
-        .set("cookie", accessToken);
+        .set('cookie', accessToken);
       expect(response.statusCode).toBe(401);
-      expect(response.body.message).toEqual("Unauthorized!");
+      expect(response.body.message).toEqual('Unauthorized!');
       timeMock.mockRestore();
     });
 
-    test("deleted user", async () => {
+    test('deleted user', async () => {
       await db.dynamoDb
         .delete({
           TableName: db.users,
@@ -78,112 +79,110 @@ describe("users endpoint", () => {
 
       const response = await request
         .get(`/api/users/${testUser.userId}`)
-        .set("cookie", accessToken);
+        .set('cookie', accessToken);
       expect(response.status).toBe(401);
-      expect(response.body.message).toBe("Unauthorized!");
+      expect(response.body.message).toBe('Unauthorized!');
     });
 
-    test("valid request", async () => {
+    test('valid request', async () => {
       const response = await request
         .get(`/api/users/${testUser.userId}`)
-        .set("cookie", accessToken);
+        .set('cookie', accessToken);
       expect(response.status).toBe(200);
       expect(response.body.username).toBe(testUser.username);
       expect(response.body.password).toBe(undefined);
     });
   });
 
-  describe("POST /api/users", () => {
-    test("blank username", async () => {
-      const response = await request.post("/api/users").send({
-        username: "",
-        email: "test@example.com",
-        password: "password",
+  describe('POST /api/users', () => {
+    test('blank username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '',
+        email: 'test@example.com',
+        password: 'password',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        username: "Username cannot be blank!",
+        username: 'Username cannot be blank!',
       });
     });
 
-    test("invalid username", async () => {
-      const response = await request.post("/api/users").send({
-        username: "/",
-        email: "test@example.com",
-        password: "password",
+    test('invalid username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '/',
+        email: 'test@example.com',
+        password: 'password',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        username: "Username can only be letters, numbers, and spaces!",
+        username: 'Username can only be letters, numbers, and spaces!',
       });
     });
 
-    test("invalid email", async () => {
-      const response = await request.post("/api/users").send({
-        username: "test",
-        email: "not an email",
-        password: "password",
+    test('invalid email', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'not an email',
+        password: 'password',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        email: "Please provide valid email!",
+        email: 'Please provide valid email!',
       });
     });
 
-    test("invalid password", async () => {
-      const response = await request.post("/api/users").send({
-        username: "test",
-        email: "test@example.com",
-        password: "",
+    test('invalid password', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: '',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        password: "Password cannot be blank!",
+        password: 'Password cannot be blank!',
       });
     });
 
-    test("duplicate username", async () => {
-      const response = await request.post("/api/users").send({
-        username: "test",
-        email: "test@example.com",
-        password: "password",
+    test('duplicate username', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: 'password',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        username: "Failed! Username is already in use!",
+        username: 'Failed! Username is already in use!',
       });
     });
 
-    test("duplicate email", async () => {
-      const response = await request.post("/api/users").send({
-        username: "unique username",
-        email: "test@example.com",
-        password: "password",
+    test('duplicate email', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'unique username',
+        email: 'test@example.com',
+        password: 'password',
       });
       expect(response.statusCode).toBe(400);
       expect(response.body.message).toEqual({
-        email: "Failed! Email is already in use!",
+        email: 'Failed! Email is already in use!',
       });
     });
 
-    test("successful signup", async () => {
+    test('successful signup', async () => {
       const bcryptMock = jest
-        .spyOn(bcrypt, "hashSync")
+        .spyOn(bcrypt, 'hashSync')
         .mockImplementation(() => Promise.resolve(true));
       const jwtMock = jest
-        .spyOn(jwt, "sign")
-        .mockImplementation(() => "testJwtToken");
-      const response = await request.post("/api/users").send({
-        username: "unique username",
-        email: "unique@example.com",
-        password: "password",
+        .spyOn(jwt, 'sign')
+        .mockImplementation(() => 'testJwtToken');
+      const response = await request.post('/api/users').send({
+        username: 'unique username',
+        email: 'unique@example.com',
+        password: 'password',
       });
       expect(response.statusCode).toBe(200);
-      expect(response.body.message).toBe("User signup successful");
+      expect(response.body.message).toBe('User signup successful');
       expect(
-        response.header["set-cookie"].some((cookie) =>
-          cookie.match(/x-access-token.+testJwtToken/i)
-        )
+        response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
       ).toBe(true);
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
