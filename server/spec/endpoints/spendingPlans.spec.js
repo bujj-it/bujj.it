@@ -80,6 +80,38 @@ describe('spendingPlans endpoint', () => {
       });
     });
 
+    test('empty income', async () => {
+      const testSpendingPlan = {
+        income: null,
+        expenses: [{ name: 'rent', value: 500 }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        income: 'Income cannot be blank!',
+      });
+    });
+
+    test('empty expenses', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        expenses: 'Expenses cannot be blank!',
+      });
+    });
+
     test('successful spendingPlan creation - 1 expense', async () => {
       const uniqueId1 = 'uniqueId1';
       const mockUuidV1 = jest.spyOn(uuid, 'v1').mockReturnValue(uniqueId1);
