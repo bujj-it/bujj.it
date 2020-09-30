@@ -110,11 +110,21 @@ describe('users endpoint', () => {
     test('blank username', async () => {
       const response = await request.post('/api/users').send({
         username: '',
-        email: 'test2@example.com',
+        email: 'test@example.com',
         password: 'password',
       });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toEqual(['Username cannot be blank!']);
+      expect(response.body.message).toEqual({ username: 'Username cannot be blank!' });
+    });
+
+    test('invalid username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '/',
+        email: 'test@example.com',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ username: 'Username can only be letters, numbers, and spaces!' });
     });
 
     test('duplicate username', async () => {
@@ -124,7 +134,7 @@ describe('users endpoint', () => {
         password: 'password',
       });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe('Failed! Username is already in use!');
+      expect(response.body.message).toEqual({ username: 'Failed! Username is already in use!' });
     });
 
     test('duplicate email', async () => {
@@ -134,7 +144,7 @@ describe('users endpoint', () => {
         password: 'password',
       });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe('Failed! Email is already in use!');
+      expect(response.body.message).toEqual({ email: 'Failed! Email is already in use!' });
     });
 
     test('successful signup', async () => {

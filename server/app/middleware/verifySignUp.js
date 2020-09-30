@@ -1,7 +1,28 @@
 const debug = require('debug')('express:error:middleware:verifySignUp');
 const { body, validationResult } = require('express-validator');
 
-function checkDuplicateUsernameOrEmail(db) {
+const verifySignUpParams = [
+  body('username')
+    .isLength({ min: 1 }).withMessage('Username cannot be blank!')
+    .matches(/[a-zA-Z0-9 ]+/)
+    .withMessage('Username can only be letters, numbers, and spaces!'),
+];
+
+const processValidationErrors = (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    const errorMessages = {};
+    for (let i = 0; i < result.errors.length; i += 1) {
+      if (!errorMessages[result.errors[i].param]) {
+        errorMessages[result.errors[i].param] = result.errors[i].msg;
+      }
+    }
+    return res.status(400).json({ message: errorMessages });
+  }
+  next();
+};
+
+const checkDuplicateUsernameOrEmail = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
@@ -23,7 +44,7 @@ function checkDuplicateUsernameOrEmail(db) {
         .promise();
       if (usersWithUsername.Count > 0) {
         return res.status(400).send({
-          message: 'Failed! Username is already in use!',
+          message: { username: 'Failed! Username is already in use!' },
         });
       }
 
@@ -43,7 +64,7 @@ function checkDuplicateUsernameOrEmail(db) {
         .promise();
       if (usersWithEmail.Count > 0) {
         return res.status(400).send({
-          message: 'Failed! Email is already in use!',
+          message: { email: 'Failed! Email is already in use!' },
         });
       }
 
@@ -53,23 +74,10 @@ function checkDuplicateUsernameOrEmail(db) {
       return res.status(500).send({ message: 'Sorry something went wrong!' });
     }
   };
-}
-
-const verifySignUpParams = [
-  body('username')
-    .isLength({ min: 1 }).withMessage('Username cannot be blank!'),
-];
-
-const processValidationErrors = (req, res, next) => {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    return res.status(400).json({ message: result.errors.map((err) => err.msg) });
-  }
-  next();
 };
 
 module.exports = {
-  checkDuplicateUsernameOrEmail,
   verifySignUpParams,
   processValidationErrors,
+  checkDuplicateUsernameOrEmail,
 };
