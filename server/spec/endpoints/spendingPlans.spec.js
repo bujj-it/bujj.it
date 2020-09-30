@@ -124,7 +124,23 @@ describe('spendingPlans endpoint', () => {
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
-        expenses: "Expenses format invalid, values for 'name' must be of type string and 'value' of type integer!",
+        expenses: "Expenses types invalid, values for 'name' must be string and 'value' number!",
+      });
+    });
+
+    test('invalid expenses values', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [{ name: '', value: -1 }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        expenses: "Expenses format invalid, values for 'name' must be a-zA-Z0-9_ and 'value' currency!",
       });
     });
 
