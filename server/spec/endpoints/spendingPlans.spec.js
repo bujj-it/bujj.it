@@ -48,7 +48,7 @@ describe('spendingPlans endpoint', () => {
       expect(response.body.message).toBe('No token provided!');
     });
 
-    test('empty income', async () => {
+    test('blank income', async () => {
       const testSpendingPlan = {
         income: null,
         expenses: [{ name: 'rent', value: 500 }],
@@ -64,7 +64,7 @@ describe('spendingPlans endpoint', () => {
       });
     });
 
-    test('blank income', async () => {
+    test('invalid income format', async () => {
       const testSpendingPlan = {
         income: 123.123,
         expenses: [{ name: 'rent', value: 500 }],
@@ -76,27 +76,11 @@ describe('spendingPlans endpoint', () => {
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
-        income: 'Income format invalid!',
+        income: 'Income format invalid, must be integer or decimal currency!',
       });
     });
 
-    test('empty income', async () => {
-      const testSpendingPlan = {
-        income: null,
-        expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: 10,
-      };
-      const response = await request
-        .post('/api/spending-plans')
-        .set('cookie', accessToken)
-        .send(testSpendingPlan);
-      expect(response.status).toBe(400);
-      expect(response.body.message).toEqual({
-        income: 'Income cannot be blank!',
-      });
-    });
-
-    test('empty expenses', async () => {
+    test('blank expenses', async () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [],
@@ -109,6 +93,22 @@ describe('spendingPlans endpoint', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         expenses: 'Expenses cannot be blank!',
+      });
+    });
+
+    test('invalid expenses format', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [{ notName: 'rent', notValue: 500 }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        expenses: "Expenses format invalid, keys must be 'name' and 'value'!",
       });
     });
 

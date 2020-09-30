@@ -11,5 +11,6 @@ module.exports = {
   rules: {
     'global-require': 0,
     'consistent-return': 0,
+    'max-len': 0,
   },
 };
