@@ -12,5 +12,6 @@ module.exports = {
     'global-require': 0,
     'consistent-return': 0,
     'max-len': 0,
+    'valid-typeof': 0,
   },
 };

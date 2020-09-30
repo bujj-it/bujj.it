@@ -96,7 +96,7 @@ describe('spendingPlans endpoint', () => {
       });
     });
 
-    test('invalid expenses format', async () => {
+    test('invalid expenses key format', async () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ notName: 'rent', notValue: 500 }],
@@ -109,6 +109,22 @@ describe('spendingPlans endpoint', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         expenses: "Expenses format invalid, keys must be 'name' and 'value'!",
+      });
+    });
+
+    test('invalid expenses value format', async () => {
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [{ name: {}, value: 'not a number' }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        expenses: "Expenses format invalid, values for 'name' must be of type string and 'value' of type integer!",
       });
     });
 

@@ -1,13 +1,17 @@
 const { body } = require('express-validator');
 
-const isExpensesKeysValid = (expenses) => {
-  const validKeys = ['name', 'value'];
-  return expenses.every((expense) => Object.keys(expense).sort().every((key, index) => key === validKeys[index]));
-};
+const expensesSchema = { name: 'string', value: 'number' };
+
+const isExpensesKeysValid = (expenses) => expenses.every((expense) => Object.keys(expense).sort().every((key, index) => key === Object.keys(expensesSchema)[index]));
+
+const isExpensesValuesValid = (expenses) => expenses.every((expense) => Object.keys(expensesSchema).every((key) => typeof expense[key] === expensesSchema[key]));
 
 const validateExpenses = (expenses) => {
   if (!isExpensesKeysValid(expenses)) {
     throw new Error("Expenses format invalid, keys must be 'name' and 'value'!");
+  }
+  if (!isExpensesValuesValid(expenses)) {
+    throw new Error("Expenses format invalid, values for 'name' must be of type string and 'value' of type integer!");
   }
   return true;
 };
