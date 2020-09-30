@@ -107,6 +107,46 @@ describe('users endpoint', () => {
   });
 
   describe('POST /api/users', () => {
+    test('blank username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '',
+        email: 'test@example.com',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ username: 'Username cannot be blank!' });
+    });
+
+    test('invalid username', async () => {
+      const response = await request.post('/api/users').send({
+        username: '/',
+        email: 'test@example.com',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ username: 'Username can only be letters, numbers, and spaces!' });
+    });
+
+    test('invalid email', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'not an email',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ email: 'Please provide valid email!' });
+    });
+
+    test('invalid password', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: '',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ password: 'Password cannot be blank!' });
+    });
+
     test('duplicate username', async () => {
       const response = await request.post('/api/users').send({
         username: 'test',
@@ -114,7 +154,7 @@ describe('users endpoint', () => {
         password: 'password',
       });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe('Failed! Username is already in use!');
+      expect(response.body.message).toEqual({ username: 'Failed! Username is already in use!' });
     });
 
     test('duplicate email', async () => {
@@ -124,7 +164,7 @@ describe('users endpoint', () => {
         password: 'password',
       });
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe('Failed! Email is already in use!');
+      expect(response.body.message).toEqual({ email: 'Failed! Email is already in use!' });
     });
 
     test('successful signup', async () => {

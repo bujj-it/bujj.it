@@ -71,12 +71,10 @@ module.exports = (db) => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const signout = (req, res) => {
     try {
-      const token = req.signedCookies['x-access-token'];
-      if (token) {
-        res.clearCookie('x-access-token');
-      }
+      res.clearCookie('x-access-token');
       return res.status(200).send({
         message: 'Logout successful',
       });

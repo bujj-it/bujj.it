@@ -35,6 +35,24 @@ afterEach(async () => {
 
 describe('session endpoint', () => {
   describe('POST /api/session', () => {
+    test('blank user', async () => {
+      const response = await request.post('/api/session').send({
+        user: '',
+        password: 'password',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ user: 'User field cannot be blank!' });
+    });
+
+    test('blank password', async () => {
+      const response = await request.post('/api/session').send({
+        user: 'test',
+        password: '',
+      });
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toEqual({ password: 'Password field cannot be blank!' });
+    });
+
     test('unknown user', async () => {
       const response = await request.post('/api/session').send({
         user: 'not a user',
