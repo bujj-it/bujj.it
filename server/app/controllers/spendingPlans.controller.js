@@ -12,7 +12,6 @@ module.exports = (db) => {
       for (let i = 0; i < newExpenses.length; i += 1) {
         expensesMap[uuid.v1()] = newExpenses[i];
       }
-      console.log(expensesMap);
       const createUserSpendingPlanParams = {
         TableName: userTable,
         Key: { userId: req.userId },
