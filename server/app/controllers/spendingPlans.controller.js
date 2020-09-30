@@ -1,5 +1,5 @@
-const debug = require("debug")("express:error:spendingPlansController");
-const uuid = require("uuid");
+const debug = require('debug')('express:error:spendingPlansController');
+const uuid = require('uuid');
 
 module.exports = (db) => {
   const database = db.dynamoDb;
@@ -15,9 +15,9 @@ module.exports = (db) => {
       const createUserSpendingPlanParams = {
         TableName: userTable,
         Key: { userId: req.userId },
-        UpdateExpression: "SET spendingPlan = :newSpendingPlan",
+        UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
         ExpressionAttributeValues: {
-          ":newSpendingPlan": {
+          ':newSpendingPlan': {
             income: req.body.income,
             expenses: expensesMap,
             saving_percentage: req.body.saving_percentage,
@@ -26,11 +26,11 @@ module.exports = (db) => {
       };
       await database.update(createUserSpendingPlanParams).promise();
       res.status(200).send({
-        message: "New Spending Plan created.",
+        message: 'New Spending Plan created.',
       });
     } catch (err) {
       debug(err);
-      res.status(500).send({ message: "Something went wrong!" });
+      res.status(500).send({ message: 'Something went wrong!' });
     }
   };
 

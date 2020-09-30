@@ -35,7 +35,7 @@ describe('session endpoint', () => {
         user: '',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         user: 'User field cannot be blank!',
       });
@@ -46,7 +46,7 @@ describe('session endpoint', () => {
         user: 'test',
         password: '',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         password: 'Password field cannot be blank!',
       });
@@ -57,7 +57,7 @@ describe('session endpoint', () => {
         user: 'not a user',
         password: 'password',
       });
-      expect(response.statusCode).toBe(404);
+      expect(response.status).toBe(404);
       expect(response.body.message).toBe('User not found');
     });
 
@@ -72,7 +72,7 @@ describe('session endpoint', () => {
         user: 'test',
         password: 'password',
       });
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
       expect(response.body.message).toBe('Login Successful');
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
@@ -92,7 +92,7 @@ describe('session endpoint', () => {
         user: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
       expect(response.body.message).toBe('Login Successful');
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
@@ -112,7 +112,7 @@ describe('session endpoint', () => {
         user: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(401);
+      expect(response.status).toBe(401);
       expect(response.body.message).toBe('Password incorrect');
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
@@ -130,7 +130,7 @@ describe('session endpoint', () => {
       const response = await request
         .delete('/api/session')
         .set('cookie', accessToken);
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
       expect(response.body.message).toEqual('Logout successful');
       expect(response.header['set-cookie'][0]).toEqual(
         'x-access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT',

@@ -62,7 +62,7 @@ describe('users endpoint', () => {
       const response = await request
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);
-      expect(response.statusCode).toBe(401);
+      expect(response.status).toBe(401);
       expect(response.body.message).toEqual('Unauthorized!');
       timeMock.mockRestore();
     });
@@ -101,7 +101,7 @@ describe('users endpoint', () => {
         email: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         username: 'Username cannot be blank!',
       });
@@ -113,7 +113,7 @@ describe('users endpoint', () => {
         email: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         username: 'Username can only be letters, numbers, and spaces!',
       });
@@ -125,7 +125,7 @@ describe('users endpoint', () => {
         email: 'not an email',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         email: 'Please provide valid email!',
       });
@@ -137,7 +137,7 @@ describe('users endpoint', () => {
         email: 'test@example.com',
         password: '',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         password: 'Password cannot be blank!',
       });
@@ -149,7 +149,7 @@ describe('users endpoint', () => {
         email: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         username: 'Failed! Username is already in use!',
       });
@@ -161,7 +161,7 @@ describe('users endpoint', () => {
         email: 'test@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(400);
+      expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         email: 'Failed! Email is already in use!',
       });
@@ -179,7 +179,7 @@ describe('users endpoint', () => {
         email: 'unique@example.com',
         password: 'password',
       });
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
       expect(response.body.message).toBe('User signup successful');
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),

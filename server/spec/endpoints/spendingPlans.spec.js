@@ -48,6 +48,38 @@ describe('spendingPlans endpoint', () => {
       expect(response.body.message).toBe('No token provided!');
     });
 
+    test('empty income', async () => {
+      const testSpendingPlan = {
+        income: null,
+        expenses: [{ name: 'rent', value: 500 }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        income: 'Income cannot be blank!',
+      });
+    });
+
+    test('blank income', async () => {
+      const testSpendingPlan = {
+        income: 123.123,
+        expenses: [{ name: 'rent', value: 500 }],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        income: 'Income format invalid!',
+      });
+    });
+
     test('successful spendingPlan creation - 1 expense', async () => {
       const uniqueId1 = 'uniqueId1';
       const mockUuidV1 = jest.spyOn(uuid, 'v1').mockReturnValue(uniqueId1);
