@@ -1,4 +1,5 @@
 const debug = require("debug")("express:error:spendingPlansController");
+const uuid = require("uuid");
 
 module.exports = (db) => {
   const database = db.dynamoDb;
@@ -6,6 +7,12 @@ module.exports = (db) => {
 
   const create = async (req, res) => {
     try {
+      const newExpenses = req.body.expenses;
+      const expensesMap = {};
+      for (let i = 0; i < newExpenses.length; i += 1) {
+        expensesMap[uuid.v1()] = newExpenses[i];
+      }
+      console.log(expensesMap);
       const createUserSpendingPlanParams = {
         TableName: userTable,
         Key: { userId: req.userId },
@@ -13,7 +20,7 @@ module.exports = (db) => {
         ExpressionAttributeValues: {
           ":newSpendingPlan": {
             income: req.body.income,
-            expenses: req.body.expenses,
+            expenses: expensesMap,
             saving_percentage: req.body.saving_percentage,
           },
         },

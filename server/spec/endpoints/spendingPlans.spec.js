@@ -3,6 +3,14 @@ require("spec/specHelper");
 
 // require helpers
 const { getAccessToken, testUser } = require("spec/helpers/usersHelper");
+const uuid = require("uuid");
+jest.mock("uuid", () => {
+  return {
+    v1: () => {
+      return "uniqueId";
+    },
+  };
+});
 
 // create app
 const db = require("spec/dbSetup");
@@ -46,7 +54,7 @@ describe("spendingPlans endpoint", () => {
     test("successful spendingPlan creation - 1 expense", async () => {
       const testSpendingPlan = {
         income: 1000,
-        expenses: { 1: { name: "rent", value: 500 } },
+        expenses: [{ name: "rent", value: 500 }],
         saving_percentage: 10,
       };
       const response = await request
@@ -60,7 +68,14 @@ describe("spendingPlans endpoint", () => {
         TableName: db.users,
       };
       const result = await db.dynamoDb.get(checkSpendingPlanParams).promise();
-      expect(result.Item.spendingPlan).toEqual(testSpendingPlan);
+      const resultSpendingPlan = result.Item.spendingPlan;
+      expect(resultSpendingPlan.income).toEqual(testSpendingPlan.income);
+      expect(resultSpendingPlan.expenses.uniqueId).toEqual(
+        testSpendingPlan.expenses[0]
+      );
+      expect(resultSpendingPlan.saving_percentage).toEqual(
+        testSpendingPlan.saving_percentage
+      );
     });
   });
 });

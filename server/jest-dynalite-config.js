@@ -1,42 +1,42 @@
 module.exports = {
   tables: [
     {
-      TableName: "users-table-test",
+      TableName: 'users-table-test',
       AttributeDefinitions: [
         {
-          AttributeName: "userId",
-          AttributeType: "S",
+          AttributeName: 'userId',
+          AttributeType: 'S',
         },
         {
-          AttributeName: "username",
-          AttributeType: "S",
+          AttributeName: 'username',
+          AttributeType: 'S',
         },
         {
-          AttributeName: "email",
-          AttributeType: "S",
+          AttributeName: 'email',
+          AttributeType: 'S',
         },
         {
-          AttributeName: "spendingPlan",
-          AttributeType: "S",
+          AttributeName: 'spendingPlan',
+          AttributeType: 'S',
         },
       ],
       KeySchema: [
         {
-          AttributeName: "userId",
-          KeyType: "HASH",
+          AttributeName: 'userId',
+          KeyType: 'HASH',
         },
       ],
       GlobalSecondaryIndexes: [
         {
-          IndexName: "usernameIndex",
+          IndexName: 'usernameIndex',
           KeySchema: [
             {
-              AttributeName: "username",
-              KeyType: "HASH",
+              AttributeName: 'username',
+              KeyType: 'HASH',
             },
           ],
           Projection: {
-            ProjectionType: "ALL",
+            ProjectionType: 'ALL',
           },
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
@@ -44,15 +44,15 @@ module.exports = {
           },
         },
         {
-          IndexName: "emailIndex",
+          IndexName: 'emailIndex',
           KeySchema: [
             {
-              AttributeName: "email",
-              KeyType: "HASH",
+              AttributeName: 'email',
+              KeyType: 'HASH',
             },
           ],
           Projection: {
-            ProjectionType: "ALL",
+            ProjectionType: 'ALL',
           },
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
