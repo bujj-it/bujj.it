@@ -15,7 +15,7 @@ const testUser = {
   username: 'test username',
   email: 'test@example.com',
   password: 'passwordHash',
-  spending_plan: {
+  spendingPlan: {
     income: 1000,
     expenses: {
       uniqueId1: {
@@ -23,7 +23,7 @@ const testUser = {
         value: 200,
       },
     },
-    saving_percentage: 10,
+    savingPercentage: 10,
   },
 };
 
@@ -32,7 +32,7 @@ const testUser2 = {
   username: 'test username 2',
   email: 'test2@example.com',
   password: 'passwordHash',
-  spending_plan: {
+  spendingPlan: {
     income: 200,
     expenses: {
       uniqueId1: {
@@ -40,7 +40,7 @@ const testUser2 = {
         value: 30,
       },
     },
-    saving_percentage: 8,
+    savingPercentage: 8,
   },
 };
 

@@ -42,7 +42,7 @@ const validateSpendingPlanParams = [
   body('expenses')
     .exists().withMessage('Expenses cannot be blank!')
     .custom(validateExpenses),
-  body('saving_percentage')
+  body('savingPercentage')
     .exists().withMessage('Saving percentage cannot be blank!')
     .not()
     .isEmpty()

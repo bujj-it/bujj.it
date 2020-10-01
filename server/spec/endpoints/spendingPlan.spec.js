@@ -3,7 +3,7 @@ require('spec/specHelper');
 
 // require helpers
 const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersSpecHelper');
-// const uuid = require('uuid');
+const uuid = require('uuid');
 
 jest.mock('uuid', () => ({
   ...jest.requireActual('uuid'),
@@ -102,7 +102,7 @@ describe('spendingPlan endpoint', () => {
       expect(response.body.message).toEqual({
         expenses: 'Expenses cannot be blank!',
         income: 'Income cannot be blank!',
-        saving_percentage: 'Saving percentage cannot be blank!',
+        savingPercentage: 'Saving percentage cannot be blank!',
       });
     });
 
@@ -110,7 +110,7 @@ describe('spendingPlan endpoint', () => {
       const testSpendingPlan = {
         income: null,
         expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -126,7 +126,7 @@ describe('spendingPlan endpoint', () => {
       const testSpendingPlan = {
         income: 123.123,
         expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -142,7 +142,7 @@ describe('spendingPlan endpoint', () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ notName: 'rent', notValue: 500 }],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -158,7 +158,7 @@ describe('spendingPlan endpoint', () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ name: {}, value: 'not a number' }],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -174,7 +174,7 @@ describe('spendingPlan endpoint', () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ name: '', value: -1 }],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -186,11 +186,11 @@ describe('spendingPlan endpoint', () => {
       });
     });
 
-    test('blank saving_percentage', async () => {
+    test('blank savingPercentage', async () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: null,
+        savingPercentage: null,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -198,15 +198,15 @@ describe('spendingPlan endpoint', () => {
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
-        saving_percentage: 'Saving percentage cannot be blank!',
+        savingPercentage: 'Saving percentage cannot be blank!',
       });
     });
 
-    test('invalid saving_percentage', async () => {
+    test('invalid savingPercentage', async () => {
       const testSpendingPlan = {
         income: 1000,
         expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: 'not a number',
+        savingPercentage: 'not a number',
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`)
@@ -214,7 +214,7 @@ describe('spendingPlan endpoint', () => {
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
-        saving_percentage: 'Saving percentage format invalid, must be number!',
+        savingPercentage: 'Saving percentage format invalid, must be number!',
       });
     });
 
@@ -231,7 +231,7 @@ describe('spendingPlan endpoint', () => {
           { name: 'rent', value: 500 },
           { name: 'shopping', value: 200 },
         ],
-        saving_percentage: 10,
+        savingPercentage: 10,
       };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`).set('cookie', accessToken)
@@ -251,8 +251,8 @@ describe('spendingPlan endpoint', () => {
       expect(resultSpendingPlan.expenses.uniqueId2).toEqual(
         testSpendingPlan.expenses[1],
       );
-      expect(resultSpendingPlan.saving_percentage).toEqual(
-        testSpendingPlan.saving_percentage,
+      expect(resultSpendingPlan.savingPercentage).toEqual(
+        testSpendingPlan.savingPercentage,
       );
       mockUuidV1.mockRestore();
     });

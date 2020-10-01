@@ -20,7 +20,7 @@ module.exports = (db) => {
           ':newSpendingPlan': {
             income: req.body.income,
             expenses: expensesMap,
-            saving_percentage: req.body.saving_percentage,
+            savingPercentage: req.body.savingPercentage,
           },
         },
       };
