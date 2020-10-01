@@ -127,12 +127,12 @@ describe('expenses endpoint', () => {
       expect(response.body.message).toBe('New expense added.');
       expect(response.body.expense[uniqueId1]).toMatchObject(testExpense);
       const userRecord = await db.dynamoDb
-      .get({
-        TableName: db.users,
-        Key: {
-          userId: testUser.userId,
-        },
-      }).promise();
+        .get({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        }).promise();
       expect(userRecord.Item.spendingPlan.expenses[uniqueId1]).toMatchObject(testExpense);
       mockUuidV1.mockRestore();
     });

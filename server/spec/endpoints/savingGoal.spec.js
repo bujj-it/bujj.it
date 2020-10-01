@@ -29,7 +29,6 @@ afterEach(async () => {
 });
 
 describe('savingGoal endpoint', () => {
-  const testUserExpenseId = Object.keys(testUser.spendingPlan.expenses)[0];
   let accessToken;
 
   beforeEach(async () => {
@@ -87,5 +86,34 @@ describe('savingGoal endpoint', () => {
           },
         }).promise();
     });
-  })
-})
+
+    test('blank form', async () => {
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken)
+        .send({});
+      expect(response.status).toBe(400);
+      expect(response.body.message).toMatchObject({ name: 'name cannot be blank!', value: 'value cannot be blank!' });
+    });
+
+    test('invalid value types', async () => {
+      const testSavingGoal = { name: {}, value: '500' };
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken)
+        .send(testSavingGoal);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toMatchObject({ name: 'name cannot be blank!', value: 'value cannot be blank!' });
+    });
+
+    test('additional parameters', async () => {
+      const testSavingGoal = { name: {}, value: '500', additional: 'parameter' };
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken)
+        .send(testSavingGoal);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Invalid saving goal format.');
+    });
+  });
+});
