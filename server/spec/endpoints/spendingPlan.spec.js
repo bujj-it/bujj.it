@@ -34,17 +34,17 @@ afterEach(async () => {
     .promise();
 });
 
-describe('spendingPlans endpoint', () => {
-  describe('POST /api/users/:id/spending-plans', () => {
-    let accessToken;
+describe('spendingPlan endpoint', () => {
+  let accessToken;
 
-    beforeEach(async () => {
-      accessToken = await getAccessToken();
-    });
+  beforeEach(async () => {
+    accessToken = await getAccessToken();
+  });
 
+  describe('POST /api/users/:id/spending-plan', () => {
     test('no login token', async () => {
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`);
+        .post(`/api/users/${testUser.userId}/spending-plan`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
     });
@@ -56,7 +56,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -72,7 +72,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -88,7 +88,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -104,7 +104,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -120,7 +120,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -136,7 +136,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -152,7 +152,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: null,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -168,43 +168,13 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 'not a number',
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
+        .post(`/api/users/${testUser.userId}/spending-plan`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         saving_percentage: 'Saving percentage format invalid, must be number!',
       });
-    });
-
-    test('successful spendingPlan creation - 1 expense', async () => {
-      const uniqueId1 = 'uniqueId1';
-      const mockUuidV1 = jest.spyOn(uuid, 'v1').mockReturnValue(uniqueId1);
-      const testSpendingPlan = {
-        income: 1000,
-        expenses: [{ name: 'rent', value: 500 }],
-        saving_percentage: 10,
-      };
-      const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
-        .set('cookie', accessToken)
-        .send(testSpendingPlan);
-      expect(response.status).toBe(200);
-      expect(response.body.message).toBe('New Spending Plan created.');
-      const checkSpendingPlanParams = {
-        Key: { userId: testUser.userId },
-        TableName: db.users,
-      };
-      const result = await db.dynamoDb.get(checkSpendingPlanParams).promise();
-      const resultSpendingPlan = result.Item.spendingPlan;
-      expect(resultSpendingPlan.income).toEqual(testSpendingPlan.income);
-      expect(resultSpendingPlan.expenses.uniqueId1).toEqual(
-        testSpendingPlan.expenses[0],
-      );
-      expect(resultSpendingPlan.saving_percentage).toEqual(
-        testSpendingPlan.saving_percentage,
-      );
-      mockUuidV1.mockRestore();
     });
 
     test('successful spendingPlan creation - 2 expenses', async () => {
@@ -223,8 +193,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plans`)
-        .set('cookie', accessToken)
+        .post(`/api/users/${testUser.userId}/spending-plan`).set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('New Spending Plan created.');
@@ -245,6 +214,34 @@ describe('spendingPlans endpoint', () => {
         testSpendingPlan.saving_percentage,
       );
       mockUuidV1.mockRestore();
+    });
+  });
+
+  describe('GET /api/users/:id/spending-plan', () => {
+    const seedSpendingPlan = {
+      income: 1000,
+      expenses: {
+        uniqueId1: { name: 'rent', value: 500 },
+        uniqueId2: { name: 'shopping', value: 200 },
+      },
+      saving_percentage: 10,
+    };
+
+    beforeEach(async () => {
+      await db.dynamoDb
+        .update({
+          TableName: db.users,
+          Key: { userId: testUser.userId },
+          UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
+          ExpressionAttributeValues: { ':newSpendingPlan': seedSpendingPlan },
+        })
+        .promise();
+    });
+
+    test('no login token', async () => {
+      const response = await request.post(`/api/users/${testUser.userId}/spending-plan`);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('No token provided!');
     });
   });
 });

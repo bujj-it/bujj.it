@@ -3,15 +3,15 @@ const processValidationErrors = require('../middleware/processValidationErrors')
 const validateSpendingPlan = require('../middleware/validateSpendingPlan');
 
 module.exports = (app, db) => {
-  const spendingPlansController = require('../controllers/spendingPlans.controller')(
+  const spendingPlanController = require('../controllers/spendingPlan.controller')(
     db,
   );
 
   app.post(
-    '/api/users/:id/spending-plans', [
+    '/api/users/:id/spending-plan', [
       verifySessionToken,
       validateSpendingPlan,
       processValidationErrors,
-    ], spendingPlansController.create,
+    ], spendingPlanController.create,
   );
 };

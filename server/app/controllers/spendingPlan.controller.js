@@ -1,4 +1,4 @@
-const debug = require('debug')('express:error:spendingPlansController');
+const debug = require('debug')('express:error:spendingPlanController');
 const uuid = require('uuid');
 
 module.exports = (db) => {
