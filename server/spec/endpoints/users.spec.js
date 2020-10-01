@@ -94,6 +94,7 @@ describe('users endpoint', () => {
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);
       expect(response.status).toBe(200);
+      expect(response.body.userId).toBe(testUser.userId);
       expect(response.body.username).toBe(testUser.username);
       expect(response.body.password).toBe(undefined);
     });
