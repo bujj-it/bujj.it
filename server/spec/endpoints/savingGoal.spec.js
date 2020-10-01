@@ -1,12 +1,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser } = require('spec/helpers/usersSpecHelper');
-const uuid = require('uuid');
-
-jest.mock('uuid', () => ({
-  ...jest.requireActual('uuid'),
-}));
+const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersSpecHelper');
 
 // create app
 const db = require('spec/dbSetup');
@@ -47,6 +42,50 @@ describe('savingGoal endpoint', () => {
         .post(`/api/users/${testUser.userId}/spending-plan/saving-goal`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
+    });
+
+    test('deleted session user', async () => {
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        })
+        .promise();
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('User not found!');
+    });
+
+    test('requested user invalid', async () => {
+      const response = await request
+        .post('/api/users/not-a-user-id/spending-plan/saving-goal')
+        .set('cookie', accessToken);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('User page not found!');
+    });
+
+    test('user unauthorized', async () => {
+      await db.dynamoDb
+        .put({
+          TableName: db.users,
+          Item: testUser2,
+        }).promise();
+      const response = await request
+        .post(`/api/users/${testUser2.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('You have insufficient rights to view this page');
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser2.userId,
+          },
+        }).promise();
     });
   })
 })
