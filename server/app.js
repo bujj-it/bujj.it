@@ -17,6 +17,7 @@ module.exports = (db) => {
   require('./app/routes/users.routes')(app, db);
   require('./app/routes/session.routes')(app, db);
   require('./app/routes/spendingPlan.routes')(app, db);
+  require('./app/routes/expenses.routes')(app, db);
 
   app.get('/api', (req, res) => {
     res.status(200).json({
