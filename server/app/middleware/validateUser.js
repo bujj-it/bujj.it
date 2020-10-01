@@ -1,18 +1,28 @@
 const debug = require('debug')('express:error:middleware:validateUser');
 const { body } = require('express-validator');
 const { filteredUserAttributesList } = require('../helpers/usersHelper');
+const processValidationErrors = require('./processValidationErrors');
 
 const validateSignUpParams = [
   body('username')
-    .not().isEmpty().withMessage('Username cannot be blank!')
+    .exists().withMessage('Username cannot be blank!')
+    .not()
+    .isEmpty()
+    .withMessage('Username cannot be blank!')
     .matches(/[a-zA-Z0-9 ]+/)
     .withMessage('Username can only be letters, numbers, and spaces!')
     .trim(),
   body('email')
-    .isEmail().withMessage('Please provide valid email!')
+    .exists().withMessage('Email cannot be blank!')
+    .isEmail()
+    .withMessage('Please provide valid email!')
     .normalizeEmail(),
   body('password')
-    .not().isEmpty().withMessage('Password cannot be blank!'),
+    .exists().withMessage('Password cannot be blank!')
+    .not()
+    .isEmpty()
+    .withMessage('Password cannot be blank!'),
+  processValidationErrors,
 ];
 
 const validateLoginParams = [
@@ -20,6 +30,7 @@ const validateLoginParams = [
     .not().isEmpty().withMessage('User field cannot be blank!'),
   body('password')
     .not().isEmpty().withMessage('Password field cannot be blank!'),
+  processValidationErrors,
 ];
 
 module.exports = (db) => {

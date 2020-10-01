@@ -91,5 +91,28 @@ describe('spendingPlan endpoint', () => {
           },
         }).promise();
     });
+
+    test('blank form', async () => {
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/expenses`)
+        .set('cookie', accessToken)
+        .send({});
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        id: 'id cannot be blank!',
+      });
+    });
+
+    // test('invalid expenses key format', async () => {
+    //   const testExpenses = {newExpense: { notName: 'rent', notValue: 500 }};
+    //   const response = await request
+    //     .post(`/api/users/${testUser.userId}/spending-plan/expenses`)
+    //     .set('cookie', accessToken)
+    //     .send(testExpenses);
+    //   expect(response.status).toBe(400);
+    //   expect(response.body.message).toEqual({
+    //     expenses: "Expenses format invalid, keys must be 'name' and 'value'!",
+    //   });
+    // });
   });
 });

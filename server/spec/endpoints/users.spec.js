@@ -128,6 +128,16 @@ describe('users endpoint', () => {
   });
 
   describe('POST /api/users', () => {
+    test('blank form', async () => {
+      const response = await request.post('/api/users').send({});
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        username: 'Username cannot be blank!',
+        email: 'Email cannot be blank!',
+        password: 'Password cannot be blank!',
+      });
+    });
+
     test('blank username', async () => {
       const response = await request.post('/api/users').send({
         username: '',

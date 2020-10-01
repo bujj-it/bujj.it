@@ -1,6 +1,5 @@
 const { verifySessionToken } = require('../middleware/validateSession');
-const processValidationErrors = require('../middleware/processValidationErrors');
-const validateSpendingPlan = require('../middleware/validateSpendingPlan');
+const validateSpendingPlanParams = require('../middleware/validateSpendingPlanParams');
 
 module.exports = (app, db) => {
   const validateUser = require('../middleware/validateUser')(db);
@@ -11,8 +10,7 @@ module.exports = (app, db) => {
       verifySessionToken(db),
       validateUser.validateRequestedUserIdParam,
       validateUser.validateUserAuthorizedForResource,
-      validateSpendingPlan,
-      processValidationErrors,
+      validateSpendingPlanParams,
     ], spendingPlanController.create,
   );
 };

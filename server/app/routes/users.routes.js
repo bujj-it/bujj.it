@@ -1,5 +1,4 @@
 const { verifySessionToken } = require('../middleware/validateSession');
-const processValidationErrors = require('../middleware/processValidationErrors');
 
 module.exports = (app, db) => {
   const usersController = require('../controllers/users.controller')(db);
@@ -15,7 +14,6 @@ module.exports = (app, db) => {
     '/api/users',
     [
       validateUser.validateSignUpParams,
-      processValidationErrors,
       validateUser.checkDuplicateUsernameOrEmail,
     ],
     usersController.signup,

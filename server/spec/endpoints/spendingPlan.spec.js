@@ -3,7 +3,7 @@ require('spec/specHelper');
 
 // require helpers
 const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersSpecHelper');
-const uuid = require('uuid');
+// const uuid = require('uuid');
 
 jest.mock('uuid', () => ({
   ...jest.requireActual('uuid'),
@@ -91,6 +91,19 @@ describe('spendingPlan endpoint', () => {
             userId: testUser2.userId,
           },
         }).promise();
+    });
+
+    test('empty form', async () => {
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan`)
+        .set('cookie', accessToken)
+        .send({});
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        expenses: 'Expenses cannot be blank!',
+        income: 'Income cannot be blank!',
+        saving_percentage: 'Saving percentage cannot be blank!',
+      });
     });
 
     test('blank income', async () => {

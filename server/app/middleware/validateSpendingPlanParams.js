@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const validator = require('validator');
+const processValidationErrors = require('./processValidationErrors');
 
 const expensesSchema = { name: 'string', value: 'number' };
 
@@ -29,19 +30,27 @@ const validateExpenses = (expenses) => {
 
 const validateSpendingPlanParams = [
   body('income')
-    .not().isEmpty().withMessage('Income cannot be blank!')
+    .exists().withMessage('Income cannot be blank!')
+    .not()
+    .isEmpty()
+    .withMessage('Income cannot be blank!')
     .isCurrency({
       allow_negatives: false,
     })
     .withMessage('Income format invalid, must be integer or decimal currency!')
     .customSanitizer((value) => Number(value)),
   body('expenses')
+    .exists().withMessage('Expenses cannot be blank!')
     .custom(validateExpenses),
   body('saving_percentage')
-    .not().isEmpty().withMessage('Saving percentage cannot be blank!')
+    .exists().withMessage('Saving percentage cannot be blank!')
+    .not()
+    .isEmpty()
+    .withMessage('Saving percentage cannot be blank!')
     .isNumeric()
     .withMessage('Saving percentage format invalid, must be number!')
     .customSanitizer((value) => Number(value)),
+  processValidationErrors,
 ];
 
 module.exports = validateSpendingPlanParams;
