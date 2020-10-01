@@ -9,7 +9,7 @@ const validateSignUpParams = [
     .not()
     .isEmpty()
     .withMessage('Username cannot be blank!')
-    .matches(/[a-zA-Z0-9 ]+/)
+    .matches(/^[a-zA-Z0-9 ]+$/)
     .withMessage('Username can only be letters, numbers, and spaces!')
     .trim(),
   body('email')

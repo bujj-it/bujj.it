@@ -12,12 +12,10 @@ const validateSavingGoalKeys = (req, res, next) => {
 };
 
 const validateSavingGoalParams = [
+  validateSavingGoalKeys,
   body('name')
     .exists().withMessage('name cannot be blank!')
-    .not()
-    .isEmpty()
-    .withMessage('name cannot be blank!')
-    .matches(/[a-zA-Z0-9 ]+/)
+    .matches(/^[a-zA-Z0-9 ]+$/)
     .withMessage('name can only be letters, numbers, and spaces!')
     .trim(),
   body('value')
@@ -27,7 +25,6 @@ const validateSavingGoalParams = [
     })
     .withMessage('value format invalid, must be integer or decimal currency!')
     .customSanitizer((value) => Number(value)),
-  validateSavingGoalKeys,
   processValidationErrors,
 ];
 
