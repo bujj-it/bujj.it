@@ -4,10 +4,7 @@ const validateSpendingPlan = require('../middleware/validateSpendingPlan');
 
 module.exports = (app, db) => {
   const validateUser = require('../middleware/validateUser')(db);
-
-  const spendingPlanController = require('../controllers/spendingPlan.controller')(
-    db,
-  );
+  const spendingPlanController = require('../controllers/spendingPlan.controller')(db);
 
   app.post(
     '/api/users/:userId/spending-plan', [
