@@ -81,22 +81,6 @@ describe('spendingPlan endpoint', () => {
       });
     });
 
-    test('blank expenses', async () => {
-      const testSpendingPlan = {
-        income: 1000,
-        expenses: [],
-        saving_percentage: 10,
-      };
-      const response = await request
-        .post(`/api/users/${testUser.userId}/spending-plan`)
-        .set('cookie', accessToken)
-        .send(testSpendingPlan);
-      expect(response.status).toBe(400);
-      expect(response.body.message).toEqual({
-        expenses: 'Expenses cannot be blank!',
-      });
-    });
-
     test('invalid expenses key format', async () => {
       const testSpendingPlan = {
         income: 1000,

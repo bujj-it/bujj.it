@@ -36,7 +36,6 @@ const validateSpendingPlanParams = [
     .withMessage('Income format invalid, must be integer or decimal currency!')
     .customSanitizer((value) => Number(value)),
   body('expenses')
-    .not().isEmpty().withMessage('Expenses cannot be blank!')
     .custom(validateExpenses),
   body('saving_percentage')
     .not().isEmpty().withMessage('Saving percentage cannot be blank!')
