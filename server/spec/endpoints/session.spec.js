@@ -86,8 +86,8 @@ describe('session endpoint', () => {
         .spyOn(jwt, 'sign')
         .mockImplementation(() => 'testJwtToken');
       const response = await request.post('/api/session').send({
-        user: 'test',
-        password: 'password',
+        user: testUser.username,
+        password: testUser.password,
       });
 
       expect(response.status).toBe(200);
@@ -109,8 +109,8 @@ describe('session endpoint', () => {
         .spyOn(jwt, 'sign')
         .mockImplementation(() => 'testJwtToken');
       const response = await request.post('/api/session').send({
-        user: 'test@example.com',
-        password: 'password',
+        user: testUser.email,
+        password: testUser.password,
       });
 
       expect(response.status).toBe(200);

@@ -14,7 +14,7 @@ module.exports = (db) => {
       }
       const createUserSpendingPlanParams = {
         TableName: userTable,
-        Key: { userId: req.currentUser.userId },
+        Key: { userId: req.requestedUser.userId },
         UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
         ExpressionAttributeValues: {
           ':newSpendingPlan': {

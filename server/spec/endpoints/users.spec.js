@@ -2,7 +2,9 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersSpecHelper');
+const {
+  getAccessToken, testUser, testUserFiltered, testUser2,
+} = require('spec/helpers/usersSpecHelper');
 
 // require modules
 const bcrypt = require('bcryptjs');
@@ -96,6 +98,26 @@ describe('users endpoint', () => {
       expect(response.body.message).toBe('User page not found!');
     });
 
+    test('user unauthorized', async () => {
+      await db.dynamoDb
+        .put({
+          TableName: db.users,
+          Item: testUser2,
+        }).promise();
+      const response = await request
+        .get(`/api/users/${testUser2.userId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('You have insufficient rights to view this page');
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser2.userId,
+          },
+        }).promise();
+    });
+
     test('valid request', async () => {
       const response = await request
         .get(`/api/users/${testUser.userId}`)
@@ -156,7 +178,7 @@ describe('users endpoint', () => {
 
     test('duplicate username', async () => {
       const response = await request.post('/api/users').send({
-        username: 'test',
+        username: testUser.username,
         email: 'test@example.com',
         password: 'password',
       });
@@ -169,7 +191,7 @@ describe('users endpoint', () => {
     test('duplicate email', async () => {
       const response = await request.post('/api/users').send({
         username: 'unique username',
-        email: 'test@example.com',
+        email: testUser.email,
         password: 'password',
       });
       expect(response.status).toBe(400);

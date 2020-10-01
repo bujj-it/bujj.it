@@ -102,10 +102,20 @@ module.exports = (db) => {
     }
   };
 
+  const validateUserAuthorizedForResource = (req, res, next) => {
+    if (req.currentUser.userId !== req.requestedUser.userId) {
+      return res.status(403).send({
+        message: 'You have insufficient rights to view this page',
+      });
+    }
+    return next();
+  };
+
   return {
     validateSignUpParams,
     validateLoginParams,
     validateRequestedUserIdParam,
+    validateUserAuthorizedForResource,
     checkDuplicateUsernameOrEmail,
   };
 };

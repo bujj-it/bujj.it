@@ -2,7 +2,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser } = require('spec/helpers/usersSpecHelper');
+const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersSpecHelper');
 const uuid = require('uuid');
 
 jest.mock('uuid', () => ({
@@ -49,35 +49,49 @@ describe('spendingPlan endpoint', () => {
       expect(response.body.message).toBe('No token provided!');
     });
 
-    // test('login token user does not exist', async () => {
-    //   await db.dynamoDb
-    //     .delete({
-    //       TableName: db.users,
-    //       Key: {
-    //         userId: testUser.userId,
-    //       },
-    //     })
-    //     .promise();
-    //   const testSpendingPlan = {
-    //     income: 1000,
-    //     expenses: [{ name: 'rent', value: 500 }],
-    //     saving_percentage: 10,
-    //   };
-    //   const response = await request
-    //     .post(`/api/users/${testUser.userId}/spending-plan`)
-    //     .set('cookie', accessToken)
-    //     .send(testSpendingPlan);
+    test('deleted session user', async () => {
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        })
+        .promise();
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('User not found!');
+    });
 
-    //   const checkSpendingPlanParams = {
-    //     Key: { userId: testUser.userId },
-    //     TableName: db.users,
-    //   };
-    //   const result = await db.dynamoDb.get(checkSpendingPlanParams).promise();
-    //   console.log(result.Item);
+    test('user page invalid', async () => {
+      const response = await request
+        .post('/api/users/not-a-user-id/spending-plan')
+        .set('cookie', accessToken);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('User page not found!');
+    });
 
-    //   expect(response.status).toBe(404);
-    //   expect(response.body.message).toEqual('Income cannot be blank!');
-    // })
+    test('user unauthorized', async () => {
+      await db.dynamoDb
+        .put({
+          TableName: db.users,
+          Item: testUser2,
+        }).promise();
+      const response = await request
+        .post(`/api/users/${testUser2.userId}/spending-plan`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('You have insufficient rights to view this page');
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser2.userId,
+          },
+        }).promise();
+    });
 
     test('blank income', async () => {
       const testSpendingPlan = {

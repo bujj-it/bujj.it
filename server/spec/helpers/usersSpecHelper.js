@@ -11,7 +11,7 @@ const request = require('supertest')(app);
 
 const testUser = {
   userId: '1',
-  username: 'test',
+  username: 'test username',
   email: 'test@example.com',
   password: 'passwordHash',
 };
@@ -20,6 +20,13 @@ const testUserFiltered = {
   userId: testUser.userId,
   username: testUser.username,
   email: testUser.email,
+};
+
+const testUser2 = {
+  userId: '2',
+  username: 'test username 2',
+  email: 'test2@example.com',
+  password: 'passwordHash',
 };
 
 const getAccessToken = async () => {
@@ -38,5 +45,6 @@ const getAccessToken = async () => {
 module.exports = {
   testUser,
   testUserFiltered,
+  testUser2,
   getAccessToken,
 };

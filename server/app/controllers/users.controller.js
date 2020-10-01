@@ -41,7 +41,7 @@ module.exports = (db) => {
   };
 
   const usersPage = async (req, res) => res.status(200).send({
-    user: req.currentUser,
+    user: req.requestedUser,
   });
 
   return {

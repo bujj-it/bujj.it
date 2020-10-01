@@ -1,4 +1,4 @@
-const { verifySessionToken } = require('../middleware/authJwt');
+const { verifySessionToken } = require('../middleware/validateSession');
 const processValidationErrors = require('../middleware/processValidationErrors');
 
 module.exports = (app, db) => {
@@ -8,6 +8,7 @@ module.exports = (app, db) => {
   app.get('/api/users/:userId', [
     verifySessionToken(db),
     validateUser.validateRequestedUserIdParam,
+    validateUser.validateUserAuthorizedForResource,
   ], usersController.usersPage);
 
   app.post(

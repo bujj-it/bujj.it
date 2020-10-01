@@ -1,4 +1,4 @@
-const { verifySessionToken } = require('../middleware/authJwt');
+const { verifySessionToken } = require('../middleware/validateSession');
 const processValidationErrors = require('../middleware/processValidationErrors');
 const validateSpendingPlan = require('../middleware/validateSpendingPlan');
 
@@ -13,6 +13,7 @@ module.exports = (app, db) => {
     '/api/users/:userId/spending-plan', [
       verifySessionToken(db),
       validateUser.validateRequestedUserIdParam,
+      validateUser.validateUserAuthorizedForResource,
       validateSpendingPlan,
       processValidationErrors,
     ], spendingPlanController.create,
