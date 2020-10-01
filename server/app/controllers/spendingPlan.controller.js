@@ -34,7 +34,10 @@ module.exports = (db) => {
     }
   };
 
+  const view = async (req, res) => res.status(200).send();
+
   return {
     create,
+    view,
   };
 };

@@ -14,4 +14,10 @@ module.exports = (app, db) => {
       processValidationErrors,
     ], spendingPlanController.create,
   );
+
+  app.get(
+    '/api/users/:id/spending-plan', [
+      verifySessionToken,
+    ], spendingPlanController.view,
+  );
 };
