@@ -98,7 +98,7 @@ describe('spendingPlan endpoint', () => {
         .set('cookie', accessToken)
         .send({});
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {"id":"string","name":"string","value":"number (currency)"}');
     });
 
     test('invalid expense key format', async () => {
@@ -108,7 +108,7 @@ describe('spendingPlan endpoint', () => {
         .set('cookie', accessToken)
         .send(testExpenses);
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {"id":"string","name":"string","value":"number (currency)"}');
     });
 
     test('invalid expense value types', async () => {
@@ -118,7 +118,23 @@ describe('spendingPlan endpoint', () => {
         .set('cookie', accessToken)
         .send(testExpenses);
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {"id":"string","name":"string","value":"number (currency)"}');
+    });
+
+    test('successful expense creation', async () => {
+      const uniqueId1 = 'uniqueId1';
+      const mockUuidV1 = jest
+        .spyOn(uuid, 'v1')
+        .mockReturnValue(uniqueId1);
+      const testExpense = { id: 'new', name: 'rent', value: 500 };
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/expenses`)
+        .set('cookie', accessToken)
+        .send(testExpense);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('New expense added.');
+      expect(response.body.expense.id).toBe(uniqueId1);
+      mockUuidV1.mockRestore();
     });
   });
 });
