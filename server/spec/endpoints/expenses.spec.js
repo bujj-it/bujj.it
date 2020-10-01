@@ -265,5 +265,15 @@ describe('spendingPlan endpoint', () => {
           },
         }).promise();
     });
+
+    test('invalid expenseId', async () => {
+      const testExpense = { name: 'rent', value: 500 };
+      const response = await request
+        .put(`/api/users/${testUser.userId}/spending-plan/expenses/not-an-expense-id`)
+        .set('cookie', accessToken)
+        .send(testExpense);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual('Expense ID not found.');
+    });
   })
 });

@@ -26,5 +26,6 @@ module.exports = (app, db) => {
     verifySessionToken,
     validateUser.validateRequestedUserIdParam,
     validateUser.validateUserAuthorizedForResource,
+    validateRequestedExpense,
   ])
 };
