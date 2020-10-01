@@ -205,5 +205,45 @@ describe('spendingPlans endpoint', () => {
       );
       mockUuidV1.mockRestore();
     });
+
+    test('successful spendingPlan creation - 2 expenses', async () => {
+      const uniqueId1 = 'uniqueId1';
+      const uniqueId2 = 'uniqueId2';
+      const mockUuidV1 = jest
+        .spyOn(uuid, 'v1')
+        .mockReturnValueOnce(uniqueId1)
+        .mockReturnValueOnce(uniqueId2);
+      const testSpendingPlan = {
+        income: 1000,
+        expenses: [
+          { name: 'rent', value: 500 },
+          { name: 'shopping', value: 200 }
+        ],
+        saving_percentage: 10,
+      };
+      const response = await request
+        .post('/api/spending-plans')
+        .set('cookie', accessToken)
+        .send(testSpendingPlan);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('New Spending Plan created.');
+      const checkSpendingPlanParams = {
+        Key: { userId: testUser.userId },
+        TableName: db.users,
+      };
+      const result = await db.dynamoDb.get(checkSpendingPlanParams).promise();
+      const resultSpendingPlan = result.Item.spendingPlan;
+      expect(resultSpendingPlan.income).toEqual(testSpendingPlan.income);
+      expect(resultSpendingPlan.expenses.uniqueId1).toEqual(
+        testSpendingPlan.expenses[0],
+      );
+      expect(resultSpendingPlan.expenses.uniqueId2).toEqual(
+        testSpendingPlan.expenses[1],
+      );
+      expect(resultSpendingPlan.saving_percentage).toEqual(
+        testSpendingPlan.saving_percentage,
+      );
+      mockUuidV1.mockRestore();
+    });
   });
 });
