@@ -35,7 +35,7 @@ afterEach(async () => {
 });
 
 describe('spendingPlans endpoint', () => {
-  describe('POST /api/spending-plans', () => {
+  describe('POST /api/users/:id/spending-plans', () => {
     let accessToken;
 
     beforeEach(async () => {
@@ -43,7 +43,8 @@ describe('spendingPlans endpoint', () => {
     });
 
     test('no login token', async () => {
-      const response = await request.post('/api/spending-plans');
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plans`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
     });
@@ -55,7 +56,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -71,7 +72,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -87,7 +88,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -103,7 +104,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -119,7 +120,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -135,7 +136,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -151,7 +152,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: null,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -167,7 +168,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 'not a number',
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(400);
@@ -185,7 +186,7 @@ describe('spendingPlans endpoint', () => {
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(200);
@@ -217,12 +218,12 @@ describe('spendingPlans endpoint', () => {
         income: 1000,
         expenses: [
           { name: 'rent', value: 500 },
-          { name: 'shopping', value: 200 }
+          { name: 'shopping', value: 200 },
         ],
         saving_percentage: 10,
       };
       const response = await request
-        .post('/api/spending-plans')
+        .post(`/api/users/${testUser.userId}/spending-plans`)
         .set('cookie', accessToken)
         .send(testSpendingPlan);
       expect(response.status).toBe(200);

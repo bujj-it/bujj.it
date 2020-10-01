@@ -8,7 +8,7 @@ module.exports = (app, db) => {
   );
 
   app.post(
-    '/api/spending-plans', [
+    '/api/users/:id/spending-plans', [
       verifySessionToken,
       validateSpendingPlan,
       processValidationErrors,
