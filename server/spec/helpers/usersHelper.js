@@ -16,6 +16,12 @@ const testUser = {
   password: 'passwordHash',
 };
 
+const testUserFiltered = {
+  userId: testUser.userId,
+  username: testUser.username,
+  email: testUser.email,
+};
+
 const getAccessToken = async () => {
   const bcryptMock = jest
     .spyOn(bcrypt, 'compare')
@@ -31,5 +37,6 @@ const getAccessToken = async () => {
 
 module.exports = {
   testUser,
+  testUserFiltered,
   getAccessToken,
 };

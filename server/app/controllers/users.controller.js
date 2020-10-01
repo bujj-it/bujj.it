@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const debug = require('debug')('express:error:usersController');
 const config = require('../config/auth.config');
+const { filteredUserAttributesList, filterUserAttributes } = require('../helpers/usersHelper');
 
 module.exports = (db) => {
   const database = db.dynamoDb;
@@ -10,15 +11,15 @@ module.exports = (db) => {
 
   const signup = async (req, res) => {
     try {
-      const uniqueUserId = uuid.v1();
+      const newUser = {
+        userId: uuid.v1(),
+        username: req.body.username,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 8),
+      };
       const createUserParams = {
         TableName: userTable,
-        Item: {
-          userId: uniqueUserId,
-          username: req.body.username,
-          email: req.body.email,
-          password: bcrypt.hashSync(req.body.password, 8),
-        },
+        Item: newUser,
       };
       await database.put(createUserParams).promise();
       const sessionToken = jwt.sign(
@@ -31,7 +32,7 @@ module.exports = (db) => {
       res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
       res.status(200).send({
         message: 'User signup successful',
-        userId: uniqueUserId,
+        user: filterUserAttributes(newUser),
       });
     } catch (err) {
       debug(err);
@@ -42,7 +43,7 @@ module.exports = (db) => {
   const usersPage = async (req, res) => {
     try {
       const userLookUpParams = {
-        AttributesToGet: ['userId', 'username', 'email'],
+        AttributesToGet: filteredUserAttributesList,
         ConsistentRead: true,
         Key: {
           userId: req.userId,
@@ -55,7 +56,9 @@ module.exports = (db) => {
           message: 'Unauthorized!',
         });
       }
-      return res.status(200).send(userLookUp.Item);
+      return res.status(200).send({
+        user: userLookUp.Item,
+      });
     } catch (err) {
       debug(err);
       res.status(500).send({ message: 'Something went wrong!' });

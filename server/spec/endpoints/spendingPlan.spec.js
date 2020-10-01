@@ -2,7 +2,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
 const uuid = require('uuid');
 
 jest.mock('uuid', () => ({

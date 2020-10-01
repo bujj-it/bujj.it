@@ -2,7 +2,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersHelper');
 
 // require modules
 const bcrypt = require('bcryptjs');
@@ -94,9 +94,7 @@ describe('users endpoint', () => {
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);
       expect(response.status).toBe(200);
-      expect(response.body.userId).toBe(testUser.userId);
-      expect(response.body.username).toBe(testUser.username);
-      expect(response.body.password).toBe(undefined);
+      expect(response.body.user).toMatchObject(testUserFiltered);
     });
   });
 
@@ -191,7 +189,11 @@ describe('users endpoint', () => {
       });
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('User signup successful');
-      expect(response.body.userId).toBe(uniqueId1);
+      expect(response.body.user).toMatchObject({
+        userId: uniqueId1,
+        username: 'unique username',
+        email: 'unique@example.com',
+      });
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
       ).toBe(true);

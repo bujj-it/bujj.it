@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const debug = require('debug')('express:error:sessionController');
 const config = require('../config/auth.config');
+const { filterUserAttributes } = require('../helpers/usersHelper');
 
 module.exports = (db) => {
   const database = db.dynamoDb;
@@ -60,6 +61,7 @@ module.exports = (db) => {
         res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
         return res.status(200).send({
           message: 'Login Successful',
+          user: filterUserAttributes(user),
         });
       }
       return res.status(401).send({

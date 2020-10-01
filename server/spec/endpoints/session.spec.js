@@ -6,7 +6,7 @@ const request = require('supertest')(app);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersHelper');
 
 beforeEach(async () => {
   await db.dynamoDb
@@ -61,6 +61,23 @@ describe('session endpoint', () => {
       expect(response.body.message).toBe('User not found');
     });
 
+    test('invalid password', async () => {
+      const bcryptMock = jest
+        .spyOn(bcrypt, 'compare')
+        .mockImplementation(() => Promise.resolve(false));
+      const jwtMock = jest
+        .spyOn(jwt, 'sign')
+        .mockImplementation(() => 'testJwtToken');
+      const response = await request.post('/api/session').send({
+        user: 'test@example.com',
+        password: 'password',
+      });
+      expect(response.status).toBe(401);
+      expect(response.body.message).toBe('Password incorrect');
+      bcryptMock.mockRestore();
+      jwtMock.mockRestore();
+    });
+
     test('successful username login', async () => {
       const bcryptMock = jest
         .spyOn(bcrypt, 'compare')
@@ -72,11 +89,14 @@ describe('session endpoint', () => {
         user: 'test',
         password: 'password',
       });
+
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Login Successful');
+      expect(response.body.user).toMatchObject(testUserFiltered);
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
       ).toBe(true);
+
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
     });
@@ -92,28 +112,14 @@ describe('session endpoint', () => {
         user: 'test@example.com',
         password: 'password',
       });
+
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Login Successful');
+      expect(response.body.user).toMatchObject(testUserFiltered);
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
       ).toBe(true);
-      bcryptMock.mockRestore();
-      jwtMock.mockRestore();
-    });
 
-    test('invalid password', async () => {
-      const bcryptMock = jest
-        .spyOn(bcrypt, 'compare')
-        .mockImplementation(() => Promise.resolve(false));
-      const jwtMock = jest
-        .spyOn(jwt, 'sign')
-        .mockImplementation(() => 'testJwtToken');
-      const response = await request.post('/api/session').send({
-        user: 'test@example.com',
-        password: 'password',
-      });
-      expect(response.status).toBe(401);
-      expect(response.body.message).toBe('Password incorrect');
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
     });
