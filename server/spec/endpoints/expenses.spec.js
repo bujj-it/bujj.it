@@ -192,5 +192,26 @@ describe('spendingPlan endpoint', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('Invalid expense format, format must match: {"name":"string","value":"number (currency)"}');
     });
+
+    test('invalid expenseId', async () => {
+      const testExpense = { name: 'rent', value: 500 };
+      const response = await request
+        .put(`/api/users/${testUser.userId}/spending-plan/expenses/not-an-expense-id`)
+        .set('cookie', accessToken)
+        .send(testExpense);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual('Expense ID not found.');
+    });
+
+    test('successful expense update', async () => {
+      const testExpense = { name: 'new expense name', value: 512 };
+      const response = await request
+        .put(`/api/users/${testUser.userId}/spending-plan/expenses/${testUserExpenseId}`)
+        .set('cookie', accessToken)
+        .send(testExpense);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Expense updated.');
+      expect(response.body.expense[testUserExpenseId]).toMatchObject(testExpense);
+    });
   });
 });
