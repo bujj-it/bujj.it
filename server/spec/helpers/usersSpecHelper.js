@@ -24,6 +24,10 @@ const testUser = {
       },
     },
     savingPercentage: 10,
+    savingGoal: {
+      name: 'holiday',
+      value: 2000,
+    },
   },
 };
 
@@ -41,6 +45,10 @@ const testUser2 = {
       },
     },
     savingPercentage: 8,
+    savingGoal: {
+      name: 'holiday',
+      value: 2000,
+    },
   },
 };
 

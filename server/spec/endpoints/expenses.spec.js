@@ -33,7 +33,7 @@ afterEach(async () => {
     .promise();
 });
 
-describe('spendingPlan endpoint', () => {
+describe('expenses endpoint', () => {
   const testUserExpenseId = Object.keys(testUser.spendingPlan.expenses)[0];
   let accessToken;
 
