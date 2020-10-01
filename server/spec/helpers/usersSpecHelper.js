@@ -3,6 +3,7 @@ require('spec/specHelper');
 
 // require modules
 const bcrypt = require('bcryptjs');
+const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 // create app
 const db = require('spec/dbSetup');
@@ -14,12 +15,16 @@ const testUser = {
   username: 'test username',
   email: 'test@example.com',
   password: 'passwordHash',
-};
-
-const testUserFiltered = {
-  userId: testUser.userId,
-  username: testUser.username,
-  email: testUser.email,
+  spending_plan: {
+    income: 1000,
+    expenses: {
+      uniqueId1: {
+        name: 'rent',
+        value: 200,
+      },
+    },
+    saving_percentage: 10,
+  },
 };
 
 const testUser2 = {
@@ -27,6 +32,16 @@ const testUser2 = {
   username: 'test username 2',
   email: 'test2@example.com',
   password: 'passwordHash',
+  spending_plan: {
+    income: 200,
+    expenses: {
+      uniqueId1: {
+        name: 'rent',
+        value: 30,
+      },
+    },
+    saving_percentage: 8,
+  },
 };
 
 const getAccessToken = async () => {
@@ -44,7 +59,7 @@ const getAccessToken = async () => {
 
 module.exports = {
   testUser,
-  testUserFiltered,
+  testUserFiltered: filterUserAttributes(testUser),
   testUser2,
   getAccessToken,
 };
