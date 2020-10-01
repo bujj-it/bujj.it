@@ -126,6 +126,14 @@ describe('spendingPlan endpoint', () => {
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('New expense added.');
       expect(response.body.expense[uniqueId1]).toMatchObject(testExpense);
+      const userRecord = await db.dynamoDb
+      .get({
+        TableName: db.users,
+        Key: {
+          userId: testUser.userId,
+        },
+      }).promise();
+      expect(userRecord.Item.spendingPlan.expenses[uniqueId1]).toMatchObject(testExpense);
       mockUuidV1.mockRestore();
     });
   });
@@ -211,6 +219,14 @@ describe('spendingPlan endpoint', () => {
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Expense updated.');
       expect(response.body.expense[testUserExpenseId]).toMatchObject(testExpense);
+      const userRecord = await db.dynamoDb
+        .get({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        }).promise();
+      expect(userRecord.Item.spendingPlan.expenses[testUserExpenseId]).toMatchObject(testExpense);
     });
   });
 
