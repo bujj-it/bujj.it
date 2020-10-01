@@ -245,5 +245,25 @@ describe('spendingPlan endpoint', () => {
       expect(response.status).toBe(404);
       expect(response.body.message).toBe('User page not found!');
     });
+
+    test('user unauthorized', async () => {
+      await db.dynamoDb
+        .put({
+          TableName: db.users,
+          Item: testUser2,
+        }).promise();
+      const response = await request
+        .put(`/api/users/${testUser2.userId}/spending-plan/expenses/${testUserExpenseId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('You have insufficient rights to view this page');
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser2.userId,
+          },
+        }).promise();
+    });
   })
 });

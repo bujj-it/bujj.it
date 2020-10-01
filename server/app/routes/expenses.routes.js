@@ -25,5 +25,6 @@ module.exports = (app, db) => {
   app.delete('/api/users/:userId/spending-plan/expenses/:expenseId', [
     verifySessionToken,
     validateUser.validateRequestedUserIdParam,
+    validateUser.validateUserAuthorizedForResource,
   ])
 };
