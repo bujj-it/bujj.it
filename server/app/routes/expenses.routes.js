@@ -7,5 +7,6 @@ module.exports = (app, db) => {
   app.post('/api/users/:userId/spending-plan/expenses', [
     verifySessionToken(db),
     validateUser.validateRequestedUserIdParam,
+    validateUser.validateUserAuthorizedForResource,
   ]);
 };
