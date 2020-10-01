@@ -222,5 +222,28 @@ describe('spendingPlan endpoint', () => {
       expect(response.body.message).toBe('No token provided!');
     });
 
+    test('deleted session user', async () => {
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        })
+        .promise();
+      const response = await request
+        .delete(`/api/users/${testUser.userId}/spending-plan/expenses/${testUserExpenseId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('User not found!');
+    });
+
+    test('requested user invalid', async () => {
+      const response = await request
+        .delete(`/api/users/not-a-user-id/spending-plan/expenses/${testUserExpenseId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('User page not found!');
+    });
   })
 });

@@ -23,6 +23,7 @@ module.exports = (app, db) => {
   ], expensesController.update);
 
   app.delete('/api/users/:userId/spending-plan/expenses/:expenseId', [
-    verifySessionToken
+    verifySessionToken,
+    validateUser.validateRequestedUserIdParam,
   ])
 };
