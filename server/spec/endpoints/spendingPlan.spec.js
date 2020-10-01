@@ -2,7 +2,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser, testUser2 } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
 const uuid = require('uuid');
 
 jest.mock('uuid', () => ({
@@ -41,13 +41,43 @@ describe('spendingPlan endpoint', () => {
     accessToken = await getAccessToken();
   });
 
-  describe('POST /api/users/:id/spending-plan', () => {
+  describe('POST /api/users/:userId/spending-plan', () => {
     test('no login token', async () => {
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan`);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('No token provided!');
     });
+
+    // test('login token user does not exist', async () => {
+    //   await db.dynamoDb
+    //     .delete({
+    //       TableName: db.users,
+    //       Key: {
+    //         userId: testUser.userId,
+    //       },
+    //     })
+    //     .promise();
+    //   const testSpendingPlan = {
+    //     income: 1000,
+    //     expenses: [{ name: 'rent', value: 500 }],
+    //     saving_percentage: 10,
+    //   };
+    //   const response = await request
+    //     .post(`/api/users/${testUser.userId}/spending-plan`)
+    //     .set('cookie', accessToken)
+    //     .send(testSpendingPlan);
+
+    //   const checkSpendingPlanParams = {
+    //     Key: { userId: testUser.userId },
+    //     TableName: db.users,
+    //   };
+    //   const result = await db.dynamoDb.get(checkSpendingPlanParams).promise();
+    //   console.log(result.Item);
+
+    //   expect(response.status).toBe(404);
+    //   expect(response.body.message).toEqual('Income cannot be blank!');
+    // })
 
     test('blank income', async () => {
       const testSpendingPlan = {
@@ -198,34 +228,6 @@ describe('spendingPlan endpoint', () => {
         testSpendingPlan.saving_percentage,
       );
       mockUuidV1.mockRestore();
-    });
-  });
-
-  describe('GET /api/users/:id/spending-plan', () => {
-    const seedSpendingPlan = {
-      income: 1000,
-      expenses: {
-        uniqueId1: { name: 'rent', value: 500 },
-        uniqueId2: { name: 'shopping', value: 200 },
-      },
-      saving_percentage: 10,
-    };
-
-    beforeEach(async () => {
-      await db.dynamoDb
-        .update({
-          TableName: db.users,
-          Key: { userId: testUser.userId },
-          UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
-          ExpressionAttributeValues: { ':newSpendingPlan': seedSpendingPlan },
-        })
-        .promise();
-    });
-
-    test('no login token', async () => {
-      const response = await request.get(`/api/users/${testUser.userId}/spending-plan`);
-      expect(response.status).toBe(403);
-      expect(response.body.message).toBe('No token provided!');
     });
   });
 });

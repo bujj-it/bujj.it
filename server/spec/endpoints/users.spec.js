@@ -45,7 +45,7 @@ afterEach(async () => {
 });
 
 describe('users endpoint', () => {
-  describe('GET /api/users/:id', () => {
+  describe('GET /api/users/:userId', () => {
     let accessToken;
 
     beforeEach(async () => {
@@ -81,12 +81,11 @@ describe('users endpoint', () => {
           },
         })
         .promise();
-
       const response = await request
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);
-      expect(response.status).toBe(401);
-      expect(response.body.message).toBe('Unauthorized!');
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('User not found!');
     });
 
     test('valid request', async () => {

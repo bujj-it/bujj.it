@@ -75,6 +75,14 @@ const checkDuplicateUsernameOrEmail = (db) => {
   };
 };
 
+validateUserIdParam = async (req, res, next) => {
+  // validate /api/users/:userId
+};
+
+validateUserAuthorized = async (req, res, next) => {
+  // validate user token is /api/users/:userId
+};
+
 module.exports = {
   validateSignUpParams,
   validateLoginParams,

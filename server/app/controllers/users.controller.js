@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const debug = require('debug')('express:error:usersController');
 const config = require('../config/auth.config');
-const { filteredUserAttributesList, filterUserAttributes } = require('../helpers/usersHelper');
+const { filterUserAttributes } = require('../helpers/usersHelper');
 
 module.exports = (db) => {
   const database = db.dynamoDb;
@@ -40,30 +40,9 @@ module.exports = (db) => {
     }
   };
 
-  const usersPage = async (req, res) => {
-    try {
-      const userLookUpParams = {
-        AttributesToGet: filteredUserAttributesList,
-        ConsistentRead: true,
-        Key: {
-          userId: req.userId,
-        },
-        TableName: userTable,
-      };
-      const userLookUp = await database.get(userLookUpParams).promise();
-      if (userLookUp.Item == null) {
-        return res.status(401).send({
-          message: 'Unauthorized!',
-        });
-      }
-      return res.status(200).send({
-        user: userLookUp.Item,
-      });
-    } catch (err) {
-      debug(err);
-      res.status(500).send({ message: 'Something went wrong!' });
-    }
-  };
+  const usersPage = async (req, res) => res.status(200).send({
+    user: req.currentUser,
+  });
 
   return {
     signup,

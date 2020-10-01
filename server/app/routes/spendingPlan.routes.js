@@ -8,16 +8,10 @@ module.exports = (app, db) => {
   );
 
   app.post(
-    '/api/users/:id/spending-plan', [
-      verifySessionToken,
+    '/api/users/:userId/spending-plan', [
+      verifySessionToken(db),
       validateSpendingPlan,
       processValidationErrors,
     ], spendingPlanController.create,
-  );
-
-  app.get(
-    '/api/users/:id/spending-plan', [
-      verifySessionToken,
-    ], spendingPlanController.view,
   );
 };

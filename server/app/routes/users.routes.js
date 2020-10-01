@@ -5,7 +5,7 @@ const processValidationErrors = require('../middleware/processValidationErrors')
 module.exports = (app, db) => {
   const usersController = require('../controllers/users.controller')(db);
 
-  app.get('/api/users/:id', verifySessionToken, usersController.usersPage);
+  app.get('/api/users/:userId', verifySessionToken(db), usersController.usersPage);
 
   app.post(
     '/api/users',

@@ -1,4 +1,4 @@
-const filteredUserAttributesList = ['userId', 'username', 'email'];
+const filteredUserAttributesList = ['userId', 'username', 'email', 'spendingPlan'];
 
 /* eslint-disable no-param-reassign */
 function filterUserAttributes(user) {

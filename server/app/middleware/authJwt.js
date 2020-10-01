@@ -1,24 +1,52 @@
+const debug = require('debug')('express:error:authJwt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config.js');
+const { filteredUserAttributesList } = require('../helpers/usersHelper');
 
-const verifySessionToken = (req, res, next) => {
-  const token = req.signedCookies['x-access-token'];
+const verifySessionToken = (db) => {
+  const database = db.dynamoDb;
+  const userTable = db.users;
 
-  if (!token) {
-    return res.status(403).send({
-      message: 'No token provided!',
-    });
-  }
+  return async (req, res, next) => {
+    try {
+      const token = req.signedCookies['x-access-token'];
 
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      return res.status(401).send({
-        message: 'Unauthorized!',
+      if (!token) {
+        return res.status(403).send({
+          message: 'No token provided!',
+        });
+      }
+
+      jwt.verify(token, config.secret, async (err, decoded) => {
+        // invalid or expired session token
+        if (err) {
+          return res.status(401).send({
+            message: 'Unauthorized!',
+          });
+        }
+        // check user exists
+        const userLookUpParams = {
+          AttributesToGet: filteredUserAttributesList,
+          ConsistentRead: true,
+          Key: {
+            userId: decoded.id,
+          },
+          TableName: userTable,
+        };
+        const userLookUp = await database.get(userLookUpParams).promise();
+        if (userLookUp.Item == null) {
+          return res.status(403).send({
+            message: 'User not found!',
+          });
+        }
+        req.currentUser = userLookUp.Item;
+        next();
       });
+    } catch (err) {
+      debug(err);
+      return res.status(500).send({ message: 'Sorry something went wrong!' });
     }
-    req.userId = decoded.id;
-    next();
-  });
+  };
 };
 
 module.exports = {
