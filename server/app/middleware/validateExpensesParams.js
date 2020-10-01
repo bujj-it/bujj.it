@@ -1,10 +1,6 @@
 const validator = require('validator');
 
 const expenseSchema = {
-  id: {
-    test: (value) => /\w+/.test(value),
-    value: 'string',
-  },
   name: {
     test: (value) => /\w+/.test(value),
     value: 'string',

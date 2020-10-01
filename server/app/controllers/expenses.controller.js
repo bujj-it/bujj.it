@@ -23,10 +23,11 @@ module.exports = (db) => {
         },
       };
       await database.update(createExpenseParams).promise();
-      newExpense.id = newExpenseId;
+      const responseExpense = {};
+      responseExpense[newExpenseId] = newExpense;
       res.status(200).send({
         message: 'New expense added.',
-        expense: newExpense,
+        expense: responseExpense,
       });
     } catch (err) {
       debug(err);
