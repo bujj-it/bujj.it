@@ -98,17 +98,27 @@ describe('spendingPlan endpoint', () => {
         .set('cookie', accessToken)
         .send({});
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('Invalid expense format, format must match: {"id":"string","name":"string","value":"number"}');
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
     });
 
-    test('invalid expenses key format', async () => {
+    test('invalid expense key format', async () => {
       const testExpenses = { notId: 'test', notName: 'rent', notValue: 500 };
       const response = await request
         .post(`/api/users/${testUser.userId}/spending-plan/expenses`)
         .set('cookie', accessToken)
         .send(testExpenses);
       expect(response.status).toBe(400);
-      expect(response.body.message).toEqual('Invalid expense format, format must match: {"id":"string","name":"string","value":"number"}');
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
+    });
+
+    test('invalid expense value types', async () => {
+      const testExpenses = { id: 1, name: {}, notValue: '500' };
+      const response = await request
+        .post(`/api/users/${testUser.userId}/spending-plan/expenses`)
+        .set('cookie', accessToken)
+        .send(testExpenses);
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual('Invalid expense format, format must match: {\"id\":\"string\",\"name\":\"string\",\"value\":\"number (currency)\"}');
     });
   });
 });
