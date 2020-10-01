@@ -10,10 +10,11 @@ module.exports = (db) => {
 
   const signup = async (req, res) => {
     try {
+      const uniqueUserId = uuid.v1();
       const createUserParams = {
         TableName: userTable,
         Item: {
-          userId: uuid.v1(),
+          userId: uniqueUserId,
           username: req.body.username,
           email: req.body.email,
           password: bcrypt.hashSync(req.body.password, 8),
@@ -30,6 +31,7 @@ module.exports = (db) => {
       res.cookie('x-access-token', sessionToken, config.tokenCookieOptions);
       res.status(200).send({
         message: 'User signup successful',
+        userId: uniqueUserId,
       });
     } catch (err) {
       debug(err);

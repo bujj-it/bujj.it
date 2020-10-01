@@ -7,6 +7,11 @@ const { getAccessToken, testUser } = require('spec/helpers/usersHelper');
 // require modules
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid');
+
+jest.mock('uuid', () => ({
+  ...jest.requireActual('uuid'),
+}));
 
 // require app
 const db = require('spec/dbSetup');
@@ -168,6 +173,10 @@ describe('users endpoint', () => {
     });
 
     test('successful signup', async () => {
+      const uniqueId1 = 'uniqueUserId1';
+      const mockUuidV1 = jest
+        .spyOn(uuid, 'v1')
+        .mockReturnValueOnce(uniqueId1);
       const bcryptMock = jest
         .spyOn(bcrypt, 'hashSync')
         .mockImplementation(() => Promise.resolve(true));
@@ -181,11 +190,13 @@ describe('users endpoint', () => {
       });
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('User signup successful');
+      expect(response.body.userId).toBe(uniqueId1);
       expect(
         response.header['set-cookie'].some((cookie) => cookie.match(/x-access-token.+testJwtToken/i)),
       ).toBe(true);
       bcryptMock.mockRestore();
       jwtMock.mockRestore();
+      mockUuidV1.mockRestore();
     });
   });
 });
