@@ -253,7 +253,7 @@ describe('spendingPlan endpoint', () => {
           Item: testUser2,
         }).promise();
       const response = await request
-        .put(`/api/users/${testUser2.userId}/spending-plan/expenses/${testUserExpenseId}`)
+        .delete(`/api/users/${testUser2.userId}/spending-plan/expenses/${testUserExpenseId}`)
         .set('cookie', accessToken);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('You have insufficient rights to view this page');
@@ -267,13 +267,27 @@ describe('spendingPlan endpoint', () => {
     });
 
     test('invalid expenseId', async () => {
-      const testExpense = { name: 'rent', value: 500 };
       const response = await request
-        .put(`/api/users/${testUser.userId}/spending-plan/expenses/not-an-expense-id`)
-        .set('cookie', accessToken)
-        .send(testExpense);
+        .delete(`/api/users/${testUser.userId}/spending-plan/expenses/not-an-expense-id`)
+        .set('cookie', accessToken);
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual('Expense ID not found.');
     });
-  })
+
+    test('valid request', async () => {
+      const response = await request
+        .delete(`/api/users/${testUser.userId}/spending-plan/expenses/${testUserExpenseId}`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Expense removed.');
+      const userRecord = await db.dynamoDb
+        .get({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        }).promise();
+      expect(userRecord.Item.spendingPlan.expenses[testUserExpenseId]).toBeUndefined();
+    });
+  });
 });

@@ -64,8 +64,32 @@ module.exports = (db) => {
     }
   };
 
+  const destroy = async (req, res) => {
+    try {
+      const { expenseId } = req.params;
+      const createDestroyExpenseParams = {
+        TableName: userTable,
+        Key: { userId: req.requestedUser.userId },
+        UpdateExpression: 'REMOVE #spendingPlan.#expenses.#expenseId',
+        ExpressionAttributeNames: {
+          '#spendingPlan': 'spendingPlan',
+          '#expenses': 'expenses',
+          '#expenseId': expenseId,
+        },
+      };
+      await database.update(createDestroyExpenseParams).promise();
+      res.status(200).send({
+        message: 'Expense removed.',
+      });
+    } catch (err) {
+      debug(err);
+      res.status(500).send({ message: 'Something went wrong!' });
+    }
+  };
+
   return {
     create,
     update,
+    destroy,
   };
 };

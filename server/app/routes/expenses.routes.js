@@ -5,7 +5,7 @@ const validateRequestedExpense = require('../middleware/validateRequestedExpense
 module.exports = (app, db) => {
   const validateUser = require('../middleware/validateUser')(db);
   const expensesController = require('../controllers/expenses.controller')(db);
-  const verifySessionToken = validateSession.verifySessionToken(db)
+  const verifySessionToken = validateSession.verifySessionToken(db);
 
   app.post('/api/users/:userId/spending-plan/expenses', [
     verifySessionToken,
@@ -27,5 +27,5 @@ module.exports = (app, db) => {
     validateUser.validateRequestedUserIdParam,
     validateUser.validateUserAuthorizedForResource,
     validateRequestedExpense,
-  ])
+  ], expensesController.destroy);
 };
