@@ -1,5 +1,6 @@
-const debug = require('debug')('express:error:middleware:verifySignUp');
+const debug = require('debug')('express:error:middleware:validateUser');
 const { body } = require('express-validator');
+const { filteredUserAttributesList } = require('../helpers/usersHelper');
 
 const validateSignUpParams = [
   body('username')
@@ -21,11 +22,11 @@ const validateLoginParams = [
     .not().isEmpty().withMessage('Password field cannot be blank!'),
 ];
 
-const checkDuplicateUsernameOrEmail = (db) => {
+module.exports = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
-  return async (req, res, next) => {
+  const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
       const searchForExistingUsername = {
         TableName: userTable,
@@ -73,18 +74,38 @@ const checkDuplicateUsernameOrEmail = (db) => {
       return res.status(500).send({ message: 'Sorry something went wrong!' });
     }
   };
-};
 
-validateUserIdParam = async (req, res, next) => {
-  // validate /api/users/:userId
-};
+  const validateRequestedUserIdParam = async (req, res, next) => {
+    // validate /api/users/:userId
+    const requestedUserId = req.params.userId;
+    try {
+      // check user exists
+      const userLookUpParams = {
+        AttributesToGet: filteredUserAttributesList,
+        ConsistentRead: true,
+        Key: {
+          userId: requestedUserId,
+        },
+        TableName: userTable,
+      };
+      const userLookUp = await database.get(userLookUpParams).promise();
+      if (userLookUp.Item == null) {
+        return res.status(404).send({
+          message: 'User page not found!',
+        });
+      }
+      req.requestedUser = userLookUp.Item;
+      next();
+    } catch (err) {
+      debug(err);
+      return res.status(500).send({ message: 'Sorry something went wrong!' });
+    }
+  };
 
-validateUserAuthorized = async (req, res, next) => {
-  // validate user token is /api/users/:userId
-};
-
-module.exports = {
-  validateSignUpParams,
-  validateLoginParams,
-  checkDuplicateUsernameOrEmail,
+  return {
+    validateSignUpParams,
+    validateLoginParams,
+    validateRequestedUserIdParam,
+    checkDuplicateUsernameOrEmail,
+  };
 };

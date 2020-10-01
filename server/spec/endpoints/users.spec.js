@@ -2,7 +2,7 @@
 require('spec/specHelper');
 
 // require helpers
-const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersSpecHelper');
 
 // require modules
 const bcrypt = require('bcryptjs');
@@ -72,7 +72,7 @@ describe('users endpoint', () => {
       timeMock.mockRestore();
     });
 
-    test('deleted user', async () => {
+    test('deleted session user', async () => {
       await db.dynamoDb
         .delete({
           TableName: db.users,
@@ -86,6 +86,14 @@ describe('users endpoint', () => {
         .set('cookie', accessToken);
       expect(response.status).toBe(403);
       expect(response.body.message).toBe('User not found!');
+    });
+
+    test('user page invalid', async () => {
+      const response = await request
+        .get('/api/users/not-a-user-id')
+        .set('cookie', accessToken);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('User page not found!');
     });
 
     test('valid request', async () => {

@@ -6,7 +6,7 @@ const request = require('supertest')(app);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersHelper');
+const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersSpecHelper');
 
 beforeEach(async () => {
   await db.dynamoDb
