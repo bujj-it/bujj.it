@@ -139,6 +139,13 @@ describe('spendingPlan endpoint', () => {
   });
 
   describe('PUT /api/users/:userId/spending-plan/expenses/:expenseId', () => {
+    const testUserExpenseId = Object.keys(testUser.spendingPlan.expenses)[0]
 
+    test('no login token', async () => {
+      const response = await request
+        .put(`/api/users/${testUser.userId}/spending-plan/expenses/${testUserExpenseId}`);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('No token provided!');
+    });
   });
 });

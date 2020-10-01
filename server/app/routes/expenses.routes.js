@@ -11,4 +11,8 @@ module.exports = (app, db) => {
     validateUser.validateUserAuthorizedForResource,
     validateExpensesParams,
   ], expensesController.create);
+
+  app.put('/api/users/:userId/spending-plan/expenses/:expenseId', [
+    verifySessionToken(db),
+  ])
 };
