@@ -4,7 +4,7 @@ module.exports = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
-  const create = async (req, res) => {
+  const overwrite = async (req, res) => {
     try {
       const newSavingGoal = req.body;
       const createSavingGoalParams = {
@@ -29,6 +29,6 @@ module.exports = (db) => {
   };
 
   return {
-    create,
+    overwrite,
   };
 };

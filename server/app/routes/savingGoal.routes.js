@@ -11,5 +11,12 @@ module.exports = (app, db) => {
     validateUser.validateRequestedUserIdParam,
     validateUser.validateUserAuthorizedForResource,
     validateSavingGoalParams,
-  ], savingGoalController.create);
+  ], savingGoalController.overwrite);
+
+  app.put('/api/users/:userId/spending-plan/saving-goal', [
+    verifySessionToken,
+    validateUser.validateRequestedUserIdParam,
+    validateUser.validateUserAuthorizedForResource,
+    validateSavingGoalParams,
+  ], savingGoalController.overwrite);
 };
