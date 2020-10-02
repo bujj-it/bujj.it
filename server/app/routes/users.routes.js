@@ -1,21 +1,14 @@
-const { verifySessionToken } = require('../middleware/validateSession');
-
 module.exports = (app, db) => {
+  const { verifySessionToken, validateUserAuthorizedForResource } = require('../middleware/validateUserAuthorization')(db);
+  const validateRequestedUser = require('../middleware/validateRequestedUser')(db);
+  const validateUserSignUpParams = require('../middleware/validateUserSignUpParams')(db);
   const usersController = require('../controllers/users.controller')(db);
-  const validateUser = require('../middleware/validateUser')(db);
 
   app.get('/api/users/:userId', [
-    verifySessionToken(db),
-    validateUser.validateRequestedUserIdParam,
-    validateUser.validateUserAuthorizedForResource,
+    verifySessionToken,
+    validateRequestedUser,
+    validateUserAuthorizedForResource,
   ], usersController.usersPage);
 
-  app.post(
-    '/api/users',
-    [
-      validateUser.validateSignUpParams,
-      validateUser.checkDuplicateUsernameOrEmail,
-    ],
-    usersController.signup,
-  );
+  app.post('/api/users', validateUserSignUpParams, usersController.signup);
 };

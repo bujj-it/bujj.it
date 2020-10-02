@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config.js');
 const { filteredUserAttributesList } = require('../helpers/usersHelper');
 
-const verifySessionToken = (db) => {
+module.exports = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
-  return async (req, res, next) => {
+  const verifySessionToken = async (req, res, next) => {
     try {
       const token = req.signedCookies['x-access-token'];
 
@@ -18,13 +18,11 @@ const verifySessionToken = (db) => {
       }
 
       jwt.verify(token, config.secret, async (err, decoded) => {
-        // invalid or expired session token
         if (err) {
           return res.status(401).send({
             message: 'Unauthorized!',
           });
         }
-        // check user exists
         const userLookUpParams = {
           AttributesToGet: filteredUserAttributesList,
           ConsistentRead: true,
@@ -47,8 +45,18 @@ const verifySessionToken = (db) => {
       return res.status(500).send({ message: 'Sorry something went wrong!' });
     }
   };
-};
 
-module.exports = {
-  verifySessionToken,
+  const validateUserAuthorizedForResource = (req, res, next) => {
+    if (req.currentUser.userId !== req.requestedUser.userId) {
+      return res.status(403).send({
+        message: 'You have insufficient rights to view this page',
+      });
+    }
+    return next();
+  };
+
+  return {
+    verifySessionToken,
+    validateUserAuthorizedForResource,
+  };
 };

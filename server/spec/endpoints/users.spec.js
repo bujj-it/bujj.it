@@ -135,6 +135,7 @@ describe('users endpoint', () => {
         username: 'Username cannot be blank!',
         email: 'Email cannot be blank!',
         password: 'Password cannot be blank!',
+        passwordConfirmation: 'Password confirmation does not match password',
       });
     });
 
@@ -143,6 +144,7 @@ describe('users endpoint', () => {
         username: '',
         email: 'test@example.com',
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
@@ -155,6 +157,7 @@ describe('users endpoint', () => {
         username: '/',
         email: 'test@example.com',
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
@@ -167,6 +170,7 @@ describe('users endpoint', () => {
         username: 'test',
         email: 'not an email',
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
@@ -179,10 +183,24 @@ describe('users endpoint', () => {
         username: 'test',
         email: 'test@example.com',
         password: '',
+        passwordConfirmation: '',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
         password: 'Password cannot be blank!',
+      });
+    });
+
+    test('invalid password confirmation', async () => {
+      const response = await request.post('/api/users').send({
+        username: 'test',
+        email: 'test@example.com',
+        password: 'password',
+        passwordConfirmation: 'not-password',
+      });
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual({
+        passwordConfirmation: 'Password confirmation does not match password',
       });
     });
 
@@ -191,6 +209,7 @@ describe('users endpoint', () => {
         username: testUser.username,
         email: 'test@example.com',
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
@@ -203,6 +222,7 @@ describe('users endpoint', () => {
         username: 'unique username',
         email: testUser.email,
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual({
@@ -225,6 +245,7 @@ describe('users endpoint', () => {
         username: 'unique username',
         email: 'unique@example.com',
         password: 'password',
+        passwordConfirmation: 'password',
       });
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('User signup successful');
