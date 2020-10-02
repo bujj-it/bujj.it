@@ -19,4 +19,10 @@ module.exports = (app, db) => {
     validateUser.validateUserAuthorizedForResource,
     validateSavingGoalParams,
   ], savingGoalController.overwrite);
+
+  app.delete('/api/users/:userId/spending-plan/saving-goal', [
+    verifySessionToken,
+    validateUser.validateRequestedUserIdParam,
+    validateUser.validateUserAuthorizedForResource,
+  ], savingGoalController.destroy);
 };

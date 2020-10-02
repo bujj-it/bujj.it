@@ -28,7 +28,25 @@ module.exports = (db) => {
     }
   };
 
+  const destroy = async (req, res) => {
+    try {
+      const createDestroySavingGoalParams = {
+        TableName: userTable,
+        Key: { userId: req.requestedUser.userId },
+        UpdateExpression: 'REMOVE spendingPlan.savingGoal',
+      };
+      await database.update(createDestroySavingGoalParams).promise();
+      res.status(200).send({
+        message: 'Saving goal removed.',
+      });
+    } catch (err) {
+      debug(err);
+      res.status(500).send({ message: 'Something went wrong!' });
+    }
+  };
+
   return {
     overwrite,
+    destroy,
   };
 };

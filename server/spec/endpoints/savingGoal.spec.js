@@ -103,7 +103,7 @@ describe('savingGoal endpoint', () => {
         .set('cookie', accessToken)
         .send(testSavingGoal);
       expect(response.status).toBe(400);
-      expect(response.body.message).toMatchObject({ name: 'name can only be letters, numbers, and spaces!', value: "value format invalid, must be integer or decimal currency!" });
+      expect(response.body.message).toMatchObject({ name: 'name can only be letters, numbers, and spaces!', value: 'value format invalid, must be integer or decimal currency!' });
     });
 
     test('additional parameters', async () => {
@@ -204,7 +204,7 @@ describe('savingGoal endpoint', () => {
         .set('cookie', accessToken)
         .send(testSavingGoal);
       expect(response.status).toBe(400);
-      expect(response.body.message).toMatchObject({ name: 'name can only be letters, numbers, and spaces!', value: "value format invalid, must be integer or decimal currency!" });
+      expect(response.body.message).toMatchObject({ name: 'name can only be letters, numbers, and spaces!', value: 'value format invalid, must be integer or decimal currency!' });
     });
 
     test('additional parameters', async () => {
@@ -234,6 +234,75 @@ describe('savingGoal endpoint', () => {
           },
         }).promise();
       expect(userRecord.Item.spendingPlan.savingGoal).toMatchObject(testSavingGoal);
+    });
+  });
+
+  describe('DELETE /api/users/:userId/spending-plan/saving-goal', () => {
+    test('no login token', async () => {
+      const response = await request
+        .delete(`/api/users/${testUser.userId}/spending-plan/saving-goal`);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('No token provided!');
+    });
+
+    test('deleted session user', async () => {
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        })
+        .promise();
+      const response = await request
+        .delete(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('User not found!');
+    });
+
+    test('requested user invalid', async () => {
+      const response = await request
+        .delete('/api/users/not-a-user-id/spending-plan/saving-goal')
+        .set('cookie', accessToken);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('User page not found!');
+    });
+
+    test('user unauthorized', async () => {
+      await db.dynamoDb
+        .put({
+          TableName: db.users,
+          Item: testUser2,
+        }).promise();
+      const response = await request
+        .delete(`/api/users/${testUser2.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(403);
+      expect(response.body.message).toBe('You have insufficient rights to view this page');
+      await db.dynamoDb
+        .delete({
+          TableName: db.users,
+          Key: {
+            userId: testUser2.userId,
+          },
+        }).promise();
+    });
+
+    test('valid request', async () => {
+      const response = await request
+        .delete(`/api/users/${testUser.userId}/spending-plan/saving-goal`)
+        .set('cookie', accessToken);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toEqual('Saving goal removed.');
+      const userRecord = await db.dynamoDb
+        .get({
+          TableName: db.users,
+          Key: {
+            userId: testUser.userId,
+          },
+        }).promise();
+      expect(userRecord.Item.spendingPlan.savingGoal).toBeUndefined();
     });
   });
 });
