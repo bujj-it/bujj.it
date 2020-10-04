@@ -103,3 +103,53 @@ When running the application server in a development environemnt, nodemon is use
 To run the application server in a production environment, move the server directory and build the static assets by running ```yarn build_prod```. Then, also in the server directory, start the application server by running ```yarn start_prod```. The application server will then listen for requests on port 5000 and a reverse proxy can be setup to pass requests. 
 
 Note: In non-containerised depolyments, a process controller (such as systemd) should be used manage the application server and prevent downtime from errors being raised.
+
+
+## API 
+
+#### /api/users
+Users resource
+
+GET - return user profile, requires current user authentication 
+POST - create new user
+   - username (required, string)
+   - email (required, string)
+   - password (required, string)
+   - spendingPlan (optional, format outline below)
+
+#### /api/users/:id/spending-plan
+Create and update a users spending plan
+
+POST - create new spending plan, overwrites old
+   - income (required, number, currency)
+   - savingPercentage (required, number, integer)
+   - savingGoal (required, object)
+      - name - name of savingGoal (required, string)
+      - value - value of savingGoal (required, number, currency)
+   - expenses (required, array)
+     - object (optional)
+       - name - name of expense (required, string)
+       - value - value of expense (required, number, currency)
+
+
+#### /api/users/:id/spending-plan/expense
+Create, update, delete a users spending plan expenses
+
+POST - create new expense in spendingPlan
+   - name (required, string)
+   - value (required, number, currency)
+
+PUT - update current expense in spendingPlan
+   - name (required, string)
+   - value (required, number, currency)
+
+DELETE - delete current expense in spendingPlan
+   - id (required, string)
+
+
+#### /api/users/:id/spending-plan/savingGoal
+Create, update, delete a users spending plan saving goal
+
+PUT - update saving goal in spendingPlan
+   - name (required, string)
+   - value (required, number, currency)
