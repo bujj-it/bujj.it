@@ -1,3 +1,5 @@
+require('spec/testEnv');
+
 const setupTestApp = () => {
   // create app
   const db = require('spec/dbSetup');

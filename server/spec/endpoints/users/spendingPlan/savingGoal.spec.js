@@ -1,5 +1,3 @@
-require('spec/testEnv');
-
 // require helpers
 const { getAccessToken, testUser } = require('spec/helpers/usersSpecHelper');
 
