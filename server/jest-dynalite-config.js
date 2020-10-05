@@ -15,6 +15,10 @@ module.exports = {
           AttributeName: 'email',
           AttributeType: 'S',
         },
+        {
+          AttributeName: 'spendingPlan',
+          AttributeType: 'S',
+        },
       ],
       KeySchema: [
         {

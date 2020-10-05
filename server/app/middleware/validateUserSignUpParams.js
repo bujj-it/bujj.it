@@ -1,45 +1,12 @@
-const debug = require('debug')('express:error:middleware:verifySignUp');
-const { body, validationResult } = require('express-validator');
+const debug = require('debug')('express:error:middleware:validateUser');
+const { body } = require('express-validator');
+const processValidationErrors = require('app/middleware/processValidationErrors');
 
-const validateSignUpParams = [
-  body('username')
-    .not().isEmpty().withMessage('Username cannot be blank!')
-    .matches(/[a-zA-Z0-9 ]+/)
-    .withMessage('Username can only be letters, numbers, and spaces!')
-    .trim(),
-  body('email')
-    .isEmail().withMessage('Please provide valid email!')
-    .normalizeEmail(),
-  body('password')
-    .not().isEmpty().withMessage('Password cannot be blank!'),
-];
-
-const validateLoginParams = [
-  body('user')
-    .not().isEmpty().withMessage('User field cannot be blank!'),
-  body('password')
-    .not().isEmpty().withMessage('Password field cannot be blank!'),
-];
-
-const processValidationErrors = (req, res, next) => {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    const errorMessages = {};
-    for (let i = 0; i < result.errors.length; i += 1) {
-      if (!errorMessages[result.errors[i].param]) {
-        errorMessages[result.errors[i].param] = result.errors[i].msg;
-      }
-    }
-    return res.status(400).json({ message: errorMessages });
-  }
-  next();
-};
-
-const checkDuplicateUsernameOrEmail = (db) => {
+module.exports = (db) => {
   const database = db.dynamoDb;
   const userTable = db.users;
 
-  return async (req, res, next) => {
+  const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
       const searchForExistingUsername = {
         TableName: userTable,
@@ -87,11 +54,37 @@ const checkDuplicateUsernameOrEmail = (db) => {
       return res.status(500).send({ message: 'Sorry something went wrong!' });
     }
   };
-};
 
-module.exports = {
-  validateSignUpParams,
-  validateLoginParams,
-  processValidationErrors,
-  checkDuplicateUsernameOrEmail,
+  const validateSignUpParams = [
+    body('username')
+      .exists().withMessage('Username cannot be blank!')
+      .not()
+      .isEmpty()
+      .withMessage('Username cannot be blank!')
+      .matches(/^[a-zA-Z0-9 ]+$/)
+      .withMessage('Username can only be letters, numbers, and spaces!')
+      .trim(),
+    body('email')
+      .exists().withMessage('Email cannot be blank!')
+      .isEmail()
+      .withMessage('Please provide valid email!')
+      .normalizeEmail(),
+    body('password')
+      .exists().withMessage('Password cannot be blank!')
+      .not()
+      .isEmpty()
+      .withMessage('Password cannot be blank!'),
+    body('passwordConfirmation')
+      .exists().withMessage('Password confirmation does not match password')
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Password confirmation does not match password');
+        }
+        return true;
+      }),
+    processValidationErrors,
+    checkDuplicateUsernameOrEmail,
+  ];
+
+  return validateSignUpParams;
 };

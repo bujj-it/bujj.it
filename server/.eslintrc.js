@@ -11,5 +11,14 @@ module.exports = {
   rules: {
     'global-require': 0,
     'consistent-return': 0,
+    'max-len': 0,
+    'valid-typeof': 0,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['./'],
+      },
+    },
   },
 };

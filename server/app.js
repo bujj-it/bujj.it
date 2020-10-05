@@ -14,8 +14,11 @@ module.exports = (db) => {
   // manage and sign cookies
   app.use(cookieParser(process.env.SITE_SECRET));
 
-  require('./app/routes/users.routes')(app, db);
   require('./app/routes/session.routes')(app, db);
+  require('./app/routes/users.routes')(app, db);
+  require('./app/routes/users/spendingPlan.routes')(app, db);
+  require('./app/routes/users/spendingPlan/expenses.routes')(app, db);
+  require('./app/routes/users/spendingPlan/savingGoal.routes')(app, db);
 
   app.get('/api', (req, res) => {
     res.status(200).json({
