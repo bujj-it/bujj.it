@@ -1,32 +1,12 @@
-require('spec/specHelper');
+require('spec/testEnv');
 
 // require helpers
 const { getAccessToken, testUser } = require('spec/helpers/usersSpecHelper');
 
-// create app
-const db = require('spec/dbSetup');
-const app = require('app')(db);
-const request = require('supertest')(app);
+// setup test application
+const setupTestApp = require('spec/specHelper');
 
-beforeEach(async () => {
-  await db.dynamoDb
-    .put({
-      TableName: db.users,
-      Item: testUser,
-    })
-    .promise();
-});
-
-afterEach(async () => {
-  await db.dynamoDb
-    .delete({
-      TableName: db.users,
-      Key: {
-        userId: testUser.userId,
-      },
-    })
-    .promise();
-});
+const { request, db } = setupTestApp();
 
 describe('savingGoal endpoint', () => {
   let accessToken;

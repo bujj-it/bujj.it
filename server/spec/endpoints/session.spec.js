@@ -1,32 +1,14 @@
-require('spec/specHelper');
-const db = require('spec/dbSetup');
-const app = require('app')(db);
-const request = require('supertest')(app);
+require('spec/testEnv');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { getAccessToken, testUser, testUserFiltered } = require('spec/helpers/usersSpecHelper');
 
-beforeEach(async () => {
-  await db.dynamoDb
-    .put({
-      TableName: db.users,
-      Item: testUser,
-    })
-    .promise();
-});
+// setup test application
+const setupTestApp = require('spec/specHelper');
 
-afterEach(async () => {
-  await db.dynamoDb
-    .delete({
-      TableName: db.users,
-      Key: {
-        userId: testUser.userId,
-      },
-    })
-    .promise();
-});
+const { request } = setupTestApp();
 
 describe('session endpoint', () => {
   describe('POST /api/session', () => {
