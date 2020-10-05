@@ -14,4 +14,11 @@ module.exports = {
     'max-len': 0,
     'valid-typeof': 0,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['./'],
+      },
+    },
+  },
 };

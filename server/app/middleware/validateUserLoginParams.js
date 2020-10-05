@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const processValidationErrors = require('./processValidationErrors');
+const processValidationErrors = require('app/middleware/processValidationErrors');
 
 const validateUserLoginParams = [
   body('user')

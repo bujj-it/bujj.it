@@ -1,5 +1,5 @@
 const debug = require('debug')('express:error:middleware:validateUser');
-const { filteredUserAttributesList } = require('../helpers/usersHelper');
+const { filteredUserAttributesList } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
   const database = db.dynamoDb;

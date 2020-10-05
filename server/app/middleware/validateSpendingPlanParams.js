@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 const validator = require('validator');
-const processValidationErrors = require('./processValidationErrors');
+const processValidationErrors = require('app/middleware/processValidationErrors');
 
 const expensesSchema = { name: 'string', value: 'number' };
 

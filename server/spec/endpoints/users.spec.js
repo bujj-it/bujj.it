@@ -15,16 +15,10 @@ jest.mock('uuid', () => ({
   ...jest.requireActual('uuid'),
 }));
 
-// require app
+// create app
 const db = require('spec/dbSetup');
-const app = require('app');
-const supertest = require('supertest');
-
-let request;
-
-beforeAll(() => {
-  request = supertest(app(db));
-});
+const app = require('app')(db);
+const request = require('supertest')(app);
 
 beforeEach(async () => {
   await db.dynamoDb
@@ -47,7 +41,7 @@ afterEach(async () => {
 });
 
 describe('users endpoint', () => {
-  describe('GET /api/users/:userId', () => {
+  describe('ALL /api/users/:userId', () => {
     let accessToken;
 
     beforeEach(async () => {
@@ -117,8 +111,11 @@ describe('users endpoint', () => {
           },
         }).promise();
     });
+  });
 
+  describe('GET /api/users/:userId', () => {
     test('valid request', async () => {
+      const accessToken = await getAccessToken();
       const response = await request
         .get(`/api/users/${testUser.userId}`)
         .set('cookie', accessToken);

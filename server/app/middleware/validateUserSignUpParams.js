@@ -1,6 +1,6 @@
 const debug = require('debug')('express:error:middleware:validateUser');
 const { body } = require('express-validator');
-const processValidationErrors = require('./processValidationErrors');
+const processValidationErrors = require('app/middleware/processValidationErrors');
 
 module.exports = (db) => {
   const database = db.dynamoDb;

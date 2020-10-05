@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const debug = require('debug')('express:error:sessionController');
-const config = require('../config/auth.config');
-const { filterUserAttributes } = require('../helpers/usersHelper');
+const config = require('app/config/auth.config');
+const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
   const database = db.dynamoDb;

@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
-  const validateUserLoginParams = require('../middleware/validateUserLoginParams');
-  const sessionController = require('../controllers/session.controller')(db);
+  const validateUserLoginParams = require('app/middleware/validateUserLoginParams');
+  const sessionController = require('app/controllers/session.controller')(db);
 
   app.post('/api/session', [
     validateUserLoginParams,
