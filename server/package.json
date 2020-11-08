@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "homepage": "/",
+  "root": "./",
   "scripts": {
     "test": "DEBUG=express:error:* jest --no-cache",
     "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
