@@ -5,13 +5,11 @@ const config = require('app/config/auth.config');
 const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const database = db.dynamoDb;
-  const userTable = db.users;
-  const dbWrapper = db.dbWrapper;
+  const { dbWrapper } = db;
 
   const signin = async (req, res) => {
     try {
-      const user = await dbWrapper.searchForUser(req.body.user)
+      const user = await dbWrapper.searchForUser(req.body.user);
 
       if (!user) {
         return res.status(404).send({

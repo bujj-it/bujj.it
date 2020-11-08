@@ -1,6 +1,6 @@
 const serverless = require('serverless-http');
 const AWS = require('aws-sdk');
-const dbWrapper = require('./app/db/dbWrapper')
+const dbWrapper = require('./app/db/dbWrapper');
 
 // setup db
 const { USERS_TABLE } = process.env;
