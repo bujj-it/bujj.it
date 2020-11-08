@@ -1,33 +1,24 @@
 const dbWrapper = (database, userTable) => {
   // user in -> [] -> user json out or false if no user found
   const searchForUser = async (user) => {
-    const searchForUsername = {
-      TableName: userTable,
-      IndexName: 'usernameIndex',
-      KeyConditionExpression: '#username = :username',
-      ExpressionAttributeNames: {
-        '#username': 'username',
-      },
-      ExpressionAttributeValues: {
-        ':username': user,
-      },
-    };
-    const searchForUserEmail = {
-      TableName: userTable,
-      IndexName: 'emailIndex',
-      KeyConditionExpression: '#email = :email',
-      ExpressionAttributeNames: {
-        '#email': 'email',
-      },
-      ExpressionAttributeValues: {
-        ':email': user,
-      },
+    const generateDynamoSearchParamsUser = (attribute, user) => {
+      return {
+        TableName: userTable,
+        IndexName: `${attribute}Index`,
+        KeyConditionExpression: '#attribute = :attributeValue',
+        ExpressionAttributeNames: {
+          '#attribute': attribute,
+        },
+        ExpressionAttributeValues: {
+          ':attributeValue': user
+        }
+      }
     };
 
     try {
       const dbRequests = [
-        database.query(searchForUsername).promise(),
-        database.query(searchForUserEmail).promise(),
+        database.query(generateDynamoSearchParamsUser('username', user)).promise(),
+        database.query(generateDynamoSearchParamsUser('email', user)).promise(),
       ];
       const results = await Promise.all(dbRequests);
       const usernameResult = results[0];
