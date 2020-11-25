@@ -10,9 +10,8 @@ const dbWrapper = (database, userTable) => {
     return database.get(userLookUpParams).promise();
   };
 
-  // user in -> [] -> user json out or false if no user found
-  const searchForUser = async (user) => {
-    const generateUserSearchParams = (attribute, userRecord) => ({
+  const getUserByAttribute = (attribute, value) => {
+    const userSearchParams = {
       TableName: userTable,
       IndexName: `${attribute}Index`,
       KeyConditionExpression: '#attribute = :attributeValue',
@@ -20,13 +19,17 @@ const dbWrapper = (database, userTable) => {
         '#attribute': attribute,
       },
       ExpressionAttributeValues: {
-        ':attributeValue': userRecord,
+        ':attributeValue': value,
       },
-    });
+    };
+    return database.query(userSearchParams).promise();
+  };
 
+  // user in -> [] -> user json out or false if no user found
+  const searchForUser = async (user) => {
     const dbRequests = [
-      database.query(generateUserSearchParams('username', user)).promise(),
-      database.query(generateUserSearchParams('email', user)).promise(),
+      getUserByAttribute('username', user),
+      getUserByAttribute('email', user),
     ];
     const results = await Promise.all(dbRequests);
     const usernameResult = results[0];
@@ -113,6 +116,7 @@ const dbWrapper = (database, userTable) => {
 
   return {
     getUserById,
+    getUserByAttribute,
     searchForUser,
     createUser,
     createSpendingPlan,
