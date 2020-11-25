@@ -12,11 +12,9 @@ module.exports = (db) => {
       const newExpenseId = uuid.v1();
       await dbWrapper.updateExpense(req.requestedUser.userId, newExpenseId, newExpense);
 
-      const responseExpense = {};
-      responseExpense[newExpenseId] = newExpense;
       res.status(200).send({
         message: 'New expense added.',
-        expense: responseExpense,
+        expense: { [newExpenseId]: newExpense },
       });
     } catch (err) {
       debug(err);
@@ -26,26 +24,18 @@ module.exports = (db) => {
 
   const update = async (req, res) => {
     try {
+      const expense = req.body
       const { expenseId } = req.params;
-      const createUpdateExpenseParams = {
-        TableName: userTable,
-        Key: { userId: req.requestedUser.userId },
-        UpdateExpression: 'SET #spendingPlan.#expenses.#expenseId = :updatedExpense',
-        ExpressionAttributeNames: {
-          '#spendingPlan': 'spendingPlan',
-          '#expenses': 'expenses',
-          '#expenseId': expenseId,
-        },
-        ExpressionAttributeValues: {
-          ':updatedExpense': req.body,
-        },
-      };
-      await database.update(createUpdateExpenseParams).promise();
-      const responseExpense = {};
-      responseExpense[expenseId] = req.body;
+      await dbWrapper.updateExpense(req.requestedUser.userId, expenseId, expense);
+
+      debug({
+        message: 'Expense updated.',
+        expense: { [expenseId]: expense },
+      })
+
       res.status(200).send({
         message: 'Expense updated.',
-        expense: responseExpense,
+        expense: { [expenseId]: expense },
       });
     } catch (err) {
       debug(err);
