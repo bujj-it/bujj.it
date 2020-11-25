@@ -3,8 +3,7 @@ require('spec/testEnv');
 const setupTestApp = () => {
   // create app
   const db = require('spec/dbSetup');
-  const { dbWrapper } = db;
-  const app = require('app')(dbWrapper);
+  const app = require('app')(db.dbWrapper);
   const request = require('supertest')(app);
 
   const { testUser } = require('spec/helpers/usersSpecHelper');
@@ -19,7 +18,7 @@ const setupTestApp = () => {
   });
 
   afterEach(async () => {
-    await db.dynamoDb.dynamoDb
+    await db.dynamoDb
       .delete({
         TableName: db.users,
         Key: {

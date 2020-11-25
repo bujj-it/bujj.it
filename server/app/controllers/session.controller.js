@@ -9,7 +9,6 @@ module.exports = (db) => {
 
   const signin = async (req, res) => {
     try {
-      debug(dbWrapper)
       const user = await dbWrapper.searchForUser(req.body.user);
 
       if (!user) {

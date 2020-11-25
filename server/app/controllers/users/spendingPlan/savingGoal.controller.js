@@ -1,7 +1,7 @@
 const debug = require('debug')('express:error:expensesController');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const overwrite = async (req, res) => {
     try {
