@@ -6,7 +6,7 @@ const config = require('app/config/auth.config');
 const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const signup = async (req, res) => {
     try {

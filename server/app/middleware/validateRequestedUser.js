@@ -2,7 +2,7 @@ const debug = require('debug')('express:error:middleware:validateUser');
 const { filteredUserAttributesList } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const validateRequestedUserIdParam = async (req, res, next) => {
     try {

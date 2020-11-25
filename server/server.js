@@ -5,7 +5,7 @@ const dbWrapper = require('./app/db/dbWrapper');
 // setup db
 const { USERS_TABLE } = process.env;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const db = { dynamoDb, users: USERS_TABLE, dbWrapper: dbWrapper(dynamoDb, USERS_TABLE) };
+const db = dbWrapper(dynamoDb, USERS_TABLE);
 
 // create app
 const app = require('./app')(db);

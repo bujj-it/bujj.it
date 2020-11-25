@@ -5,10 +5,11 @@ const config = require('app/config/auth.config');
 const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const signin = async (req, res) => {
     try {
+      debug(dbWrapper)
       const user = await dbWrapper.searchForUser(req.body.user);
 
       if (!user) {

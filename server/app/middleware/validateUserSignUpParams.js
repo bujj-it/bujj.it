@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 const processValidationErrors = require('app/middleware/processValidationErrors');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {

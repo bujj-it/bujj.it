@@ -4,7 +4,7 @@ const config = require('app/config/auth.config.js');
 const { filteredUserAttributesList } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const verifySessionToken = async (req, res, next) => {
     try {

@@ -2,7 +2,7 @@ const debug = require('debug')('express:error:spendingPlanController');
 const uuid = require('uuid');
 
 module.exports = (db) => {
-  const { dbWrapper } = db;
+  const dbWrapper = db;
 
   const create = async (req, res) => {
     try {
