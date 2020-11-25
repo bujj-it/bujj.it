@@ -30,8 +30,17 @@ const dbWrapper = (database, userTable) => {
       : userEmailResult.Items[0]);
   };
 
+  const createUser = async (newUser) => {
+    const createUserParams = {
+      TableName: userTable,
+      Item: newUser,
+    };
+    await database.put(createUserParams).promise();
+  };
+
   return {
     searchForUser,
+    createUser,
   };
 };
 
