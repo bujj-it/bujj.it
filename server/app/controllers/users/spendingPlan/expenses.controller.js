@@ -2,6 +2,7 @@ const debug = require('debug')('express:error:expensesController');
 const uuid = require('uuid');
 
 module.exports = (db) => {
+  const { dbWrapper } = db;
   const database = db.dynamoDb;
   const userTable = db.users;
 
@@ -9,20 +10,8 @@ module.exports = (db) => {
     try {
       const newExpense = req.body;
       const newExpenseId = uuid.v1();
-      const createExpenseParams = {
-        TableName: userTable,
-        Key: { userId: req.requestedUser.userId },
-        UpdateExpression: 'SET #spendingPlan.#expenses.#newExpenseId = :newExpense',
-        ExpressionAttributeNames: {
-          '#spendingPlan': 'spendingPlan',
-          '#expenses': 'expenses',
-          '#newExpenseId': newExpenseId,
-        },
-        ExpressionAttributeValues: {
-          ':newExpense': newExpense,
-        },
-      };
-      await database.update(createExpenseParams).promise();
+      await dbWrapper.updateExpense(req.requestedUser.userId, newExpenseId, newExpense);
+
       const responseExpense = {};
       responseExpense[newExpenseId] = newExpense;
       res.status(200).send({
