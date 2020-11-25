@@ -2,8 +2,7 @@ const debug = require('debug')('express:error:spendingPlanController');
 const uuid = require('uuid');
 
 module.exports = (db) => {
-  const database = db.dynamoDb;
-  const userTable = db.users;
+  const { dbWrapper } = db;
 
   const create = async (req, res) => {
     try {
@@ -12,19 +11,14 @@ module.exports = (db) => {
       for (let i = 0; i < newExpenses.length; i += 1) {
         expensesMap[uuid.v1()] = newExpenses[i];
       }
-      const createUserSpendingPlanParams = {
-        TableName: userTable,
-        Key: { userId: req.requestedUser.userId },
-        UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
-        ExpressionAttributeValues: {
-          ':newSpendingPlan': {
-            income: req.body.income,
-            expenses: expensesMap,
-            savingPercentage: req.body.savingPercentage,
-          },
-        },
+
+      const spendingPlan = {
+        income: req.body.income,
+        expenses: expensesMap,
+        savingPercentage: req.body.savingPercentage,
       };
-      await database.update(createUserSpendingPlanParams).promise();
+      await dbWrapper.createSpendingPlan(req.requestedUser.userId, spendingPlan);
+
       res.status(200).send({
         message: 'New Spending Plan created.',
       });

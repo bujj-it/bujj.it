@@ -38,9 +38,22 @@ const dbWrapper = (database, userTable) => {
     await database.put(createUserParams).promise();
   };
 
+  const createSpendingPlan = async (userId, spendingPlan) => {
+    const createUserSpendingPlanParams = {
+      TableName: userTable,
+      Key: { userId },
+      UpdateExpression: 'SET spendingPlan = :newSpendingPlan',
+      ExpressionAttributeValues: {
+        ':newSpendingPlan': spendingPlan,
+      },
+    };
+    await database.update(createUserSpendingPlanParams).promise();
+  };
+
   return {
     searchForUser,
     createUser,
+    createSpendingPlan,
   };
 };
 
