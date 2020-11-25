@@ -77,7 +77,7 @@ const dbWrapper = (database, userTable) => {
     await database.update(destroyExpenseParams).promise();
   };
 
-  const createSavingsGoal = async (userId, newSavingGoal) => {
+  const createSavingGoal = async (userId, newSavingGoal) => {
     const createSavingGoalParams = {
       TableName: userTable,
       Key: {
@@ -91,13 +91,23 @@ const dbWrapper = (database, userTable) => {
     await database.update(createSavingGoalParams).promise();
   }
 
+  const destroySavingGoal = async (userId) => {
+    const destroySavingGoalParams = {
+      TableName: userTable,
+      Key: { userId: userId },
+      UpdateExpression: 'REMOVE spendingPlan.savingGoal',
+    };
+    await database.update(destroySavingGoalParams).promise();
+  }
+
   return {
     searchForUser,
     createUser,
     createSpendingPlan,
     updateExpense,
     destroyExpense,
-    createSavingsGoal,
+    createSavingGoal,
+    destroySavingGoal,
   };
 };
 
