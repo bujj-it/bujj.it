@@ -77,12 +77,27 @@ const dbWrapper = (database, userTable) => {
     await database.update(destroyExpenseParams).promise();
   };
 
+  const createSavingsGoal = async (userId, newSavingGoal) => {
+    const createSavingGoalParams = {
+      TableName: userTable,
+      Key: {
+        userId: userId,
+      },
+      UpdateExpression: 'SET spendingPlan.savingGoal = :newSavingGoal',
+      ExpressionAttributeValues: {
+        ':newSavingGoal': newSavingGoal,
+      },
+    };
+    await database.update(createSavingGoalParams).promise();
+  }
+
   return {
     searchForUser,
     createUser,
     createSpendingPlan,
     updateExpense,
     destroyExpense,
+    createSavingsGoal,
   };
 };
 
