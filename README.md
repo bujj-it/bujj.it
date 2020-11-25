@@ -107,6 +107,7 @@ Note: In non-containerised depolyments, a process controller (such as systemd) s
 ## API
 
 ### /api/users
+
 Users resource
 
 GET - return user profile, requires current user authentication 

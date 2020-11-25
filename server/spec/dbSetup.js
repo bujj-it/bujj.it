@@ -1,3 +1,4 @@
+const dbWrapper = require('app/db/dbWrapper');
 const { DocumentClient } = require('aws-sdk/clients/dynamodb');
 
 const dynamoDb = new DocumentClient({
@@ -8,6 +9,6 @@ const dynamoDb = new DocumentClient({
   }),
 });
 
-const db = { dynamoDb, users: 'users-table-test' };
+const db = { dynamoDb, users: 'users-table-test', dbWrapper: dbWrapper(dynamoDb, 'users-table-test') };
 
 module.exports = db;

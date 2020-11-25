@@ -3,7 +3,7 @@ require('spec/testEnv');
 const setupTestApp = () => {
   // create app
   const db = require('spec/dbSetup');
-  const app = require('app')(db);
+  const app = require('app')(db.dbWrapper);
   const request = require('supertest')(app);
 
   const { testUser } = require('spec/helpers/usersSpecHelper');

@@ -4,9 +4,6 @@ const config = require('app/config/auth.config.js');
 const { filteredUserAttributesList } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const database = db.dynamoDb;
-  const userTable = db.users;
-
   const verifySessionToken = async (req, res, next) => {
     try {
       const token = req.signedCookies['x-access-token'];
@@ -23,15 +20,7 @@ module.exports = (db) => {
             message: 'Unauthorized!',
           });
         }
-        const userLookUpParams = {
-          AttributesToGet: filteredUserAttributesList,
-          ConsistentRead: true,
-          Key: {
-            userId: decoded.id,
-          },
-          TableName: userTable,
-        };
-        const userLookUp = await database.get(userLookUpParams).promise();
+        const userLookUp = await db.getUserById(decoded.id, filteredUserAttributesList);
         if (userLookUp.Item == null) {
           return res.status(403).send({
             message: 'User not found!',

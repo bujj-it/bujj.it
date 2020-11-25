@@ -7,7 +7,7 @@ const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 // create app
 const db = require('spec/dbSetup');
-const app = require('app')(db);
+const app = require('app')(db.dbWrapper);
 const request = require('supertest')(app);
 
 const testUser = {

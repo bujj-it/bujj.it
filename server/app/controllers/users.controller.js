@@ -6,9 +6,6 @@ const config = require('app/config/auth.config');
 const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const database = db.dynamoDb;
-  const userTable = db.users;
-
   const signup = async (req, res) => {
     try {
       const newUser = {
@@ -17,13 +14,11 @@ module.exports = (db) => {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
       };
-      const createUserParams = {
-        TableName: userTable,
-        Item: newUser,
-      };
-      await database.put(createUserParams).promise();
+
+      await db.createUser(newUser);
+
       const sessionToken = jwt.sign(
-        { id: createUserParams.Item.userId },
+        { id: newUser.userId },
         config.secret,
         {
           expiresIn: config.expiresIn,
