@@ -6,8 +6,6 @@ const config = require('app/config/auth.config');
 const { filterUserAttributes } = require('app/helpers/usersHelper');
 
 module.exports = (db) => {
-  const dbWrapper = db;
-
   const signup = async (req, res) => {
     try {
       const newUser = {
@@ -17,7 +15,7 @@ module.exports = (db) => {
         password: bcrypt.hashSync(req.body.password, 8),
       };
 
-      await dbWrapper.createUser(newUser);
+      await db.createUser(newUser);
 
       const sessionToken = jwt.sign(
         { id: newUser.userId },

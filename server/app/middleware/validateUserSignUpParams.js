@@ -3,17 +3,15 @@ const { body } = require('express-validator');
 const processValidationErrors = require('app/middleware/processValidationErrors');
 
 module.exports = (db) => {
-  const dbWrapper = db;
-
   const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
-      const usersWithUsername = await dbWrapper.getUserByAttribute('username', req.body.username);
+      const usersWithUsername = await db.getUserByAttribute('username', req.body.username);
       if (usersWithUsername.Count > 0) {
         return res.status(400).send({
           message: { username: 'Failed! Username is already in use!' },
         });
       }
-      const usersWithEmail = await dbWrapper.getUserByAttribute('email', req.body.email);
+      const usersWithEmail = await db.getUserByAttribute('email', req.body.email);
       if (usersWithEmail.Count > 0) {
         return res.status(400).send({
           message: { email: 'Failed! Email is already in use!' },

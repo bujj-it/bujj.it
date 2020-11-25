@@ -2,8 +2,6 @@ const debug = require('debug')('express:error:spendingPlanController');
 const uuid = require('uuid');
 
 module.exports = (db) => {
-  const dbWrapper = db;
-
   const create = async (req, res) => {
     try {
       const newExpenses = req.body.expenses;
@@ -17,7 +15,7 @@ module.exports = (db) => {
         expenses: expensesMap,
         savingPercentage: req.body.savingPercentage,
       };
-      await dbWrapper.createSpendingPlan(req.requestedUser.userId, spendingPlan);
+      await db.createSpendingPlan(req.requestedUser.userId, spendingPlan);
 
       res.status(200).send({
         message: 'New Spending Plan created.',
