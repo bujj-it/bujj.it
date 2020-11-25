@@ -1,4 +1,15 @@
 const dbWrapper = (database, userTable) => {
+  // userId in => passed attributes out
+  const getUserById = (userId, attributesToFetch = null) => {
+    const userLookUpParams = {
+      AttributesToGet: attributesToFetch,
+      ConsistentRead: true,
+      Key: { userId },
+      TableName: userTable,
+    };
+    return database.get(userLookUpParams).promise();
+  };
+
   // user in -> [] -> user json out or false if no user found
   const searchForUser = async (user) => {
     const generateUserSearchParams = (attribute, userRecord) => ({
@@ -81,7 +92,7 @@ const dbWrapper = (database, userTable) => {
     const createSavingGoalParams = {
       TableName: userTable,
       Key: {
-        userId: userId,
+        userId,
       },
       UpdateExpression: 'SET spendingPlan.savingGoal = :newSavingGoal',
       ExpressionAttributeValues: {
@@ -89,18 +100,19 @@ const dbWrapper = (database, userTable) => {
       },
     };
     await database.update(createSavingGoalParams).promise();
-  }
+  };
 
   const destroySavingGoal = async (userId) => {
     const destroySavingGoalParams = {
       TableName: userTable,
-      Key: { userId: userId },
+      Key: { userId },
       UpdateExpression: 'REMOVE spendingPlan.savingGoal',
     };
     await database.update(destroySavingGoalParams).promise();
-  }
+  };
 
   return {
+    getUserById,
     searchForUser,
     createUser,
     createSpendingPlan,
