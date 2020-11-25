@@ -65,11 +65,24 @@ const dbWrapper = (database, userTable) => {
     await database.update(updateSpendingPlanParams).promise();
   };
 
+  const destroyExpense = async (userId, expenseId) => {
+    const destroyExpenseParams = {
+      TableName: userTable,
+      Key: { userId },
+      UpdateExpression: 'REMOVE spendingPlan.expenses.#expenseId',
+      ExpressionAttributeNames: {
+        '#expenseId': expenseId,
+      },
+    };
+    await database.update(destroyExpenseParams).promise();
+  };
+
   return {
     searchForUser,
     createUser,
     createSpendingPlan,
     updateExpense,
+    destroyExpense,
   };
 };
 

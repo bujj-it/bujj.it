@@ -3,8 +3,6 @@ const uuid = require('uuid');
 
 module.exports = (db) => {
   const { dbWrapper } = db;
-  const database = db.dynamoDb;
-  const userTable = db.users;
 
   const create = async (req, res) => {
     try {
@@ -24,14 +22,9 @@ module.exports = (db) => {
 
   const update = async (req, res) => {
     try {
-      const expense = req.body
+      const expense = req.body;
       const { expenseId } = req.params;
       await dbWrapper.updateExpense(req.requestedUser.userId, expenseId, expense);
-
-      debug({
-        message: 'Expense updated.',
-        expense: { [expenseId]: expense },
-      })
 
       res.status(200).send({
         message: 'Expense updated.',
@@ -46,17 +39,7 @@ module.exports = (db) => {
   const destroy = async (req, res) => {
     try {
       const { expenseId } = req.params;
-      const createDestroyExpenseParams = {
-        TableName: userTable,
-        Key: { userId: req.requestedUser.userId },
-        UpdateExpression: 'REMOVE #spendingPlan.#expenses.#expenseId',
-        ExpressionAttributeNames: {
-          '#spendingPlan': 'spendingPlan',
-          '#expenses': 'expenses',
-          '#expenseId': expenseId,
-        },
-      };
-      await database.update(createDestroyExpenseParams).promise();
+      await dbWrapper.destroyExpense(req.requestedUser.userId, expenseId);
       res.status(200).send({
         message: 'Expense removed.',
       });
