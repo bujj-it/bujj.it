@@ -65,3 +65,17 @@ $btn-hover-animation: 0.2s;
   font-size: 65px;
   top: globals.$nav-title-offset;
 }
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  right: -5px;
+  top: 100%;
+  width: 100vw;
+  box-sizing: border-box;
+  background: white;
+
+  &.clicked {
+    display: flex;
+  }
+}

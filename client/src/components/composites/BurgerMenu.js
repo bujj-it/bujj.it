@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
-const BurgerMenu = () => {
-  const [clicked, setClicked] = useState(null);
+const BurgerMenu = (props) => {
 
   let clickedClass
-  if (clicked === true) {
+  if (props.clicked === true) {
     clickedClass = 'clicked'
-  } else if (clicked === false) {
+  } else if (props.clicked === false) {
     clickedClass = "reset_animation"
   } else {
     clickedClass = ''
   }
 
   return (
-    <div className={`hamburger_container ${clickedClass}`} onClick={() => setClicked(!clicked)}>
+    <div className={`hamburger_container ${clickedClass}`} onClick={props.burgerMenuClick}>
       <div className="hamburger">
         <div className="hamburger_bar" id="hamburger_crown"></div>
         <div className="hamburger_bar" id="hamburger_patty"></div>

@@ -1,7 +1,7 @@
 import React from "react";
-import BurgerMenu from "./BurgerMenu";
 import NavTitle from "./NavTitle";
 import logo from "../assets/chubby_budgie.jpeg";
+import NavMenu from './composites/NavMenu';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -21,9 +21,7 @@ class NavBar extends React.Component {
             </div>
 
 
-            <div className="navBurgerMenuContainer navItem">
-              <BurgerMenu />
-            </div>
+            <NavMenu />
           </div>
         </section>
       </>

@@ -168,7 +168,6 @@ class App extends Component {
                   </section>
                   
                 </Route>
-                <Route path="/test">Test</Route>
               </div>
             </>
           </Switch>
