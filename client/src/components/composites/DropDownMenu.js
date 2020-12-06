@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import DropDownButton from "../elements/DropDownButton"
 
 const DropDownMenu = (props) => {
 
@@ -6,7 +7,9 @@ const DropDownMenu = (props) => {
 
   return (
     <div className={`nav-dropdown-menu ${clickedClass}`}>
-      test
+      <DropDownButton buttonLink={'/login'} buttonText={'Login'}/>
+      <DropDownButton buttonLink={'/login'} buttonText={'Login'}/>
+      <DropDownButton buttonLink={'/login'} buttonText={'Login'}/>
     </div>
   )
 };

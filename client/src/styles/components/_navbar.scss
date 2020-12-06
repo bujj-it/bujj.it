@@ -74,8 +74,29 @@ $btn-hover-animation: 0.2s;
   width: 100vw;
   box-sizing: border-box;
   background: white;
+  flex-direction: column;
 
   &.clicked {
     display: flex;
+  }
+}
+
+.drop-down-button {
+
+  position: relative;
+  width: 100%;
+
+  a {
+    display: block;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    padding: 8px 0px;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      background: rgb(200,200,200);
+    }
   }
 }
