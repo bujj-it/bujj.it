@@ -1,0 +1,27 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.call-to-action-container {
+  h2 {
+    font-size: 3.2em;
+    text-align: center;
+    margin: 0em;
+
+    @include respond-to(desktop) {
+      font-size: 4.5em;
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-subtitle {
+  font-size: 1.4em;
+  text-align: center;
+  margin-top: 1em;
+  line-height: 1.6em;
+  max-width: 35ch;
+}

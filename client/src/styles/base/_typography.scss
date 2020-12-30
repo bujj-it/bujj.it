@@ -1,0 +1,11 @@
+@use '../base/mixins' as *;
+
+body {
+  font-size: 14px;
+  @include respond-to(tablet) {
+    font-size: 1.1em;
+  }
+  @include respond-to(desktop) {
+    font-size: 1.2em;
+  }
+}

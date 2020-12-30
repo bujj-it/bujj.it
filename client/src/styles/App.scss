@@ -34,6 +34,7 @@ Sass Styles
 // Application Components
 @use 'components/buttons';
 @use 'components/navbar';
-@use 'components/homepage-content'
+@use 'components/homepage-content';
+@use 'components/call-to-action';
 
 // Site Wide Vendor

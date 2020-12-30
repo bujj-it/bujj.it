@@ -2,5 +2,5 @@
 @use '../base/mixins' as *;
 
 .homepage-content {
-  top: globals.$nav-title-offset + 40;
+  margin-top: globals.$nav-title-offset + 40;
 }
