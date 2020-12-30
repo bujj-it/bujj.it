@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 
 import NavBar from "./components/section/NavBar";
 import Homepage from "./components/section/Homepage";
-import Signup from './components/section/Signup';
 import Login from './components/section/Login';
 
 import "./styles/App.scss";
@@ -14,13 +13,15 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="header">
-            <NavBar/>
+            <NavBar />
           </header>
           <main className='page'>
             <Switch>
-              <Route path="/" component={Homepage}/>
-              <Route path='/signup' component={Signup}/>
-              <Route path='/login' component={Login}/>
+              <Route exact path="/" component={Homepage} />
+              <Route path='/login' component={Login} />
+              <Route path='/'>
+                <Redirect to='/' />
+              </Route>
             </Switch>
           </main>
         </div>
