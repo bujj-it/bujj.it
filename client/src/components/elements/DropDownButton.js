@@ -5,7 +5,7 @@ const DropDownButton = (props) => {
 
   return (
     <div className='drop-down-button'>
-      <Link to={props.buttonLink}>{props.buttonText}</Link>
+      <Link to={props.buttonLink} onClick={props.burgerMenuClick}>{props.buttonText}</Link>
     </div>
   )
 };

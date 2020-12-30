@@ -11,8 +11,8 @@ const NavMenu = () => {
 
   return (
     <div className="navBurgerMenuContainer navItem">
-      <BurgerMenu burgerMenuClick={burgerMenuClick} clicked={clicked}/>
-      <DropDownMenu clicked={clicked}/>
+      <BurgerMenu burgerMenuClick={burgerMenuClick} clicked={clicked} />
+      <DropDownMenu burgerMenuClick={burgerMenuClick} clicked={clicked} />
     </div>
   )
 };
