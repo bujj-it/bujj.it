@@ -73,7 +73,7 @@ $btn-hover-animation: 0.2s;
   top: 100%;
   width: auto;
   box-sizing: border-box;
-  background: white;
+  background: globals.$background-color;
   flex-direction: column;
 
   &.clicked {
