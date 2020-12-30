@@ -71,7 +71,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "echo 'please add a testing suite'",
-    "start_dev": "node scripts/start.js"
+    "start-dev": "node scripts/start.js"
   },
   "eslintConfig": {
     "extends": "react-app"
