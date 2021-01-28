@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { NEXT_SECTION } from '../../constants/actionTypes'
 
 const mapDispatchToProps = dispatch => ({
-  updateSection: nextSection => {
-    dispatch({ type: NEXT_SECTION, payload: nextSection })
+  updateSection: currentSection => {
+    dispatch({ type: NEXT_SECTION, payload: currentSection })
   }
 })
 
 const ActionButton = props => {
   const onButtonClick = () => {
-    props.updateSection(props.nextSection)
+    props.updateSection(props.currentSection)
   }
 
   return (

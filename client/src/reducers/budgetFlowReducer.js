@@ -1,11 +1,12 @@
 import { NEXT_SECTION } from '../constants/actionTypes.js';
-
+import nextBudgetFlowSectionHelper from '../stateHelpers/nextBudgetFlowSectionHelper' 
 import { budgetFlowSections } from '../constants/budgetFlowSections'
 
 export default (state = budgetFlowSections[0], action) => {
   switch (action.type) {
     case NEXT_SECTION:
-      return action.payload
+      const nextBudgetFlowSection = nextBudgetFlowSectionHelper(action.payload)
+      return nextBudgetFlowSection
     default:
       return state
   }
