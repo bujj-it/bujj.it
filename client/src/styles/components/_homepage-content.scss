@@ -4,3 +4,16 @@
 .homepage-content {
   margin-top: globals.$nav-title-offset + 40;
 }
+
+.section-container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - #{globals.$nav-bar-height});
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+}
