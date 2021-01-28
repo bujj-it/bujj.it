@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import ActionButton from '../elements/ActionButton';
 import scrollToSectionEffect from '../effects/scrollToSectionEffect'
-import {isCurrentSectionSelector} from '../../selectors/budgetFlowSelectors'
-const currentBudgetFlowSection = 'SAVINGS_GOAL'
+import { isCurrentSectionSelector } from '../../selectors/budgetFlowSelectors'
+const currentBudgetFlowSection = 'INCOME'
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
   }
 }
 
-const SavingsGoal = props => {
+const Income = props => {
 
   const sectionRef = useRef(null);
 
@@ -21,8 +21,8 @@ const SavingsGoal = props => {
   const visible = props.isCurrentSection ? 'visible' : ''
 
   return (
-    <section ref={sectionRef} className={`section-container savings-goal-container ${visible}`}>
-      ENTER SAVINGS GOAL
+    <section ref={sectionRef} className={`section-container income-container ${visible}`}>
+      ENTER INCOME GOAL
       <div className='button-container'>
         <ActionButton text='Add Income' currentSection={currentBudgetFlowSection}/>
       </div>
@@ -30,4 +30,4 @@ const SavingsGoal = props => {
   )
 }
 
-export default connect(mapStateToProps)(SavingsGoal);
+export default connect(mapStateToProps)(Income);
