@@ -13,7 +13,7 @@
   text-align: center;
   align-items: flex-start;
   cursor: pointer;
-  background-color: rgb(255,255,255);
+  background-color: rgb(253, 253, 253);
   box-sizing: border-box;
   margin: 0em;
   font: inherit;
@@ -22,6 +22,7 @@
   border-radius: 11px;
   font-size: 1.3em;
   font-weight: 600;
+  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52, inset -15px -15px 15px rgb(255 255 255 / 77%), inset 8px 8px 11px 0px #0d27501c;
 
   &:active, &:focus {
     outline: none;
