@@ -25,3 +25,49 @@
   line-height: 1.6em;
   max-width: 35ch;
 }
+
+.cta-button-container {
+  margin-top: 2em;
+}
+
+.cta-pitches {
+  margin-top: 3em;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @include respond-to(tablet) {
+    flex-wrap: nowrap;
+  }
+}
+
+.cta-pitch {
+  flex: 1 1 100%;
+
+  @include respond-to(tablet) {
+    max-width: 33.3%;
+  }
+}
+
+.cta-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.cta-copy {
+  text-align: center;
+  font-size: 1.4em;
+}

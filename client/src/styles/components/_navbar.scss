@@ -97,7 +97,7 @@ $btn-hover-animation: 0.2s;
     padding: 0.25em 1em;
 
     &:hover {
-      background: rgb(200,200,200);
+      background: globals.$button-hover-color;
     }
   }
 }

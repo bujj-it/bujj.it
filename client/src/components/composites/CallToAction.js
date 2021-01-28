@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/chubby_budgie.jpeg";
+import ActionButton from '../elements/ActionButton'
 
 const CallToAction = (props) => {
   return (
@@ -11,14 +12,14 @@ const CallToAction = (props) => {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </div>
 
-      <div className='cta-button'>
-
+      <div className='cta-button-container main'>
+        <ActionButton text='GET STARTED' />
       </div>
 
       <div className="cta-pitches">
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} className="cta-icon-image" />
+            <img src={logo} />
           </div>
           <div className="cta-copy">
             Benefit 1!
@@ -26,7 +27,7 @@ const CallToAction = (props) => {
         </div>
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} className="cta-icon-image" />
+            <img src={logo} />
           </div>
           <div className="cta-copy">
             Benefit 2!
@@ -34,7 +35,7 @@ const CallToAction = (props) => {
         </div>
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} className="cta-icon-image" />
+            <img src={logo} />
           </div>
           <div className="cta-copy">
             Benefit 3!

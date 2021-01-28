@@ -1,0 +1,33 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.action-button {
+  text-rendering: auto;
+  color: black;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: block;
+  text-align: center;
+  align-items: flex-start;
+  cursor: pointer;
+  background-color: rgb(255,255,255);
+  box-sizing: border-box;
+  margin: 0em;
+  font: inherit;
+  padding: 1em 1.5em;
+  border: none;
+  border-radius: 11px;
+  font-size: 1.3em;
+  font-weight: 600;
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: globals.$button-hover-color;
+  }
+}

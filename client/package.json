@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "/",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "echo 'please add a testing suite'",
+    "start:dev": "node scripts/start.js"
+  },
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
@@ -67,11 +72,6 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4"
-  },
-  "scripts": {
-    "build": "node scripts/build.js",
-    "test": "echo 'please add a testing suite'",
-    "start_dev": "node scripts/start.js"
   },
   "eslintConfig": {
     "extends": "react-app"
