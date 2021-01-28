@@ -1,6 +1,10 @@
 import React from "react";
 import logo from "../../assets/chubby_budgie.jpeg";
-import ActionButton from '../elements/ActionButton'
+import ActionButton from '../elements/ActionButton';
+import nextBudgetFlowSectionHelper from '../../stateHelpers/nextBudgetFlowSectionHelper' 
+
+const currentBudgetFlowSection = 'CTA'
+const nextBudgetFlowSection = nextBudgetFlowSectionHelper(currentBudgetFlowSection)
 
 const CallToAction = (props) => {
   return (
@@ -13,7 +17,7 @@ const CallToAction = (props) => {
       </div>
 
       <div className='cta-button-container main'>
-        <ActionButton text='GET STARTED' />
+        <ActionButton text='GET STARTED' nextSection={nextBudgetFlowSection}/>
       </div>
 
       <div className="cta-pitches">
@@ -44,7 +48,7 @@ const CallToAction = (props) => {
       </div>
 
       <div className='cta-button-container second'>
-        <ActionButton text='GET STARTED' />
+        <ActionButton text='GET STARTED' nextSection={nextBudgetFlowSection}/>
       </div>
     </section>
   );
