@@ -20,4 +20,4 @@ const DropDownMenu = props => {
   )
 };
 
-export default connect(mapStateToProps)(DropDownMenu);;
+export default connect(mapStateToProps)(DropDownMenu);

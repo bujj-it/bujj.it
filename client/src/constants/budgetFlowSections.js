@@ -1,6 +1,6 @@
 export const budgetFlowSections = [
   'CTA',
-  'SAVING_GOAL',
+  'SAVINGS_GOAL',
   'INCOME',
   'EXPENSES',
   'SAVINGS_PERCENTAGE',
