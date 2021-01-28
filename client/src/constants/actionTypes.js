@@ -1,0 +1,2 @@
+export const TOGGLE_NAV_MENU = 'TOGGLE_NAV_MENU';
+export const NEXT_SECTION = 'NEXT_SECTION';

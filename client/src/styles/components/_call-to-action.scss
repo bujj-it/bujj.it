@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 2em;
 }
 
 .cta-subtitle {
@@ -28,6 +29,10 @@
 
 .cta-button-container {
   margin-top: 2em;
+
+  &.second {
+    margin-top: 4em;
+  }
 }
 
 .cta-pitches {
@@ -44,10 +49,14 @@
 }
 
 .cta-pitch {
+  position: relative;
   flex: 1 1 100%;
+  box-sizing: border-box;
+  padding: 2em 0em 0em 0em;
 
   @include respond-to(tablet) {
     max-width: 33.3%;
+    padding: 0 1em;
   }
 }
 
@@ -70,4 +79,6 @@
 .cta-copy {
   text-align: center;
   font-size: 1.4em;
+  width: 100%;
+  padding: 0px 20px;
 }

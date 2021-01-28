@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import BurgerMenu from "./BurgerMenu";
 import DropDownMenu from "./DropDownMenu";
 
 const NavMenu = () => {
-  const [clicked, setClicked] = useState(null);
-
-  const burgerMenuClick = () => {
-    setClicked(!clicked)
-  }
-
   return (
     <div className="navBurgerMenuContainer navItem">
-      <BurgerMenu burgerMenuClick={burgerMenuClick} clicked={clicked} />
-      <DropDownMenu burgerMenuClick={burgerMenuClick} clicked={clicked} />
+      <BurgerMenu />
+      <DropDownMenu />
     </div>
   )
 };

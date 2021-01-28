@@ -1,9 +1,16 @@
-import React from "react";
+import React from "react"
+import { connect } from 'react-redux';
 import DropDownButton from "../elements/DropDownButton"
 
-const DropDownMenu = (props) => {
+const mapStateToProps = state => {
+  return {
+    navMenu: state.navMenu
+  };
+}
 
-  const clickedClass = !!props.clicked ? 'clicked' : ''
+const DropDownMenu = props => {
+
+  const clickedClass = !!props.navMenu ? 'clicked' : ''
 
   return (
     <div className={`nav-dropdown-menu ${clickedClass}`}>
@@ -13,4 +20,4 @@ const DropDownMenu = (props) => {
   )
 };
 
-export default DropDownMenu;
+export default connect(mapStateToProps)(DropDownMenu);;

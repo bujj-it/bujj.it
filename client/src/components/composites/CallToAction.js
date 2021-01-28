@@ -19,32 +19,32 @@ const CallToAction = (props) => {
       <div className="cta-pitches">
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} />
+            <img src={logo} alt='call to action icon 1' />
           </div>
           <div className="cta-copy">
-            Benefit 1!
+            Benefit 1! Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </div>
         </div>
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} />
+            <img src={logo} alt='call to action icon 2' />
           </div>
           <div className="cta-copy">
-            Benefit 2!
+            Benefit 2! Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </div>
         </div>
         <div className='cta-pitch'>
           <div className="cta-icon">
-            <img src={logo} />
+            <img src={logo} alt='call to action icon 3'/>
           </div>
           <div className="cta-copy">
-            Benefit 3!
+            Benefit 3! Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </div>
         </div>
       </div>
 
-      <div className='cta-button'>
-
+      <div className='cta-button-container second'>
+        <ActionButton text='GET STARTED' />
       </div>
     </section>
   );
