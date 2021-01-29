@@ -25,7 +25,7 @@ const Expenses = props => {
       <div className='section-pane'>
         Choose Saving Percentage
         <div className='button-container'>
-          <ActionButton text='Choose Savings Rate' currentSection={currentBudgetFlowSection}/>
+          <ActionButton text='Complete Your Budget' currentSection={currentBudgetFlowSection}/>
         </div>
       </div>
     </section>

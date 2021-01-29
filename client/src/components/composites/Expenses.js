@@ -60,7 +60,7 @@ const Expenses = props => {
 
         <div className='button-container'>
           <ActionButton 
-            text='Choose Savings Rate' 
+            text='Next Section (nearly done!)' 
             currentSection={currentBudgetFlowSection}
             disabled={!props.areExpensesFilledIn}/>
         </div>
