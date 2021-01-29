@@ -14,7 +14,7 @@ const mapStateToProps = state => {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     savingGoalName: state.savingGoal.name,
     savingGoalValue: state.savingGoal.value ? state.savingGoal.value : '',
-    isInputComplete: isInputCompleteSelector('savingGoal', state)
+    isInputComplete: isInputCompleteSelector(state, 'savingGoal')
   }
 }
 

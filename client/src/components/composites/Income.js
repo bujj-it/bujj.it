@@ -13,7 +13,7 @@ const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     income: state.income ? state.income : '',
-    isInputComplete: isInputCompleteSelector('savingGoal', state)
+    isInputComplete: isInputCompleteSelector(state, 'income')
   }
 }
 
