@@ -1,0 +1,84 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.input-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.5em;
+  width: 80%;
+
+  @include respond-to(tablet) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .label {
+    position: relative;
+    width: 100%;
+
+    @include respond-to(tablet) {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  }
+
+
+  .name {
+    position: relative;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 15px;
+    padding: 0.3em 0.3em;
+    border-radius: 5px;
+
+    @include respond-to(tablet) {
+      max-width: 70%;
+      border-radius: 5px 0px 0px 5px;
+      border-right: solid 1px rgb(185, 185, 185);
+      margin-top: 10px;
+    }
+
+    input {
+      border: none;
+      overflow-x: scroll;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .value {
+    position: relative;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
+    padding: 0.3em 0.3em;
+    border-radius: 5px;
+    display: flex;
+
+    @include respond-to(tablet) {
+      max-width: 30%;
+      border-radius: 0 5px 5px 0;
+    }
+
+
+    .denominator {
+      padding-right: 5px;
+    }
+
+    input {
+      width: auto;
+      overflow-x: scroll;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

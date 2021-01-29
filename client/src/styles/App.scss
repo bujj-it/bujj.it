@@ -14,8 +14,10 @@ Sass Styles
 |   |   ┴
 |   |
 |   |– components/
-|   |   |– _buttons.scss      # Buttons
-|   |   |– _navbar.scss       # Global navbar
+|   |   |– _buttons.scss          # Buttons
+|   |   |– _navbar.scss           # Global navbar
+|   |   |– _call-to-action.scss   # CTA section styles
+|   |   |– _inputs.scss           # input boxes
 |   |   ┴
 |   |
 |   |– vendor/
@@ -36,5 +38,6 @@ Sass Styles
 @use 'components/navbar';
 @use 'components/homepage-content';
 @use 'components/call-to-action';
+@use 'components/inputs';
 
 // Site Wide Vendor
