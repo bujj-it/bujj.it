@@ -21,10 +21,12 @@ const Income = props => {
   const visible = props.isCurrentSection ? 'visible' : ''
 
   return (
-    <section ref={sectionRef} className={`section-container income-container ${visible}`}>
-      ENTER INCOME GOAL
-      <div className='button-container'>
-        <ActionButton text='Add Expenses' currentSection={currentBudgetFlowSection}/>
+    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
+      <div className='section-pane'>
+        ENTER INCOME GOAL
+        <div className='button-container'>
+          <ActionButton text='Add Expenses' currentSection={currentBudgetFlowSection}/>
+        </div>
       </div>
     </section>
   )

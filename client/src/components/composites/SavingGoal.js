@@ -38,7 +38,8 @@ const SavingGoal = props => {
   const visible = props.isCurrentSection ? 'visible' : ''
 
   return (
-    <section ref={sectionRef} className={`section-container saving-goal-container ${visible}`}>
+    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
+      <div className='section-pane'>
 
       <h2> ENTER SAVING GOAL </h2>
 
@@ -72,6 +73,7 @@ const SavingGoal = props => {
             disabled={!props.isInputComplete}/>
       </div>
 
+      </div>
     </section>
   )
 }

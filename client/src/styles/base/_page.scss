@@ -19,11 +19,6 @@ code {
     monospace;
 }
 
-.page {
-  position: relative;
-  top: globals.$nav-bar-height;
-}
-
 .left {
   float: left;
 }
@@ -32,11 +27,13 @@ code {
   float: right;
 }
 
-
 .page {
+  position: relative;
+  margin-top: globals.$nav-bar-height;
   width: 100%;
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .reading-pane {
@@ -45,7 +42,7 @@ code {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0px 5px;
+
   @include respond-to(desktop) {
     max-width: globals.$breakpoint-desktop;
   }

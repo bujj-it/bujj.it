@@ -21,8 +21,10 @@ const Dashboard = props => {
   const visible = props.isCurrentSection ? 'visible' : ''
 
   return (
-    <section ref={sectionRef} className={`section-container dashboard-container ${visible}`}>
-      Welcome to your dashboard
+    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
+      <div className='section-pane'>
+        Welcome to your dashboard
+      </div>
     </section>
   )
 }

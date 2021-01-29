@@ -21,10 +21,12 @@ const Expenses = props => {
   const visible = props.isCurrentSection ? 'visible' : ''
 
   return (
-    <section ref={sectionRef} className={`section-container expenses-container ${visible}`}>
-      ADD EXPENSES
-      <div className='button-container'>
-        <ActionButton text='Choose Savings Rate' currentSection={currentBudgetFlowSection}/>
+    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
+      <div className='section-pane'>
+        ADD EXPENSES
+        <div className='button-container'>
+          <ActionButton text='Choose Savings Rate' currentSection={currentBudgetFlowSection}/>
+        </div>
       </div>
     </section>
   )

@@ -13,26 +13,29 @@
   text-align: center;
   align-items: flex-start;
   cursor: pointer;
-  background-color: rgb(253, 253, 253);
   box-sizing: border-box;
   margin: 0em;
   font: inherit;
   padding: 1em 1.5em;
   border: none;
-  border-radius: 11px;
   font-size: 1.3em;
   font-weight: 600;
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52, inset -15px -15px 15px rgb(255 255 255 / 77%), inset 8px 8px 11px 0px #0d27501c;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+
+  transition: opacity 0.25s ease;
 
   &:active, &:focus {
     outline: none;
   }
 
   &:hover {
-    background-color: globals.$button-hover-color;
+    background: rgba(255, 255, 255, 1);
+    color: #000
   }
-
-  transition: opacity 0.2s ease;
 
   &:disabled {
     opacity: 0;

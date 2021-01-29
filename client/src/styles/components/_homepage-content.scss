@@ -5,18 +5,50 @@
   margin-top: globals.$nav-title-offset + 40;
 }
 
+$container-padding: 6px;
+
 .section-container {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - #{globals.$nav-bar-height});
-  display: none;
+  height: fit-content;
+  display: block;
+  padding: $container-padding;
+  box-sizing: border-box;
+  margin-top: 20px;
+
+  &.secondary {
+    display: none;
+  }
+
+  &.visible {
+    display: block !important;
+  }
+
+  @include respond-to(tablet) {
+    padding: $container-padding + 10px;
+  }
+}
+
+.section-pane {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - #{globals.$nav-bar-height + ($container-padding * 2)});
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
+  padding: 5px;
+  box-sizing: border-box;
 
-  &.visible {
-    display: flex;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+
+  @include respond-to(tablet) {
+    min-height: calc(100vh - #{globals.$nav-bar-height + (($container-padding + 10px) * 2)});
   }
 }
 
