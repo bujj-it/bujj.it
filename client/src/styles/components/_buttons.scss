@@ -35,7 +35,7 @@
   -webkit-backdrop-filter: blur( 4px );
   border-radius: 10px;
 
-  transition: opacity 0.25s ease;
+  transition: opacity 0.1s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 1);
@@ -43,7 +43,12 @@
   }
 
   &:disabled {
-    opacity: 0;
+    opacity: 0.3;
+    cursor: default;
+    &:hover {
+      background:  rgba(255, 255, 255, 0.8);
+      color: inherit;
+    }
   }
 }
 

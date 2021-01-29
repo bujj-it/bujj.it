@@ -11,6 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding-bottom: 50px;
+  align-content: flex-start;
 
   background: rgba(255, 255, 255, 0.34);
   box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
@@ -24,6 +25,13 @@
   height: fit-content;
   flex-wrap: wrap;
   width: 100%;
+  background-color: #fff;
+  
+
+  @include respond-to(tablet) {
+    flex-wrap: nowrap;
+    border-radius: 5px;
+  }
 
   + .expense {
     margin-top: 0.4em;
@@ -31,13 +39,21 @@
 
   .name {
     margin-top: unset;
-    border-radius: 5px 5px 0 0;
     border-bottom: solid rgb(185, 185, 185) 1px;
+
+    @include respond-to(tablet) {
+      flex: 1 1 70%;
+      border-bottom: none;
+    }
   }
 
   .value {
     margin-top: unset;
     border-radius: 0 0 5px 5px;
+
+    @include respond-to(tablet) {
+      flex: 1 1 30%;
+    }
   }
 
   .expense-remove {
@@ -49,13 +65,18 @@
     box-sizing: border-box;
     margin: 0em;
     font: inherit;
-    padding: 0 3px;
+    padding: 3px;
     border-width: 0;
     cursor: pointer;
 
     &:hover {
       color: #c73030;
-      font-weight: 600;
+    }
+
+    @include respond-to(tablet) {
+      position: relative;
+      flex: 0 1 auto;
+      padding: 3px 10px;
     }
   }
 }

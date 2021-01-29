@@ -33,7 +33,6 @@ const Expense = props => {
 
   return (
     <div className='input-container expense'>
-      <label className='label expense-name-label'></label>
       <div className='name expense-name'>
         <input type="text" 
             name="expense-name" 
