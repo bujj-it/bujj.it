@@ -10,7 +10,7 @@ export default (state = defaultState, action) => {
         name: action.payload
       };
     case UPDATE_SAVING_GOAL_VALUE:
-      let newValue = action.payload.length ? parseInt(action.payload) : null
+      let newValue = action.payload.length ? parseFloat(action.payload, 10) * 100 : null
       return {
         ...state,
         value: newValue

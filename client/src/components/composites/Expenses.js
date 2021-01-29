@@ -2,11 +2,16 @@ import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/elements/ActionButton';
-import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
-import { isCurrentSectionSelector } from 'selectors/budgetFlowSelectors'
-import {expensesSelector, areExpensesFilledInSelector} from 'selectors/expensesSelectors'
-import { ADD_EXPENSE } from 'constants/actionTypes.js';
 import Expense from 'components/elements/Expense';
+import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
+import { ADD_EXPENSE } from 'constants/actionTypes.js';
+import { isCurrentSectionSelector } from 'selectors/budgetFlowSelectors'
+import {
+  expensesSelector,
+  areExpensesFilledInSelector,
+  totalExpensesPerMonthSelector
+} from 'selectors/expensesSelectors'
+
 
 const currentBudgetFlowSection = 'EXPENSES'
 
@@ -14,7 +19,8 @@ const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     expenses: expensesSelector(state),
-    areExpensesFilledIn: areExpensesFilledInSelector(state)
+    areExpensesFilledIn: areExpensesFilledInSelector(state),
+    expenseTotal: totalExpensesPerMonthSelector(state)
   }
 }
 
@@ -34,7 +40,6 @@ const Expenses = props => {
 
   const visible = props.isCurrentSection ? 'visible' : ''
   const expenseComponents = props.expenses.map(expense => <Expense expense={expense} key={expense.id}/>)
-  const expenseTotal=  props.expenses.reduce((a, expense) => a + (expense.value ? parseInt(expense.value, 10) : 0), 0)
 
   return (
     
@@ -52,7 +57,7 @@ const Expenses = props => {
           </button>
 
           <div className='expenses-total'>
-            Total: {expenseTotal}
+            Total: {props.expenseTotal}
           </div>
         </div>
 

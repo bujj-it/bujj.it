@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onExpenseValueChange: event => {
       dispatch({ 
-        type: UPDATE_EXPENSE, 
+        type: UPDATE_EXPENSE,
         payload: {
           ...ownProps.expense,
           value: event.target.value

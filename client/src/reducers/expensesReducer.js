@@ -22,7 +22,7 @@ export default (state = defaultState, action) => {
         ...state,
         [action.payload.id]: {
           name: action.payload.name,
-          value: action.payload.value,
+          value: parseFloat(action.payload.value, 10) * 100,
         }
       };
     default:

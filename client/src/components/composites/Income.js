@@ -12,7 +12,7 @@ const currentBudgetFlowSection = 'INCOME'
 const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
-    income: state.income ? state.income : '',
+    income: state.income ? state.income / 100 : '',
     isInputComplete: isInputCompleteSelector(state, 'income')
   }
 }
@@ -56,7 +56,7 @@ const Income = props => {
 
         <div className='button-container'>
           <ActionButton 
-            text='Add Expenses' 
+            text='Next Section' 
             currentSection={currentBudgetFlowSection}
             disabled={!props.isInputComplete}/>
         </div>

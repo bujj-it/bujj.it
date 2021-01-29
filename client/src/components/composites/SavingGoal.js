@@ -13,7 +13,7 @@ const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     savingGoalName: state.savingGoal.name,
-    savingGoalValue: state.savingGoal.value ? state.savingGoal.value : '',
+    savingGoalValue: state.savingGoal.value ? state.savingGoal.value / 100 : '',
     isInputComplete: isInputCompleteSelector(state, 'savingGoal')
   }
 }

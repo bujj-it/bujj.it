@@ -1,9 +1,9 @@
 import { NEXT_SECTION } from '../constants/actionTypes.js';
-import nextBudgetFlowSectionHelper from '../stateHelpers/nextBudgetFlowSectionHelper' 
+import nextBudgetFlowSectionHelper from '../helpers/nextBudgetFlowSectionHelper' 
 import { budgetFlowSections } from '../constants/budgetFlowSections'
 
 // export default (state = budgetFlowSections[0], action) => {
-export default (state = 'SAVING_PERCENTAGE', action) => {
+export default (state = 'EXPENSES', action) => {
   switch (action.type) {
     case NEXT_SECTION:
       const nextBudgetFlowSection = nextBudgetFlowSectionHelper(action.payload)
