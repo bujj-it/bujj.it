@@ -20,10 +20,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSavingGoalNameChange: (event) => {
+    onSavingGoalNameChange: event => {
       dispatch({ type: UPDATE_SAVING_GOAL_NAME, payload: event.target.value })
     },
-    onSavingGoalValueChange: (event) => {
+    onSavingGoalValueChange: event => {
       dispatch({ type: UPDATE_SAVING_GOAL_VALUE, payload: event.target.value })
     }
   }

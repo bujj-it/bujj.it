@@ -1,6 +1,6 @@
 export const isInputCompleteSelector = (inputField, state) => {
   const currentInputState = state[inputField]
-  for (const [key, value] of Object.entries(currentInputState)) {
+  for (const value of Object.values(currentInputState)) {
     if (!value) {
       return false
     }

@@ -4,12 +4,25 @@ import { connect } from 'react-redux';
 import ActionButton from '../elements/ActionButton';
 import scrollToSectionEffect from '../effects/scrollToSectionEffect'
 import { isCurrentSectionSelector } from '../../selectors/budgetFlowSelectors'
+import {isInputCompleteSelector} from 'selectors/inputSelectors'
+import {UPDATE_INCOME} from '../../constants/actionTypes'
+
 const currentBudgetFlowSection = 'INCOME'
 
 const mapStateToProps = state => {
   return {
-    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection)
+    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
+    income: state.income ? state.income : '',
+    isInputComplete: isInputCompleteSelector('savingGoal', state)
   }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIncomeChange: event => {
+      dispatch({type: UPDATE_INCOME, payload: event.target.value})
+    }
+  }  
 }
 
 const Income = props => {
@@ -23,13 +36,33 @@ const Income = props => {
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
       <div className='section-pane'>
-        ENTER INCOME GOAL
+
+        <h2> ENTER YOUR INCOME </h2>
+
+        <div className='input-container saving-goal'>
+          <label className='label saving-goal-name-label'>Something To Aim For</label>
+          <div className='value saving-goal-value'>
+            <span className='denominator'>£</span>
+            <input type="number" 
+                name="saving-goal-value" 
+                min="0" 
+                step="0.01" 
+                placeholder='1000' 
+                required 
+                value={props.income} 
+                onChange={props.onIncomeChange}/>
+          </div>
+        </div>
+
         <div className='button-container'>
-          <ActionButton text='Add Expenses' currentSection={currentBudgetFlowSection}/>
+          <ActionButton 
+            text='Add Expenses' 
+            currentSection={currentBudgetFlowSection}
+            disabled={!props.isInputComplete}/>
         </div>
       </div>
     </section>
   )
 }
 
-export default connect(mapStateToProps)(Income);
+export default connect(mapStateToProps, mapDispatchToProps)(Income);
