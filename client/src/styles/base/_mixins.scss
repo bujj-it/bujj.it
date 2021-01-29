@@ -24,3 +24,23 @@ $breakpoints: (
     max-width: 20px;
   }
 */
+
+
+@mixin expense-action-button {
+  position: absolute;
+  bottom: 0;
+  padding: 0.6em 1em;
+  margin-top: 10px;
+  font-weight: 300;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  transition: all 0.25s ease;
+  width: calc(50% - 0.35em);
+
+  &:disabled {
+    opacity: 0.5;
+    color: rgb(150, 150, 150);
+    cursor: default;
+  }
+}

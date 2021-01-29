@@ -1,0 +1,67 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.expenses-container {
+  position: relative;
+  width: 90%;
+  min-height: 30vh;
+  padding: 7px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 50px;
+
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 7px;
+}
+
+.expense {
+  position: relative;
+  height: fit-content;
+  flex-wrap: wrap;
+  width: 100%;
+
+  + .expense {
+    margin-top: 0.4em;
+  }
+
+  .name {
+    margin-top: unset;
+    border-radius: 5px 5px 0 0;
+    border-bottom: solid rgb(185, 185, 185) 1px;
+  }
+
+  .value {
+    margin-top: unset;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .expense-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: inherit;
+    background-color: inherit;
+    box-sizing: border-box;
+    margin: 0em;
+    font: inherit;
+    padding: 0 3px;
+    border-width: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: #c73030;
+      font-weight: 600;
+    }
+  }
+}
+
+.expenses-total {
+  @include expense-action-button;
+  left: 0;
+  border-radius: 0 7px 0 7px;
+}

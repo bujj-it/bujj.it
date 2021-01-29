@@ -60,6 +60,7 @@
     padding: 0.3em 0.3em;
     border-radius: 5px;
     display: flex;
+    align-items: center;
 
     @include respond-to(tablet) {
       max-width: 30%;

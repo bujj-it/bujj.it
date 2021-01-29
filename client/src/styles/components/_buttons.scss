@@ -1,7 +1,7 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
 
-.action-button {
+@mixin standard-button {
   text-rendering: auto;
   color: black;
   letter-spacing: normal;
@@ -16,8 +16,17 @@
   box-sizing: border-box;
   margin: 0em;
   font: inherit;
+  border-style: none;
+
+  &:active, &:focus {
+    outline: none;
+  }
+}
+
+.action-button {
+  @include standard-button;
   padding: 1em 1.5em;
-  border: none;
+  
   font-size: 1.3em;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.8);
@@ -28,10 +37,6 @@
 
   transition: opacity 0.25s ease;
 
-  &:active, &:focus {
-    outline: none;
-  }
-
   &:hover {
     background: rgba(255, 255, 255, 1);
     color: #000
@@ -40,4 +45,12 @@
   &:disabled {
     opacity: 0;
   }
+}
+
+.expense-add-button {
+  @include standard-button;
+  @include expense-action-button;
+
+  right: 0;
+  border-radius: 7px 0 7px 0;
 }

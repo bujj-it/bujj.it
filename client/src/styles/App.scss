@@ -18,6 +18,7 @@ Sass Styles
 |   |   |– _navbar.scss           # Global navbar
 |   |   |– _call-to-action.scss   # CTA section styles
 |   |   |– _inputs.scss           # input boxes
+|   |   |– _expenses.scss         # expenses boxes
 |   |   ┴
 |   |
 |   |– vendor/
@@ -39,5 +40,6 @@ Sass Styles
 @use 'components/homepage-content';
 @use 'components/call-to-action';
 @use 'components/inputs';
+@use 'components/expenses';
 
 // Site Wide Vendor
