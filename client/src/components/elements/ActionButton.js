@@ -14,7 +14,9 @@ const ActionButton = props => {
   }
 
   return (
-    <button className='action-button' onClick={onButtonClick}>
+    <button className='action-button' 
+        onClick={onButtonClick}
+        disabled={props.disabled}>
       {props.text}
     </button>
   )

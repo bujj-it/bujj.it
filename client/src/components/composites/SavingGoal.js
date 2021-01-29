@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import ActionButton from '../elements/ActionButton';
 import scrollToSectionEffect from '../effects/scrollToSectionEffect'
 import {isCurrentSectionSelector} from '../../selectors/budgetFlowSelectors'
+import {isInputCompleteSelector} from '../../selectors/inputSelectors'
 import { UPDATE_SAVING_GOAL_NAME, UPDATE_SAVING_GOAL_VALUE } from '../../constants/actionTypes.js';
-
-
 
 const currentBudgetFlowSection = 'SAVING_GOAL'
 
@@ -14,7 +13,8 @@ const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     savingGoalName: state.savingGoal.name,
-    savingGoalValue: state.savingGoal.value ? state.savingGoal.value : ''
+    savingGoalValue: state.savingGoal.value ? state.savingGoal.value : '',
+    isInputComplete: isInputCompleteSelector('savingGoal', state)
   }
 }
 
@@ -66,7 +66,10 @@ const SavingGoal = props => {
       </div>
 
       <div className='button-container'>
-        <ActionButton text='Add Saving Goal' currentSection={currentBudgetFlowSection}/>
+        <ActionButton 
+            text='Add Saving Goal'
+            currentSection={currentBudgetFlowSection}
+            disabled={!props.isInputComplete}/>
       </div>
 
     </section>
