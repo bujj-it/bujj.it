@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Signup() {
+export const Login = () => {
   return (
     <section className="floating-form">
 

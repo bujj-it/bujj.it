@@ -5,7 +5,7 @@ import { store } from './store/store';
 
 import NavBar from "./components/section/NavBar";
 import Homepage from "./components/section/Homepage";
-import Login from './components/section/Login';
+import {Login} from './components/section/Login';
 
 import "./styles/App.scss";
 

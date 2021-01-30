@@ -1,66 +1,70 @@
-import React from "react";
+import React, {useEffect, useState, useRef} from "react";
 
-class NavTitleDynamic extends React.Component {
-  constructor(props) {
-    super(props)
-    this.divRef = React.createRef()
-    this.state = {
-      baseTopOffset: null,
-      currentTopOffset: null,
-      baseFontSize: null,
-      targetFontSize: null,
-      currentFontSize: null,
-      navBarHeight: null
-    };
-  }
+const NavTitleDynamic = () => {
 
-  componentDidMount = () => {
-    const navBarElement = this.divRef.current.parentElement.parentElement
-    const navBarStyle = getComputedStyle(navBarElement)
-    const navBarHeight = parseInt(navBarStyle.height, 10)
-    const targetFontSize = parseInt(navBarStyle.fontSize, 10)
-    const thisStyle = getComputedStyle(this.divRef.current) // gets all styles for current element 
-    const topOffset = parseInt(thisStyle.top, 10)
-    const fontSize = parseInt(thisStyle.fontSize, 10)
-    this.setState({
-      baseTopOffset: topOffset,
-      currentTopOffset: topOffset,
-      baseFontSize: fontSize,
-      targetFontSize: targetFontSize,
-      currentFontSize: fontSize,
-      navBarHeight: navBarHeight
+  const navTitleRef = useRef(null)
+
+  const [targetFontSize, _setTargetFontSize] = useState(null);
+  const targetFontSizeRef = React.useRef(targetFontSize);
+  const setTargetFontSize = data => {
+    targetFontSizeRef.current = data;
+    _setTargetFontSize(data);
+  };
+
+  const [initialPadding, _setInitialPadding] = useState(null);
+  const initialPaddingRef = React.useRef(initialPadding);
+  const setInitialPadding = data => {
+    initialPaddingRef.current = data;
+    _setInitialPadding(data);
+  };
+
+  const [initialFontSize, _setInitialFontSize] = useState(null);
+  const initialFontSizeRef = React.useRef(initialFontSize);
+  const setInitialFontSize = data => {
+    initialFontSizeRef.current = data;
+    _setInitialFontSize(data);
+  };
+
+  const [loadInitialStyles] = useState(null);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY
+    const newPadding = Math.max(0, initialPaddingRef.current - scrollTop)
+
+    const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current
+    const sizeRatio = newPadding / initialPaddingRef.current
+    const newFontSize = Math.floor(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
+
+    requestAnimationFrame(() => {
+      const navTitleElement = navTitleRef.current
+      navTitleElement.style.paddingTop = `${newPadding}px`;
+      navTitleElement.style.fontSize = `${newFontSize}px`
     })
-    window.addEventListener('scroll', this.handleScroll)
   }
 
-  componentWillUnmount = () => {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
+  useEffect(() => {
+    const navTitleElement = navTitleRef.current
+    const navTitleStyle = getComputedStyle(navTitleElement) 
+    const navBarStyle = getComputedStyle(navTitleElement.parentElement.parentElement.parentElement)
 
-  handleScroll = (event) => {
-    const scrollTop = event.srcElement.documentElement.scrollTop
-    const newTopOffset = Math.max(0, this.state.baseTopOffset - scrollTop)
-    this.setState({
-      currentTopOffset: newTopOffset
-    })
-    // Adjust font size if title is entering navbar area
-    if (newTopOffset < this.state.navBarHeight) {
-      const fontSizeDifference = this.state.baseFontSize - this.state.targetFontSize
-      const sizeRatio = newTopOffset / this.state.navBarHeight
-      const newFontSize = Math.floor(sizeRatio * fontSizeDifference) + this.state.targetFontSize
-      this.setState({ currentFontSize: newFontSize })
-    } else {
-      this.setState({ currentFontSize: this.state.baseFontSize })
+    setTargetFontSize(parseInt(navBarStyle.fontSize, 10))
+    setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
+    setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))
+
+    window.addEventListener('scroll', handleScroll)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
     }
-  }
+  }, [loadInitialStyles])
 
-  render() {
-    return (
-      <div className="navTitle navTitleHomepage" ref={this.divRef} style={{ top: this.state.currentTopOffset, fontSize: this.state.currentFontSize }}>
+  return (
+    <div className="nav-item dynamic">
+      <div className="nav-title nav-title-homepage" ref={navTitleRef}>
         bujj.it
       </div>
-    );
-  }
-};
+    </div>
+  )
+}
 
 export default NavTitleDynamic;

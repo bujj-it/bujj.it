@@ -2,7 +2,7 @@ import React from "react";
 
 export default function NavTitleStatic() {
   return (
-    <div className="navTitle">
+    <div className="nav-title">
       bujj.it
     </div>
   );

@@ -4,7 +4,7 @@ import DropDownMenu from "./DropDownMenu";
 
 const NavMenu = () => {
   return (
-    <div className="navBurgerMenuContainer navItem">
+    <div className="nav-item">
       <BurgerMenu />
       <DropDownMenu />
     </div>
