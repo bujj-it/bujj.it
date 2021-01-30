@@ -76,6 +76,9 @@ $btn-hover-animation: 0.2s;
 
 .nav-title {
   flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
 
 .nav-title-homepage {
