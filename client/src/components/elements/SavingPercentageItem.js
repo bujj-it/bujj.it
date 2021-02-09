@@ -1,29 +1,47 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import { remainingPerMonthSelector } from 'selectors/savingPlanSelectors'
-import {savingsPerMonthHelper, spendingPerWeekHelper, timeToGoalHelper} from 'helpers/savingGoalHelpers'
+import { MoneyValue }  from 'components/elements/MoneyValue'
+import { DurationValue } from 'components/elements/DurationValue'
+import { 
+  savingsPerMonthSelector,
+  spendingPerWeekSelector,
+  timeToGoalSelector
+} from 'selectors/savingPlanSelectors'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    income: state.income,
-    remainingPerMonth: remainingPerMonthSelector(state),
-    savingGoal: state.savingGoal.value
+    savingsPerMonth: savingsPerMonthSelector(state, ownProps.savingPercentage),
+    spendingPerWeek: spendingPerWeekSelector(state, ownProps.savingPercentage),
+    timeToGoal: timeToGoalSelector(state, ownProps.savingPercentage)
   }
 }
 
 const SavingPercentageItem = props => {
 
-  const savingsPerMonth = savingsPerMonthHelper(props.income, props.savingPercentage)
-  const spendingPerWeek = spendingPerWeekHelper(props.remainingPerMonth, savingsPerMonth)
-  const timeToGoal = timeToGoalHelper(props.savingGoal, savingsPerMonth)
-
   return (
     <div className='saving-percentage'>
-      Percentage: {props.savingPercentage}%
-      Savings per Month: £{(savingsPerMonth/100).toFixed(2).toString()}
-      Spending per Week: £{(spendingPerWeek/100).toFixed(2).toString()}
-      Time to Goal: {timeToGoal.months.toString()} Months and {timeToGoal.days.toString()} Days
+      <div className='percentage flex-center'>
+        {props.savingPercentage} %
+      </div>
+      <div className='heading half-width'>
+        Savings per Month
+      </div>
+      <div className='heading half-width'>
+        Spending per Week
+      </div>
+      <div className='savings value half-width'>
+        <MoneyValue value={props.savingsPerMonth} />
+      </div>
+      <div className='value half-width'>
+        <MoneyValue value={props.spendingPerWeek} />
+      </div>
+      <div className='heading'>
+        Time to Goal
+      </div>
+      <div className='value'>
+        <DurationValue duration={props.timeToGoal}/>
+      </div>
     </div>
   )
 }

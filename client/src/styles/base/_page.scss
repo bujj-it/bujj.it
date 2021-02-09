@@ -48,3 +48,9 @@ code {
     max-width: globals.$breakpoint-desktop;
   }
 }
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

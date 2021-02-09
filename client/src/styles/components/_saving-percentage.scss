@@ -1,0 +1,50 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.saving-percentages-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.saving-percentage {
+  @include glassy-component-highlight;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 200px;
+  max-width: min(30%, 300px);
+  padding: 20px 10px;
+  margin: 15px 5px;
+
+  .percentage {
+    width: 100%;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .time {
+    height: auto;
+    width: 100%;
+    font-size: 0.9em;
+  }
+
+  .heading {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 1em;
+  }
+
+  .value {
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+  }
+
+  .half-width {
+    width: 50%;
+  }
+}

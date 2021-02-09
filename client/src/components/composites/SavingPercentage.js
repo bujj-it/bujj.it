@@ -30,6 +30,7 @@ const Expenses = props => {
         <div className='saving-percentages-container'>
           <SavingPercentageItem savingPercentage={10}/>
           <SavingPercentageItem savingPercentage={15}/>
+          <SavingPercentageItem savingPercentage={20}/>
         </div>
         
         <div className='button-container'>
