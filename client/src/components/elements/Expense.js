@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         type: UPDATE_EXPENSE,
         payload: {
           ...ownProps.expense,
-          value: event.target.value
+          value: parseFloat(event.target.value, 10) * 100
         }
       })
     },
@@ -47,9 +47,9 @@ const Expense = props => {
             name="expense-value" 
             min="0" 
             step="0.01" 
-            placeholder='1000' 
+            placeholder='100' 
             required 
-            value={props.ExpenseValue} 
+            value={props.ExpenseValue}
             onChange={props.onExpenseValueChange}/>
       </div>
       <button onClick={props.onRemoveExpense} className='expense-remove'>X</button>

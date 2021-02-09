@@ -25,16 +25,11 @@
 
 .action-button {
   @include standard-button;
+  @include glassy-component-highlight;
   padding: 1em 1.5em;
   
   font-size: 1.3em;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 10px;
-
   transition: opacity 0.1s ease;
 
   &:hover {

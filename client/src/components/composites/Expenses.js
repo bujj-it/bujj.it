@@ -1,8 +1,10 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/elements/ActionButton';
 import Expense from 'components/elements/Expense';
+import { MoneyValue }  from 'components/elements/MoneyValue'
+
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
 import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
@@ -21,7 +23,8 @@ const mapStateToProps = state => {
     isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     expenses: expensesSelector(state),
     areExpensesFilledIn: areExpensesFilledInSelector(state),
-    expenseTotal: totalExpensesPerMonthSelector(state)
+    expenseTotal: totalExpensesPerMonthSelector(state),
+    income: state.income
   }
 }
 
@@ -38,12 +41,24 @@ const Expenses = props => {
 
   const sectionRef = useRef(null);
   scrollToSectionEffect(sectionRef, props.isCurrentSection)
-
   const visible = props.isSectionVisible ? 'visible' : ''
+
   const expenseComponents = props.expenses.map(expense => <Expense expense={expense} key={expense.id}/>)
 
+  const isExpensesExceedingIncome = props.expenseTotal >= props.income
+  const warningMessageText = (props.expenseTotal > props.income ? 
+    `Your expenses exceed your income by £${((Math.abs(props.income - props.expenseTotal))/100).toFixed(2).toString()}` : 
+    `Your expenses equal your income`
+  )
+  const warningMessage = (
+    <div className={`warning-message ${isExpensesExceedingIncome ? 'visible' : ''}`}>
+      {warningMessageText}
+      <br/><br/>
+      Reduce your expenses or increase your income to create a buget and save!
+    </div>
+  )
+
   return (
-    
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
       <div className='section-pane expenses'>
 
@@ -58,17 +73,19 @@ const Expenses = props => {
           </button>
 
           <div className='expenses-total'>
-            Total: {props.expenseTotal}
+            Total: <MoneyValue value={props.expenseTotal} />
           </div>
+
+          {warningMessage}
         </div>
 
+     
         
-
         <div className='button-container'>
           <ActionButton 
             text='Next Section (nearly done!)' 
             currentSection={currentBudgetFlowSection}
-            disabled={!props.areExpensesFilledIn}/>
+            disabled={!props.areExpensesFilledIn || isExpensesExceedingIncome}/>
         </div>
 
       </div>

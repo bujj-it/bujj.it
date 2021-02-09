@@ -2,6 +2,7 @@
 @use '../base/mixins' as *;
 
 .expenses-container {
+  @include glassy-component;
   position: relative;
   width: 90%;
   min-height: 30vh;
@@ -12,12 +13,6 @@
   justify-content: center;
   padding-bottom: 50px;
   align-content: flex-start;
-
-  background: rgba(255, 255, 255, 0.34);
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 7px;
 }
 
 .expense {
@@ -26,11 +21,10 @@
   flex-wrap: wrap;
   width: 100%;
   background-color: #fff;
-  
+  border-radius: 5px;
 
   @include respond-to(tablet) {
     flex-wrap: nowrap;
-    border-radius: 5px;
   }
 
   + .expense {
@@ -40,10 +34,13 @@
   .name {
     margin-top: unset;
     border-bottom: solid rgb(185, 185, 185) 1px;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
 
     @include respond-to(tablet) {
       flex: 1 1 70%;
       border-bottom: none;
+      border-bottom-left-radius: inherit;
     }
   }
 
@@ -65,9 +62,10 @@
     box-sizing: border-box;
     margin: 0em;
     font: inherit;
-    padding: 3px;
+    padding: 3px 5px;
     border-width: 0;
     cursor: pointer;
+    border-radius: 5px;
 
     &:hover {
       color: #c73030;
