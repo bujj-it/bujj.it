@@ -30,7 +30,7 @@ const SavingPercentageItem = props => {
       <div className='heading half-width'>
         Spending per Week
       </div>
-      <div className='savings value half-width'>
+      <div className='value half-width'>
         <MoneyValue value={props.savingsPerMonth} />
       </div>
       <div className='value half-width'>

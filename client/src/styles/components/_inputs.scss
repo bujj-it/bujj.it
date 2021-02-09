@@ -92,18 +92,21 @@
 
 .warning-message {
   @include glassy-component-highlight;
-  position: absolute;
-  top: 100%;
   width: 100%;
-  padding: 20px;
-  line-height: 1em;
+  padding: 0px 20px;
   margin-top: 0;
   text-align: center;
   opacity: 0;
-  transition: all 0.15s ease-out;
+  
+  max-height: 0;
+  overflow: hidden;
+  transition: margin 0.15s linear, opacity 0.1s linear, max-height 0.15s linear, padding 0.1s linear;
 
   &.visible {
     opacity: 1;
     margin-top: 10px;
+    max-height: 100%;
+    padding: 20px;
+    transition: margin 0.15s linear, opacity 0.1s linear, max-height 0.15s linear, padding 0.01s linear;
   }
 }

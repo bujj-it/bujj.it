@@ -51,7 +51,7 @@ $breakpoints: (
   // backdrop-filter: blur( 4px );
   // -webkit-backdrop-filter: blur( 4px );
   border-radius: 7px;
-  background-color: rgb(131, 205, 137);
+  background-color: $glass-layer-1;
 }
 
 @mixin glassy-component {

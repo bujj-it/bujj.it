@@ -65,22 +65,23 @@ const Expenses = props => {
         <h2>EXPENSES</h2>
 
         <div className='expenses-container'>
-          {expenseComponents}
-          <button className='expense-add-button' 
-              onClick={props.onAddNewExpense} 
-              disabled={!props.areExpensesFilledIn}>
-            + Add Expense
-          </button>
+          <div className='expenses'>
+            {expenseComponents}
+            <button className='expense-add-button' 
+                onClick={props.onAddNewExpense} 
+                disabled={!props.areExpensesFilledIn}>
+              + Add Expense
+            </button>
 
-          <div className='expenses-total'>
-            Total: <MoneyValue value={props.expenseTotal} />
+            <div className='expenses-total'>
+              Total: <MoneyValue value={props.expenseTotal} />
+            </div>          
           </div>
 
           {warningMessage}
         </div>
-
-     
         
+
         <div className='button-container'>
           <ActionButton 
             text='Next Section (nearly done!)' 
