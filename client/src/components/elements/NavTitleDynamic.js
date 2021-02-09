@@ -64,6 +64,8 @@ const NavTitleDynamic = () => {
       }
     }
 
+    handleScroll()
+
     window.addEventListener('scroll', handleScroll)
     
     return () => {

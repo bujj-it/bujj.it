@@ -2,16 +2,17 @@ import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/elements/ActionButton';
+import SavingPercentageItem from 'components/elements/SavingPercentageItem';
+
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { isCurrentSectionSelector } from 'selectors/budgetFlowSelectors'
-import { remainingPerMonthSelector } from 'selectors/savingPlanSelectors'
+
 
 const currentBudgetFlowSection = 'SAVING_PERCENTAGE'
 
 const mapStateToProps = state => {
   return {
-    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
-    remainingPerMonth: remainingPerMonthSelector(state)
+    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection)
   }
 }
 
@@ -23,14 +24,13 @@ const Expenses = props => {
 
   const visible = props.isCurrentSection ? 'visible' : ''
 
-  // const savingsPerMonth
-  // const spendingPerWeek
-  // const monthsToGoal
-
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
       <div className='section-pane'>
-        Choose Saving Percentag
+        <div className='saving-percentages-container'>
+          <SavingPercentageItem savingPercentage={10}/>
+          <SavingPercentageItem savingPercentage={15}/>
+        </div>
         
         <div className='button-container'>
           <ActionButton text='Complete Your Budget' currentSection={currentBudgetFlowSection}/>
