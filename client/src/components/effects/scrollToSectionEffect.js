@@ -13,5 +13,5 @@ export default (sectionRef, isCurrentSection) => {
         behavior: 'smooth'
       });
     }
-  })
+  }, [isCurrentSection])
 }

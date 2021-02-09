@@ -4,10 +4,12 @@ import DropDownMenu from "./DropDownMenu";
 
 const NavMenu = () => {
   return (
-    <div className="nav-item">
-      <BurgerMenu />
+    <>
+      <div className="nav-item">
+        <BurgerMenu />
+      </div>
       <DropDownMenu />
-    </div>
+    </>
   )
 };
 

@@ -66,7 +66,6 @@ $btn-hover-animation: 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   box-sizing: border-box;
 
   &.dynamic {
@@ -91,17 +90,22 @@ $btn-hover-animation: 0.2s;
 }
 
 .nav-dropdown-menu {
-  display: none;
+  @include glassy-component-highlight;
   position: absolute;
-  right: -5px;
-  top: 100%;
-  width: auto;
+  top: globals.$nav-bar-height;
+  width: 100%;
   box-sizing: border-box;
-  background: globals.$background-color;
   flex-direction: column;
+  border-radius: 0;
+  left: 0px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.2s;
 
   &.clicked {
-    display: flex;
+    opacity: 1;
+    max-height: 500px;
   }
 }
 
