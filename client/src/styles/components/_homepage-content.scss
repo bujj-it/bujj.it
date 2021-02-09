@@ -15,7 +15,6 @@ $container-padding: 6px;
   padding: $container-padding;
   box-sizing: border-box;
   margin-top: 20px;
-  align-items: center;
   justify-content: center;
   min-height: calc(100vh - #{globals.$nav-bar-height});
 

@@ -39,39 +39,39 @@ const SavingGoal = props => {
 
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane'>
+      <div className='section-pane saving-goal'>
 
-      <h2> ENTER SAVING GOAL </h2>
+        <h2> ENTER SAVING GOAL </h2>
 
-      <div className='input-container saving-goal'>
-        <label className='label saving-goal-name-label'>Something To Aim For</label>
-        <div className='name saving-goal-name'>
-          <input type="text" 
-              name="saving-goal-name" 
-              placeholder='Emergency Fund' 
-              required 
-              value={props.savingGoalName} 
-              onChange={props.onSavingGoalNameChange}/>
+        <div className='input-container'>
+          <label className='label saving-goal-name-label'>Something To Aim For</label>
+          <div className='name'>
+            <input type="text"
+                name="saving-goal-name" 
+                placeholder='Emergency Fund' 
+                required 
+                value={props.savingGoalName} 
+                onChange={props.onSavingGoalNameChange}/>
+          </div>
+          <div className='value'>
+            <span className='denominator'>£</span>
+            <input type="number" 
+                name="saving-goal-value" 
+                min="0" 
+                step="0.01" 
+                placeholder='1000' 
+                required 
+                value={props.savingGoalValue} 
+                onChange={props.onSavingGoalValueChange}/>
+          </div>
         </div>
-        <div className='value saving-goal-value'>
-          <span className='denominator'>£</span>
-          <input type="number" 
-              name="saving-goal-value" 
-              min="0" 
-              step="0.01" 
-              placeholder='1000' 
-              required 
-              value={props.savingGoalValue} 
-              onChange={props.onSavingGoalValueChange}/>
-        </div>
-      </div>
 
-      <div className='button-container'>
-        <ActionButton 
-            text='Add Saving Goal'
-            currentSection={currentBudgetFlowSection}
-            disabled={!props.isInputComplete}/>
-      </div>
+        <div className='button-container'>
+          <ActionButton 
+              text='Add Saving Goal'
+              currentSection={currentBudgetFlowSection}
+              disabled={!props.isInputComplete}/>
+        </div>
 
       </div>
     </section>

@@ -34,29 +34,6 @@ const NavTitleDynamic = () => {
     _setInitialFontSize(data);
   };
 
-  
-
-  const handleScroll = () => {
-    const scrollTop = window.scrollY
-    const newPadding = Math.max(0, initialPaddingRef.current - (scrollTop / 3))
-
-    if (!isHeaderMinimisedRef.current || newPadding) {
-      const sizeRatio = newPadding / initialPaddingRef.current
-      const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current
-      const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
-      const navTitleElement = navTitleRef.current
-  
-      window.requestAnimationFrame(() => {
-        navTitleElement.style.paddingTop = `${newPadding}px`;
-        navTitleElement.style.paddingBottom = `${newPadding}px`;
-        navTitleElement.style.fontSize = `${newFontSize}px`
-      })
-      if (newPadding === 0) {
-        setIsHeaderMinimised(true)
-      }
-    }
-  }
-
   useEffect(() => {
     const navTitleElement = navTitleRef.current
     const navTitleStyle = getComputedStyle(navTitleElement) 
@@ -65,6 +42,27 @@ const NavTitleDynamic = () => {
     setTargetFontSize(parseInt(navBarStyle.fontSize, 10))
     setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
     setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const newPadding = Math.max(0, initialPaddingRef.current - (scrollTop / 3))
+  
+      if (!isHeaderMinimisedRef.current || newPadding) {
+        const sizeRatio = newPadding / initialPaddingRef.current
+        const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current
+        const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
+        const navTitleElement = navTitleRef.current
+    
+        window.requestAnimationFrame(() => {
+          navTitleElement.style.paddingTop = `${newPadding}px`;
+          navTitleElement.style.paddingBottom = `${newPadding}px`;
+          navTitleElement.style.fontSize = `${newFontSize}px`
+        })
+        if (newPadding === 0) {
+          setIsHeaderMinimised(true)
+        }
+      }
+    }
 
     window.addEventListener('scroll', handleScroll)
     

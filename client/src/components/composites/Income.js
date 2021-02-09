@@ -35,16 +35,16 @@ const Income = props => {
 
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane'>
+      <div className='section-pane income'>
 
         <h2> ENTER YOUR INCOME </h2>
 
-        <div className='input-container saving-goal'>
-          <label className='label saving-goal-name-label'>Something To Aim For</label>
-          <div className='value saving-goal-value'>
+        <div className='input-container'>
+          <label className='label'>Your monthly income</label>
+          <div className='value'>
             <span className='denominator'>£</span>
             <input type="number" 
-                name="saving-goal-value" 
+                name="income-value" 
                 min="0" 
                 step="0.01" 
                 placeholder='1000' 

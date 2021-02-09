@@ -64,7 +64,6 @@
 
     @include respond-to(tablet) {
       max-width: 30%;
-      border-radius: 0 5px 5px 0;
     }
 
 
@@ -86,8 +85,6 @@
 }
 
 .saving-goal .value {
-  border-radius: 5px;
-
   @include respond-to(tablet) {
     border-radius: 0 5px 5px 0;
   }

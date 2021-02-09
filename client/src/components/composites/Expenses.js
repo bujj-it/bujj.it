@@ -44,7 +44,7 @@ const Expenses = props => {
   return (
     
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane'>
+      <div className='section-pane expenses'>
 
         <h2>EXPENSES</h2>
 
