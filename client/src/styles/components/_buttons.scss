@@ -25,17 +25,12 @@
 
 .action-button {
   @include standard-button;
+  @include button-hover;
   @include glassy-component-highlight;
   padding: 1em 1.5em;
-  
   font-size: 1.3em;
   font-weight: 600;
   transition: opacity 0.1s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-    color: #000
-  }
 
   &:disabled {
     opacity: 0.3;

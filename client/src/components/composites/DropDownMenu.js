@@ -14,8 +14,8 @@ const DropDownMenu = props => {
 
   return (
     <div className={`nav-dropdown-menu ${clickedClass}`}>
-      <DropDownButton buttonLink={'/'} buttonText={'Home'} burgerMenuClick={props.burgerMenuClick} />
-      <DropDownButton buttonLink={'/login'} buttonText={'Login'} burgerMenuClick={props.burgerMenuClick} />
+      <DropDownButton buttonLink={'/'} buttonText={'Home'}/>
+      <DropDownButton buttonLink={'/login'} buttonText={'Login'}/>
     </div>
   )
 };
