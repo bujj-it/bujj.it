@@ -124,3 +124,16 @@ $btn-hover-animation: 0.2s;
     padding: 0.25em 1em;
   }
 }
+
+.burger-menu {
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.nav-menu-button {
+  display: none;
+  @include respond-to(tablet) {
+    display: block;
+  }
+}
