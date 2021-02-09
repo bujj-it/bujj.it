@@ -5,7 +5,7 @@ import ActionButton from 'components/elements/ActionButton';
 import Expense from 'components/elements/Expense';
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
-import { isCurrentSectionSelector } from 'selectors/budgetFlowSelectors'
+import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
 import {
   expensesSelector,
   areExpensesFilledInSelector,
@@ -18,6 +18,7 @@ const currentBudgetFlowSection = 'EXPENSES'
 const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
+    isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     expenses: expensesSelector(state),
     areExpensesFilledIn: areExpensesFilledInSelector(state),
     expenseTotal: totalExpensesPerMonthSelector(state)
@@ -36,9 +37,9 @@ const mapDispatchToProps = dispatch => {
 const Expenses = props => {
 
   const sectionRef = useRef(null);
-  scrollToSectionEffect(sectionRef)
+  scrollToSectionEffect(sectionRef, props.isCurrentSection)
 
-  const visible = props.isCurrentSection ? 'visible' : ''
+  const visible = props.isSectionVisible ? 'visible' : ''
   const expenseComponents = props.expenses.map(expense => <Expense expense={expense} key={expense.id}/>)
 
   return (

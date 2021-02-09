@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ActionButton from '../elements/ActionButton';
 import scrollToSectionEffect from '../effects/scrollToSectionEffect'
-import {isCurrentSectionSelector} from '../../selectors/budgetFlowSelectors'
+import {isCurrentSectionSelector, isSectionVisibleSelector} from '../../selectors/budgetFlowSelectors'
 import {isInputCompleteSelector} from '../../selectors/inputSelectors'
 import { UPDATE_SAVING_GOAL_NAME, UPDATE_SAVING_GOAL_VALUE } from '../../constants/actionTypes.js';
 
@@ -12,6 +12,7 @@ const currentBudgetFlowSection = 'SAVING_GOAL'
 const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
+    isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     savingGoalName: state.savingGoal.name,
     savingGoalValue: state.savingGoal.value ? state.savingGoal.value / 100 : '',
     isInputComplete: isInputCompleteSelector(state, 'savingGoal')
@@ -32,10 +33,9 @@ const mapDispatchToProps = dispatch => {
 const SavingGoal = props => {
 
   const sectionRef = useRef(null);
+  scrollToSectionEffect(sectionRef, props.isCurrentSection)
 
-  scrollToSectionEffect(sectionRef)
-
-  const visible = props.isCurrentSection ? 'visible' : ''
+  const visible = props.isSectionVisible ? 'visible' : ''
 
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
