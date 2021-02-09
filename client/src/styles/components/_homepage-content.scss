@@ -2,7 +2,7 @@
 @use '../base/mixins' as *;
 
 .homepage-content {
-  margin-top: globals.$nav-title-offset + 40;
+  margin-top: globals.$nav-title-offset;
 }
 
 $container-padding: 6px;
@@ -33,6 +33,7 @@ $container-padding: 6px;
 }
 
 .section-pane {
+  @include glassy-panel;
   position: relative;
   width: 100%;
   min-height: 50vh;
@@ -43,12 +44,6 @@ $container-padding: 6px;
   justify-content: space-evenly;
   padding: 5px;
   box-sizing: border-box;
-
-  background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 10px;
 }
 
 .button-container {

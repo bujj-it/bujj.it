@@ -87,4 +87,8 @@
 
 .saving-goal .value {
   border-radius: 5px;
+
+  @include respond-to(tablet) {
+    border-radius: 0 5px 5px 0;
+  }
 }
