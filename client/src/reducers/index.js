@@ -5,6 +5,7 @@ import savingGoal from './savingGoalReducer'
 import income from './incomeReducer'
 import expenses from './expensesReducer'
 import savingPercentage from './savingPercentageReducer'
+import toggleSavingPercentage from './toggleSavingPercentageReducer'
 
 export default combineReducers({
   navMenu,
@@ -12,5 +13,6 @@ export default combineReducers({
   savingGoal,
   income,
   expenses,
-  savingPercentage
+  savingPercentage,
+  toggleSavingPercentage
 });

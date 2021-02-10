@@ -1,27 +1,6 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
 
-@mixin standard-button {
-  text-rendering: auto;
-  color: black;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: block;
-  text-align: center;
-  align-items: flex-start;
-  cursor: pointer;
-  box-sizing: border-box;
-  margin: 0em;
-  font: inherit;
-  border-style: none;
-
-  &:active, &:focus {
-    outline: none;
-  }
-}
 
 .action-button {
   @include standard-button;

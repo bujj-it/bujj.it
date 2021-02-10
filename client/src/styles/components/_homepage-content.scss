@@ -17,6 +17,7 @@ $container-padding: 6px;
   margin-top: 20px;
   justify-content: center;
   min-height: calc(100vh - #{globals.$nav-bar-height});
+  overflow-x: hidden;
 
   &.secondary {
     display: none;
