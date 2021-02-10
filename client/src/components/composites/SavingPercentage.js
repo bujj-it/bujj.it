@@ -27,6 +27,9 @@ const Expenses = props => {
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
       <div className='section-pane'>
+
+        <h2>Select Saving Percentage</h2>
+
         <div className='saving-percentages-container'>
           <SavingPercentageItem savingPercentage={10}/>
           <SavingPercentageItem savingPercentage={15}/>

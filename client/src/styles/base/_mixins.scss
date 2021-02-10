@@ -15,6 +15,7 @@ $breakpoints: (
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. "
         + "Please make sure it is defined in `$breakpoints` map.";
   }
+
 }
 
 /*
@@ -47,6 +48,14 @@ $breakpoints: (
 
 @mixin button-hover {
   &:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 1);
+    color: #000
+  }
+}
+
+@mixin button-selected {
+  &.selected {
     background: rgba(255, 255, 255, 1);
     color: #000
   }
@@ -63,7 +72,7 @@ $breakpoints: (
 
 @mixin glassy-component {
   background: rgba(255, 255, 255, 0.34);
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px #b8ff7e52;
+  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px rgba(212, 250, 181, 0.33);
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   border-radius: 7px;

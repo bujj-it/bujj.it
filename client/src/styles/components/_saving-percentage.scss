@@ -9,8 +9,10 @@
   width: 100%;
 }
 
-.saving-percentage {
+.saving-percentage-card {
   @include glassy-component-highlight;
+  @include button-hover;
+  @include button-selected;
   display: flex;
   flex-wrap: wrap;
   min-width: 200px;

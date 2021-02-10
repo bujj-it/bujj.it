@@ -8,6 +8,7 @@ import {
   spendingPerWeekSelector,
   timeToGoalSelector
 } from 'selectors/savingPlanSelectors'
+import { UPDATE_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -17,10 +18,21 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onItemClick: () => {
+      dispatch({ 
+        type: UPDATE_SAVING_PERCENTAGE,
+        payload: ownProps.savingPercentage
+      })
+    }
+  }
+}
+
 const SavingPercentageItem = props => {
 
   return (
-    <div className='saving-percentage'>
+    <div className='saving-percentage-card' onClick={props.onItemClick}>
       <div className='percentage flex-center'>
         {props.savingPercentage} %
       </div>
@@ -46,4 +58,4 @@ const SavingPercentageItem = props => {
   )
 }
 
-export default connect(mapStateToProps)(SavingPercentageItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SavingPercentageItem);

@@ -31,14 +31,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const Expense = props => {
 
+  const expenseValue = !props.expense.value ? null : props.expense.value / 100
+
   return (
     <div className='input-container expense'>
       <div className='name expense-name'>
         <input type="text" 
             name="expense-name" 
             placeholder='Rent, Phone Bill, etc.' 
-            required 
-            value={props.ExpenseName} 
+            required
+            value={props.expense.name} 
             onChange={props.onExpenseNameChange}/>
       </div>
       <div className='value expense-value'>
@@ -47,9 +49,9 @@ const Expense = props => {
             name="expense-value" 
             min="0" 
             step="0.01" 
-            placeholder='100' 
-            required 
-            value={props.ExpenseValue}
+            placeholder='100'
+            required
+            value={expenseValue}
             onChange={props.onExpenseValueChange}/>
       </div>
       <button onClick={props.onRemoveExpense} className='expense-remove'>X</button>
