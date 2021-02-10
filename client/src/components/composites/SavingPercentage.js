@@ -2,7 +2,8 @@ import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
 import ActionButton from 'components/elements/ActionButton';
-import SavingPercentageItem from 'components/elements/SavingPercentageItem';
+import SavingPercentageCard from 'components/elements/SavingPercentageCard';
+import SavingPercentageSlider from 'components/elements/SavingPercentageSlider';
 
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
@@ -43,14 +44,14 @@ const Expenses = props => {
 
         <div className='saving-percentages-selector'>
           <div className={`saving-percentages-container left-toggle ${props.isSavingPercentageToggled ? '' : 'toggled'}`}>
-            <SavingPercentageItem savingPercentage={10}/>
-            <SavingPercentageItem savingPercentage={15}/>
-            <SavingPercentageItem savingPercentage={20}/>
+            <SavingPercentageCard savingPercentage={10}/>
+            <SavingPercentageCard savingPercentage={15}/>
+            <SavingPercentageCard savingPercentage={20}/>
           </div>
           <div className={`saving-percentages-container right-toggle ${props.isSavingPercentageToggled ? 'toggled' : ''}`}>
-            <SavingPercentageItem savingPercentage={10}/>
+            <SavingPercentageSlider/>
           </div>
-          <button className='toggle-switch' onClick={props.toggleSavingPercentageSelector}>
+          <button className='toggle-switch flex-center' onClick={props.toggleSavingPercentageSelector}>
             {toggleText}
           </button>
         </div>

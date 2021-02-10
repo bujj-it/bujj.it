@@ -1,6 +1,9 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
 
+$toggle-switch-height: 2.5em;
+$toggle-switch-margin: 0.5em;
+
 .saving-percentages-selector {
   display: flex;
   width: 100%;
@@ -12,8 +15,9 @@
     @include standard-button;
     @include glassy-component-highlight;
     @include button-hover;
-    padding: 15px 20px;
-    margin-top: 10px;
+    margin-top: $toggle-switch-margin;
+    height: $toggle-switch-height;
+    padding: 0 1em;
   }
 }
 
@@ -34,7 +38,7 @@
   &.right-toggle {
     position: absolute;
     left: 100%;
-    top: 0;
+    bottom: $toggle-switch-margin + $toggle-switch-height;
     &.toggled {
       left: 0%;
     }
@@ -76,10 +80,51 @@
   .value {
     width: 100%;
     text-align: center;
-    padding-top: 5px;
+    margin-top: 0.4em;
+    min-height: 1em;
+    line-height: 1em;
   }
 
   .half-width {
     width: 50%;
+  }
+
+  &.slider {
+    max-width: min(75%, 400px);
+  }
+
+  .slider-section {
+    margin: 0.7em 0;
+  }
+
+  .slider-input {
+    width: 75%;
+    -webkit-appearance: none;
+    height: 1.5em;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+
+    &.hover {
+        opacity: 1;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+    
+    &::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+    }
   }
 }
