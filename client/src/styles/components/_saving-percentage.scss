@@ -11,6 +11,7 @@
 
 .saving-percentage-card {
   @include glassy-component-highlight;
+  @include standard-button;
   @include button-hover;
   @include button-selected;
   display: flex;

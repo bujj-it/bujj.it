@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     savingsPerMonth: savingsPerMonthSelector(state, ownProps.savingPercentage),
     spendingPerWeek: spendingPerWeekSelector(state, ownProps.savingPercentage),
-    timeToGoal: timeToGoalSelector(state, ownProps.savingPercentage)
+    timeToGoal: timeToGoalSelector(state, ownProps.savingPercentage),
+    isCardSelected: state.savingPercentage === ownProps.savingPercentage
   }
 }
 
@@ -32,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const SavingPercentageItem = props => {
 
   return (
-    <div className='saving-percentage-card' onClick={props.onItemClick}>
+    <button className={`saving-percentage-card ${props.isCardSelected ? 'selected' : ''}`} onClick={props.onItemClick} disabled={props.isCardSelected}>
       <div className='percentage flex-center'>
         {props.savingPercentage} %
       </div>
@@ -54,7 +55,7 @@ const SavingPercentageItem = props => {
       <div className='value'>
         <DurationValue duration={props.timeToGoal}/>
       </div>
-    </div>
+    </button>
   )
 }
 
