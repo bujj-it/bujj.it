@@ -79,6 +79,7 @@ $btn-hover-animation: 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: font-size 0.05s, padding 0.05s;
 
   .minimized {
     font-size: 1em;
