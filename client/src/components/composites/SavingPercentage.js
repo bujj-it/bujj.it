@@ -8,15 +8,19 @@ import SavingPercentageSlider from 'components/elements/SavingPercentageSlider';
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
 import { TOGGLE_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
+import { spendingPerWeekSelector } from 'selectors/savingPlanSelectors'
 
 const currentBudgetFlowSection = 'SAVING_PERCENTAGE'
+
+const recommendedSavingPercentages = [10, 15, 20]
 
 const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     isSavingPercentSelected: !!state.savingPercentage,
-    isSavingPercentageToggled: state.toggleSavingPercentage
+    isSavingPercentageToggled: state.toggleSavingPercentage,
+    isSavingPercentageToggleAvailable: spendingPerWeekSelector(state, 10) >= 0
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -34,7 +38,24 @@ const Expenses = props => {
 
   const visible = props.isSectionVisible ? 'visible' : ''
 
-  const toggleText = props.isSavingPercentageToggled ? '← Recommended Saving Percentages' : 'Custom Saving Percentage →'
+  let savingPercentageCards
+  let toggleButton
+  if (props.isSavingPercentageToggleAvailable) {
+    savingPercentageCards = (
+      <div className={`saving-percentages-container left-toggle ${props.isSavingPercentageToggled ? '' : 'toggled'}`}>
+        {recommendedSavingPercentages.map((percentage, i) => <SavingPercentageCard savingPercentage={percentage} key={i}/>)}
+      </div>
+    )
+
+    const toggleText = props.isSavingPercentageToggled ? '← Recommended Saving Percentages' : 'Custom Saving Percentage →'
+    toggleButton = (
+      <div className='toggle-switch-container flex-center'>
+        <button className='toggle-switch flex-center' onClick={props.toggleSavingPercentageSelector}>
+          {toggleText}
+        </button>
+      </div>
+    )
+  } 
 
   return (
     <section ref={sectionRef} className={`section-container secondary ${visible}`}>
@@ -43,17 +64,11 @@ const Expenses = props => {
         <h2>Select Saving Percentage</h2>
 
         <div className='saving-percentages-selector'>
-          <div className={`saving-percentages-container left-toggle ${props.isSavingPercentageToggled ? '' : 'toggled'}`}>
-            <SavingPercentageCard savingPercentage={10}/>
-            <SavingPercentageCard savingPercentage={15}/>
-            <SavingPercentageCard savingPercentage={20}/>
-          </div>
-          <div className={`saving-percentages-container right-toggle ${props.isSavingPercentageToggled ? 'toggled' : ''}`}>
+          {savingPercentageCards}
+          <div className={`saving-percentages-container right-toggle ${props.isSavingPercentageToggled || !props.isSavingPercentageToggleAvailable ? 'toggled' : ''}`}>
             <SavingPercentageSlider/>
           </div>
-          <button className='toggle-switch flex-center' onClick={props.toggleSavingPercentageSelector}>
-            {toggleText}
-          </button>
+          {toggleButton}
         </div>
 
         <div className='button-container'>

@@ -6,19 +6,10 @@ $toggle-switch-margin: 0.5em;
 
 .saving-percentages-selector {
   display: flex;
-  width: 100%;
+  width: 200%;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-
-  .toggle-switch {
-    @include standard-button;
-    @include glassy-component-highlight;
-    @include button-hover;
-    margin-top: $toggle-switch-margin;
-    height: $toggle-switch-height;
-    padding: 0 1em;
-  }
 }
 
 .saving-percentages-container {
@@ -26,20 +17,21 @@ $toggle-switch-margin: 0.5em;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 100%;
+  width: 50%;
   transition: left 0.35s cubic-bezier(0.4, 0.1, 0.7, 0.99);
 
   &.left-toggle {
-    left: -100%;
+    left: -25%;
+    &.toggled {
+      left: 25%;
+    }
   }
   &.right-toggle {
-    position: absolute;
-    left: 100%;
-    bottom: $toggle-switch-margin + $toggle-switch-height;
-  }
-
-  &.toggled {
-    left: 0%;
+    left: 25%;
+    align-self: flex-end;
+    &.toggled {
+      left: -25%;
+    }
   }
 }
 
@@ -123,5 +115,17 @@ $toggle-switch-margin: 0.5em;
       background: #4CAF50;
       cursor: pointer;
     }
+  }
+}
+
+.toggle-switch-container {
+  width: 100%;
+  .toggle-switch {
+    @include standard-button;
+    @include glassy-component-highlight;
+    @include button-hover;
+    margin-top: $toggle-switch-margin;
+    height: $toggle-switch-height;
+    padding: 0 1em;
   }
 }
