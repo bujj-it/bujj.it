@@ -14,11 +14,13 @@ const mapDispatchToProps = dispatch => ({
 
 const ActionButton = props => {
 
+  const isFlowDirectionForward = typeof props.isFlowDirectionForward === 'undefined' ? true : props.isFlowDirectionForward
+
   const onButtonClick = () => {
-    props.updateSection(props.currentSection, props.isFlowDirectionForward)
+    props.updateSection(props.currentSection, isFlowDirectionForward)
   }
 
-  const buttonClass = props.isFlowDirectionForward ? ' next' : ' previous'
+  const buttonClass = isFlowDirectionForward ? ' next' : ' previous'
 
   return (
     <button className={`action-button${buttonClass}`} 

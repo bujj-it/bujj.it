@@ -51,11 +51,7 @@ $container-padding: 6px;
   position: relative;
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   margin: 40px 0px 20px;
-
-  .previous {
-    background: color.change(globals.$glass-highlight-background, $alpha: 0.5);
-  }
 }

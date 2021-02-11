@@ -1,10 +1,9 @@
 import React, { useRef } from "react";
 import { connect } from 'react-redux';
 
-import ActionButton from 'components/elements/ActionButton';
+import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import Expense from 'components/elements/Expense';
 import { MoneyValue }  from 'components/elements/MoneyValue'
-
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
 import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
@@ -22,7 +21,7 @@ const mapStateToProps = state => {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     expenses: expensesSelector(state),
-    areExpensesFilledIn: areExpensesFilledInSelector(state),
+    isInputComplete: areExpensesFilledInSelector(state),
     expenseTotal: totalExpensesPerMonthSelector(state),
     income: state.income
   }
@@ -69,7 +68,7 @@ const Expenses = props => {
             {expenseComponents}
             <button className='expense-add-button' 
                 onClick={props.onAddNewExpense} 
-                disabled={!props.areExpensesFilledIn}>
+                disabled={!props.isInputComplete}>
               + Add Expense
             </button>
 
@@ -81,13 +80,10 @@ const Expenses = props => {
           {warningMessage}
         </div>
         
-
-        <div className='button-container'>
-          <ActionButton 
-            text='Next Section (nearly done!)' 
-            currentSection={currentBudgetFlowSection}
-            disabled={!props.areExpensesFilledIn || isExpensesExceedingIncome}/>
-        </div>
+        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+            previousButtonText={'Previous Section'}
+            nextButtonText={'Next Section'}
+            isInputComplete={props.isInputComplete}/>
 
       </div>
     </section>
