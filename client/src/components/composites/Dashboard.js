@@ -1,31 +1,20 @@
-import React, {useRef} from "react";
-import { connect } from 'react-redux';
+import React from "react";
 
-import scrollToSectionEffect from '../effects/scrollToSectionEffect'
-import { isCurrentSectionSelector, isSectionVisibleSelector } from '../../selectors/budgetFlowSelectors'
+import HomepageSection from "components/elements/HomepageSection";
+import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
+
 const currentBudgetFlowSection = 'DASHBOARD'
-
-const mapStateToProps = state => {
-  return {
-    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
-    isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
-  }
-}
 
 const Dashboard = props => {
 
-  const sectionRef = useRef(null);
-  scrollToSectionEffect(sectionRef, props.isCurrentSection)
-
-  const visible = props.isSectionVisible ? 'visible' : ''
-
   return (
-    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane'>
-        Welcome to your dashboard
-      </div>
-    </section>
+    <HomepageSection sectionClass='dashboard' budgetFlowSection={currentBudgetFlowSection}>
+      Welcome to your dashboard
+
+      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+          previousButtonText={'Previous Section'}/>
+    </HomepageSection>
   )
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

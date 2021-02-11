@@ -2,33 +2,37 @@
 @use '../base/mixins' as *;
 @use "sass:color";
 
+$section-padding: 6px;
+
 .homepage-content {
-  margin-top: globals.$nav-title-offset;
+  margin-top: 0;
+  overflow-x: hidden;
+  transition: margin-top globals.$section-transition-time;
+
+  &.nav-offest {
+    margin-top: globals.$nav-title-offset;
+  }
 }
 
-$container-padding: 6px;
-
 .section-container {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: fit-content;
   display: flex;
-  padding: $container-padding;
+  padding: $section-padding;
   box-sizing: border-box;
-  margin-top: 20px;
   justify-content: center;
   min-height: calc(100vh - #{globals.$nav-bar-height});
+  transition: left globals.$section-transition-time;
 
-  &.secondary {
-    display: none;
-  }
-
-  &.visible {
-    display: flex !important;
+  &.current-section {
+    position: relative;
   }
 
   @include respond-to(tablet) {
-    padding: $container-padding + 10px;
+    padding: $section-padding + 10px;
   }
 }
 

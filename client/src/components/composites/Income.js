@@ -1,18 +1,15 @@
-import React, {useRef} from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
-import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
-import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
 import {isInputCompleteSelector} from 'selectors/inputSelectors'
 import {UPDATE_INCOME} from 'constants/actionTypes'
+import HomepageSection from "components/elements/HomepageSection";
 
 const currentBudgetFlowSection = 'INCOME'
 
 const mapStateToProps = state => {
   return {
-    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
-    isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     income: state.income ? state.income / 100 : '',
     isInputComplete: isInputCompleteSelector(state, 'income')
   }
@@ -28,38 +25,30 @@ const mapDispatchToProps = dispatch => {
 
 const Income = props => {
 
-  const sectionRef = useRef(null);
-  scrollToSectionEffect(sectionRef, props.isCurrentSection)
-
-  const visible = props.isSectionVisible ? 'visible' : ''
-
   return (
-    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane income'>
+    <HomepageSection sectionClass='income' budgetFlowSection={currentBudgetFlowSection}>
+      <h2> ENTER YOUR INCOME </h2>
 
-        <h2> ENTER YOUR INCOME </h2>
-
-        <div className='input-container'>
-          <label className='label'>Your monthly income</label>
-          <div className='value'>
-            <span className='denominator'>£</span>
-            <input type="number" 
-                name="income-value" 
-                min="0" 
-                step="0.01" 
-                placeholder='1000' 
-                required 
-                value={props.income} 
-                onChange={props.onIncomeChange}/>
-          </div>
+      <div className='input-container'>
+        <label className='label'>Your monthly income</label>
+        <div className='value'>
+          <span className='denominator'>£</span>
+          <input type="number" 
+              name="income-value" 
+              min="0" 
+              step="0.01" 
+              placeholder='1000' 
+              required 
+              value={props.income} 
+              onChange={props.onIncomeChange}/>
         </div>
-
-        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-            previousButtonText={'Previous Section'}
-            nextButtonText={'Next Section'}
-            isInputComplete={props.isInputComplete}/>
       </div>
-    </section>
+
+      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+          previousButtonText={'Previous Section'}
+          nextButtonText={'Next Section'}
+          isInputComplete={props.isInputComplete}/>
+    </HomepageSection>
   )
 }
 

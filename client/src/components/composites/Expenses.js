@@ -1,25 +1,21 @@
-import React, { useRef } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import Expense from 'components/elements/Expense';
 import { MoneyValue }  from 'components/elements/MoneyValue'
-import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
-import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
 import {
   expensesSelector,
   areExpensesFilledInSelector,
   totalExpensesPerMonthSelector
 } from 'selectors/expensesSelectors'
-
+import HomepageSection from "components/elements/HomepageSection";
 
 const currentBudgetFlowSection = 'EXPENSES'
 
 const mapStateToProps = state => {
   return {
-    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
-    isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
     expenses: expensesSelector(state),
     isInputComplete: areExpensesFilledInSelector(state),
     expenseTotal: totalExpensesPerMonthSelector(state),
@@ -35,12 +31,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-
 const Expenses = props => {
-
-  const sectionRef = useRef(null);
-  scrollToSectionEffect(sectionRef, props.isCurrentSection)
-  const visible = props.isSectionVisible ? 'visible' : ''
 
   const expenseComponents = props.expenses.map(expense => <Expense expense={expense} key={expense.id}/>)
 
@@ -58,35 +49,31 @@ const Expenses = props => {
   )
 
   return (
-    <section ref={sectionRef} className={`section-container secondary ${visible}`}>
-      <div className='section-pane expenses'>
+    <HomepageSection sectionClass='expenses' budgetFlowSection={currentBudgetFlowSection}>
+      <h2>EXPENSES</h2>
 
-        <h2>EXPENSES</h2>
+      <div className='expenses-container'>
+        <div className='expenses'>
+          {expenseComponents}
+          <button className='expense-add-button' 
+              onClick={props.onAddNewExpense} 
+              disabled={!props.isInputComplete}>
+            + Add Expense
+          </button>
 
-        <div className='expenses-container'>
-          <div className='expenses'>
-            {expenseComponents}
-            <button className='expense-add-button' 
-                onClick={props.onAddNewExpense} 
-                disabled={!props.isInputComplete}>
-              + Add Expense
-            </button>
-
-            <div className='expenses-total'>
-              Total: <MoneyValue value={props.expenseTotal} />
-            </div>          
-          </div>
-
-          {warningMessage}
+          <div className='expenses-total'>
+            Total: <MoneyValue value={props.expenseTotal} />
+          </div>          
         </div>
-        
-        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-            previousButtonText={'Previous Section'}
-            nextButtonText={'Next Section'}
-            isInputComplete={props.isInputComplete}/>
 
+        {warningMessage}
       </div>
-    </section>
+
+      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+          previousButtonText={'Previous Section'}
+          nextButtonText={'Next Section'}
+          isInputComplete={props.isInputComplete}/>
+    </HomepageSection>
   )
 }
 

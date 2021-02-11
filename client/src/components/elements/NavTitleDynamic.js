@@ -58,8 +58,6 @@ const NavTitleDynamic = props => {
     setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
     setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))    
 
-    handleScroll()
-
     if (props.isInitalSection) {
       window.addEventListener('scroll', handleScroll)
       return () => {
@@ -74,8 +72,8 @@ const NavTitleDynamic = props => {
     window.removeEventListener('scroll', handleScroll)
     const navTitleElement = navTitleRef.current
     window.requestAnimationFrame(() => {
-      navTitleElement.style.paddingTop = null;
-      navTitleElement.style.paddingBottom = null;
+      navTitleElement.style.paddingTop = null
+      navTitleElement.style.paddingBottom = null
       navTitleElement.style.fontSize = null
     })
     minimizeHeaderClass = 'minimized'
@@ -93,4 +91,4 @@ const NavTitleDynamic = props => {
 }
 
 
-export default  connect(mapStateToProps)(NavTitleDynamic);
+export default connect(mapStateToProps)(NavTitleDynamic);
