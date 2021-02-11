@@ -1,0 +1,41 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+
+.action-button {
+  @include standard-button;
+  @include button-hover;
+  @include glassy-component-highlight;
+  padding: 0.8em 1em;
+  margin: 0 5px;
+  font-size: 1.3em;
+  font-weight: 600;
+  transition: opacity 0.1s ease;
+  flex: 1 1 50%;
+  max-width: fit-content;
+
+  @include respond-to(desktop) {
+    padding: 1em 1.2em;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+    &:hover {
+      background: globals.$glass-highlight-background;
+      color: inherit;
+    }
+  }
+
+  &.main {
+    min-width: max-content;
+  }
+}
+
+.expense-add-button {
+  @include standard-button;
+  @include expense-action-button;
+
+  right: 0;
+  border-radius: 7px 0 7px 0;
+}

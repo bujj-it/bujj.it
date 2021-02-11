@@ -8,20 +8,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: globals.$background-color;
-  background-image: linear-gradient(to bottom right, rgb(57, 187, 100), rgb(214, 238, 76));
-  background-size: cover;
-  background-attachment: fixed;
+  // background-color: globals.$background-color;
+  background-color: globals.$theme-color;
+  // background-image: linear-gradient(to bottom right, globals.$theme-color, rgb(214, 238, 76));
+  // background-size: cover;
+  // background-attachment: fixed;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.page {
-  position: relative;
-  top: globals.$nav-bar-height;
 }
 
 .left {
@@ -30,4 +26,35 @@ code {
 
 .right {
   float: right;
+}
+
+.page {
+  position: relative;
+  margin-top: globals.$nav-bar-height;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.reading-pane {
+  width: 100%;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @include respond-to(desktop) {
+    max-width: globals.$breakpoint-desktop;
+  }
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning {
+  color: globals.$warning-color
 }

@@ -7,9 +7,9 @@
   "root": "./",
   "scripts": {
     "test": "DEBUG=express:error:* jest --no-cache",
-    "build_prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
-    "start_prod": "node index.js",
-    "start_dev": "nodemon index.js",
+    "build:prod": "yarn install --production && cd ../client && yarn install --production && yarn build --production",
+    "start:prod": "node index.js",
+    "start:dev": "nodemon index.js",
     "lint": "eslint --fix ."
   },
   "author": "Chris Wood <contact@cpcwood.com, Ben Gittins",

@@ -96,11 +96,11 @@ Unit tests can be run for both the client and server sides of the project by run
 
 #### 3.5a Start development servers
 
-When running the application server in a development environemnt, nodemon is used to refresh the server when changes are made. Additionally, the client assets are also hosted on their own server to allow for quick refreshing. Therefore, to start the application servers run ```yarn start_dev``` in both the server and client directories.
+When running the application server in a development environemnt, nodemon is used to refresh the server when changes are made. Additionally, the client assets are also hosted on their own server to allow for quick refreshing. Therefore, to start the application servers run ```yarn start:dev``` in both the server and client directories.
 
 #### 3.5b Start production server
 
-To run the application server in a production environment, move the server directory and build the static assets by running ```yarn build_prod```. Then, also in the server directory, start the application server by running ```yarn start_prod```. The application server will then listen for requests on port 5000 and a reverse proxy can be setup to pass requests. 
+To run the application server in a production environment, move the server directory and build the static assets by running ```yarn build:prod```. Then, also in the server directory, start the application server by running ```yarn start:prod```. The application server will then listen for requests on port 5000 and a reverse proxy can be setup to pass requests. 
 
 Note: In non-containerised depolyments, a process controller (such as systemd) should be used manage the application server and prevent downtime from errors being raised.
 

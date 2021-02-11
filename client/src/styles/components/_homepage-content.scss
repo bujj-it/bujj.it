@@ -1,6 +1,57 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
+@use "sass:color";
 
 .homepage-content {
-  top: globals.$nav-title-offset + 40;
+  margin-top: globals.$nav-title-offset;
+}
+
+$container-padding: 6px;
+
+.section-container {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  padding: $container-padding;
+  box-sizing: border-box;
+  margin-top: 20px;
+  justify-content: center;
+  min-height: calc(100vh - #{globals.$nav-bar-height});
+
+  &.secondary {
+    display: none;
+  }
+
+  &.visible {
+    display: flex !important;
+  }
+
+  @include respond-to(tablet) {
+    padding: $container-padding + 10px;
+  }
+}
+
+.section-pane {
+  @include glassy-panel;
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 5px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.section-navigation-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 40px 0px 20px;
 }

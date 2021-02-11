@@ -1,0 +1,145 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+@use "sass:color";
+
+$toggle-switch-height: 2.5em;
+$toggle-switch-margin: 0.5em;
+
+.saving-percentages-selector {
+  display: flex;
+  width: 200%;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.saving-percentages-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 50%;
+  transition: left 0.35s cubic-bezier(0.4, 0.1, 0.7, 0.99);
+
+  &.left-toggle {
+    left: -25%;
+    &.toggled {
+      left: 25%;
+    }
+  }
+  &.right-toggle {
+    left: 25%;
+    align-self: flex-end;
+    &.toggled {
+      left: -25%;
+    }
+  }
+}
+
+.saving-percentage-card {
+  @include glassy-component-highlight;
+  @include standard-button;
+  @include button-hover;
+  @include button-selected;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 200px;
+  max-width: min(30%, 300px);
+  padding: 20px 10px;
+  margin: 15px 5px;
+
+  &.not-available {
+    cursor: default;
+    opacity: 0.4 !important;
+
+    &:hover {
+      @include glassy-component-highlight;
+    }
+  }
+
+  .percentage {
+    width: 100%;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .time {
+    height: auto;
+    width: 100%;
+    font-size: 0.9em;
+  }
+
+  .heading {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 1em;
+  }
+
+  .value {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.4em;
+    min-height: 1em;
+    line-height: 1em;
+  }
+
+  .half-width {
+    width: 50%;
+  }
+
+  &.slider {
+    max-width: min(75%, 400px);
+    cursor: default;
+
+    &::after {
+      content: unset;
+    }
+  }
+
+  .slider-section {
+    margin: 0.7em 0;
+  }
+
+  .slider-input {
+    width: 75%;
+    -webkit-appearance: none;
+    height: 1.5em;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+    
+    &::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+    }
+  }
+}
+
+.toggle-switch-container {
+  width: 100%;
+  .toggle-switch {
+    @include standard-button;
+    @include glassy-component-highlight;
+    @include button-hover;
+    margin-top: $toggle-switch-margin;
+    height: $toggle-switch-height;
+    padding: 0 1em;
+  }
+}

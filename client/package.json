@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "/",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "jest",
+    "start:dev": "node scripts/start.js"
+  },
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@reduxjs/toolkit": "^1.5.0",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -49,8 +55,10 @@
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "redux-logger": "^3.0.6",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
     "sass": "^1.26.10",
@@ -67,11 +75,6 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4"
-  },
-  "scripts": {
-    "build": "node scripts/build.js",
-    "test": "echo 'please add a testing suite'",
-    "start_dev": "node scripts/start.js"
   },
   "eslintConfig": {
     "extends": "react-app"

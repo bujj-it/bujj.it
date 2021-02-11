@@ -1,0 +1,92 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+
+.expenses-container {
+  width: 90%;
+  margin-bottom: 10px;
+
+  @include respond-to(tablet) {
+    margin-bottom: 50px;
+  }
+
+  .expenses {
+    @include glassy-component;
+    width: 100%;
+    min-height: 30vh;
+    padding: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+  }
+}
+
+
+.expense {
+  height: fit-content;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+
+  @include respond-to(tablet) {
+    flex-wrap: nowrap;
+  }
+
+  + .expense {
+    margin-top: 0.4em;
+  }
+
+  .name {
+    margin-top: unset;
+    border-bottom: solid rgb(185, 185, 185) 1px;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+
+    @include respond-to(tablet) {
+      flex: 1 1 70%;
+      border-bottom: none;
+      border-bottom-left-radius: inherit;
+    }
+  }
+
+  .value {
+    margin-top: unset;
+    border-radius: 0 0 5px 5px;
+
+    @include respond-to(tablet) {
+      flex: 1 1 30%;
+    }
+  }
+
+  .expense-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: inherit;
+    background-color: inherit;
+    box-sizing: border-box;
+    margin: 0em;
+    font: inherit;
+    padding: 3px 5px;
+    border-width: 0;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+      color: #c73030;
+    }
+
+    @include respond-to(tablet) {
+      position: relative;
+      flex: 0 1 auto;
+      padding: 3px 10px;
+    }
+  }
+}
+
+.expenses-total {
+  @include expense-action-button;
+  left: 0;
+  border-radius: 0 7px 0 7px;
+}
