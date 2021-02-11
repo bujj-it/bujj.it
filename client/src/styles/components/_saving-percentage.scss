@@ -31,17 +31,15 @@ $toggle-switch-margin: 0.5em;
 
   &.left-toggle {
     left: -100%;
-    &.toggled {
-      left: 0%;
-    }
   }
   &.right-toggle {
     position: absolute;
     left: 100%;
     bottom: $toggle-switch-margin + $toggle-switch-height;
-    &.toggled {
-      left: 0%;
-    }
+  }
+
+  &.toggled {
+    left: 0%;
   }
 }
 
