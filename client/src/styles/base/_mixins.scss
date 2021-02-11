@@ -1,4 +1,5 @@
 @use './globals' as *;
+@use "sass:color";
 
 $breakpoints: (
   'tablet' : ( min-width: $breakpoint-tablet ),
@@ -55,7 +56,7 @@ $breakpoints: (
   padding: 0.6em 1em;
   margin-top: 10px;
   font-weight: 300;
-  background: rgba(255, 255, 255, 0.8);
+  background: $glass-highlight-background;
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
   transition: all 0.25s ease;
@@ -71,7 +72,7 @@ $breakpoints: (
 @mixin button-hover {
   &:hover {
     cursor: pointer;
-    background: rgba(255, 255, 255, 1);
+    background: color.change($glass-highlight-background, $alpha: 1) !important;
     color: #000;
     backdrop-filter: unset;
   }
@@ -79,7 +80,7 @@ $breakpoints: (
 
 @mixin button-selected {
   &.selected {
-    background: rgba(255, 255, 255, 1);
+    background: color.change($glass-highlight-background, $alpha: 1) !important;
     color: #000;
     backdrop-filter: unset;
   }
@@ -104,5 +105,5 @@ $breakpoints: (
 
 @mixin glassy-component-highlight {
   @include glassy-component;
-  background: rgba(255, 255, 255, 0.8);
+  background: $glass-highlight-background;
 }

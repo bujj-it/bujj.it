@@ -18,8 +18,10 @@ const ActionButton = props => {
     props.updateSection(props.currentSection, props.isFlowDirectionForward)
   }
 
+  const buttonClass = props.isFlowDirectionForward ? ' next' : ' previous'
+
   return (
-    <button className='action-button' 
+    <button className={`action-button${buttonClass}`} 
         onClick={onButtonClick}
         disabled={props.disabled}>
       {props.text}

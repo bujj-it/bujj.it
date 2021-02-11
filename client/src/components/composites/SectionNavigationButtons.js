@@ -26,7 +26,7 @@ const SectionNavigationButtons = props => {
   }
 
   return (
-    <div className='button-container'>
+    <div className='section-navigation-container'>
        {previousButton}
        {nextButton}
     </div>

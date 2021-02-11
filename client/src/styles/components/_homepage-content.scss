@@ -1,5 +1,6 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
+@use "sass:color";
 
 .homepage-content {
   margin-top: globals.$nav-title-offset;
@@ -46,11 +47,15 @@ $container-padding: 6px;
   overflow-x: hidden;
 }
 
-.button-container {
+.section-navigation-container {
   position: relative;
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin: 40px 0px 20px;
+
+  .previous {
+    background: color.change(globals.$glass-highlight-background, $alpha: 0.5);
+  }
 }

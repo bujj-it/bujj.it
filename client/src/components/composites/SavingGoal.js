@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
-import SectionNavigationButtons from './SectionNavigationButtons'
+import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
 import {isCurrentSectionSelector, isSectionVisibleSelector} from 'selectors/budgetFlowSelectors'
 import {isInputCompleteSelector} from 'selectors/inputSelectors'

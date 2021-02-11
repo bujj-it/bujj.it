@@ -1,11 +1,11 @@
 import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
-import ActionButton from '../elements/ActionButton';
-import scrollToSectionEffect from '../effects/scrollToSectionEffect'
-import { isCurrentSectionSelector, isSectionVisibleSelector } from '../../selectors/budgetFlowSelectors'
+import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
+import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
+import { isCurrentSectionSelector, isSectionVisibleSelector } from 'selectors/budgetFlowSelectors'
 import {isInputCompleteSelector} from 'selectors/inputSelectors'
-import {UPDATE_INCOME} from '../../constants/actionTypes'
+import {UPDATE_INCOME} from 'constants/actionTypes'
 
 const currentBudgetFlowSection = 'INCOME'
 
@@ -54,12 +54,10 @@ const Income = props => {
           </div>
         </div>
 
-        <div className='button-container'>
-          <ActionButton 
-            text='Next Section' 
-            currentSection={currentBudgetFlowSection}
-            disabled={!props.isInputComplete}/>
-        </div>
+        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+            previousButtonText={'Previous Section'}
+            nextButtonText={'Next Section'}
+            isInputComplete={props.isInputComplete}/>
       </div>
     </section>
   )
