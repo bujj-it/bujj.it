@@ -1,16 +1,21 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { NEXT_SECTION } from '../../constants/actionTypes'
+import { NEXT_SECTION, PREVIOUS_SECTION } from '../../constants/actionTypes'
 
 const mapDispatchToProps = dispatch => ({
-  updateSection: currentSection => {
-    dispatch({ type: NEXT_SECTION, payload: currentSection })
+  updateSection: (currentSection, isFlowDirectionForward) => {
+    if (isFlowDirectionForward) {
+      dispatch({ type: NEXT_SECTION, payload: currentSection })
+    } else {
+      dispatch({ type: PREVIOUS_SECTION, payload: currentSection })
+    }
   }
 })
 
 const ActionButton = props => {
+
   const onButtonClick = () => {
-    props.updateSection(props.currentSection)
+    props.updateSection(props.currentSection, props.isFlowDirectionForward)
   }
 
   return (

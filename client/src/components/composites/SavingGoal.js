@@ -1,11 +1,11 @@
 import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
-import ActionButton from '../elements/ActionButton';
-import scrollToSectionEffect from '../effects/scrollToSectionEffect'
-import {isCurrentSectionSelector, isSectionVisibleSelector} from '../../selectors/budgetFlowSelectors'
-import {isInputCompleteSelector} from '../../selectors/inputSelectors'
-import { UPDATE_SAVING_GOAL_NAME, UPDATE_SAVING_GOAL_VALUE } from '../../constants/actionTypes.js';
+import SectionNavigationButtons from './SectionNavigationButtons'
+import scrollToSectionEffect from 'components/effects/scrollToSectionEffect'
+import {isCurrentSectionSelector, isSectionVisibleSelector} from 'selectors/budgetFlowSelectors'
+import {isInputCompleteSelector} from 'selectors/inputSelectors'
+import { UPDATE_SAVING_GOAL_NAME, UPDATE_SAVING_GOAL_VALUE } from 'constants/actionTypes.js';
 
 const currentBudgetFlowSection = 'SAVING_GOAL'
 
@@ -66,13 +66,9 @@ const SavingGoal = props => {
           </div>
         </div>
 
-        <div className='button-container'>
-          <ActionButton 
-              text='Add Saving Goal'
-              currentSection={currentBudgetFlowSection}
-              disabled={!props.isInputComplete}/>
-        </div>
-
+        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+            nextButtonText={'Next Section'}
+            isInputComplete={props.isInputComplete}/>
       </div>
     </section>
   )
