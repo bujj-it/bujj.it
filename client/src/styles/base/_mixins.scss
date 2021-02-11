@@ -72,14 +72,16 @@ $breakpoints: (
   &:hover {
     cursor: pointer;
     background: rgba(255, 255, 255, 1);
-    color: #000
+    color: #000;
+    backdrop-filter: unset;
   }
 }
 
 @mixin button-selected {
   &.selected {
     background: rgba(255, 255, 255, 1);
-    color: #000
+    color: #000;
+    backdrop-filter: unset;
   }
 }
 

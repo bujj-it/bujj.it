@@ -17,7 +17,6 @@ $container-padding: 6px;
   margin-top: 20px;
   justify-content: center;
   min-height: calc(100vh - #{globals.$nav-bar-height});
-  overflow-x: hidden;
 
   &.secondary {
     display: none;
@@ -44,6 +43,7 @@ $container-padding: 6px;
   justify-content: space-evenly;
   padding: 5px;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .button-container {

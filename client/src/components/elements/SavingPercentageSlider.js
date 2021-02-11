@@ -6,21 +6,22 @@ import { DurationValue } from 'components/elements/DurationValue'
 import { 
   savingsPerMonthSelector,
   spendingPerWeekSelector,
-  timeToGoalSelector
+  timeToGoalSelector,
+  maxSavingPercentageSelector
 } from 'selectors/savingPlanSelectors'
 import { UPDATE_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
-    savingsPerMonth: savingsPerMonthSelector(state, ownProps.savingPercentage),
-    spendingPerWeek: spendingPerWeekSelector(state, ownProps.savingPercentage),
-    timeToGoal: timeToGoalSelector(state, ownProps.savingPercentage),
-    isCardSelected: state.savingPercentage === ownProps.savingPercentage,
-    savingPercentage: state.savingPercentage !== null ? state.savingPercentage : 0
+    savingsPerMonth: savingsPerMonthSelector(state),
+    spendingPerWeek: spendingPerWeekSelector(state),
+    timeToGoal: timeToGoalSelector(state),
+    savingPercentage: state.savingPercentage !== null ? state.savingPercentage : 0,
+    maxSavingPercentage: maxSavingPercentageSelector(state)
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     updateSavingPercentage: event => {
       dispatch({ 
@@ -39,7 +40,13 @@ const SavingPercentageItem = props => {
         {props.savingPercentage} %
       </div>
       <div className='value slider-section flex-center'>
-        <input type="range" min="0" max="100" value={props.savingPercentage} className="slider-input" onChange={props.updateSavingPercentage} />
+        <input type="range" 
+            min="0" 
+            max={props.maxSavingPercentage}
+            step='1' 
+            value={props.savingPercentage} 
+            className="slider-input" 
+            onChange={props.updateSavingPercentage}/>
       </div>
       <div className='heading half-width'>
         Savings per Month

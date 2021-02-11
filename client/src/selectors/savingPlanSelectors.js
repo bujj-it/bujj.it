@@ -23,3 +23,19 @@ export const timeToGoalSelector = (state, savingPercentage = state.savingPercent
   const days = Math.round(30.44 * (remainingTime - months))
   return {months: months, days: days}
 }
+
+export const maxSavingPercentageSelector = state => {
+  return Math.floor((remainingPerMonthSelector(state) / state.income) * 100)
+}
+
+export const maxSavingsPerMonthSelector = state => {
+  
+}
+
+export const maxSpendingPerWeekSelector = state => {
+  
+}
+
+export const maxTimeToGoalSelector = state => {
+  
+}
