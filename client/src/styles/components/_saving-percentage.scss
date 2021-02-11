@@ -47,6 +47,15 @@ $toggle-switch-margin: 0.5em;
   padding: 20px 10px;
   margin: 15px 5px;
 
+  &.not-available {
+    cursor: default;
+    opacity: 0.4 !important;
+
+    &:hover {
+      @include glassy-component-highlight;
+    }
+  }
+
   .percentage {
     width: 100%;
     font-size: 2.5em;

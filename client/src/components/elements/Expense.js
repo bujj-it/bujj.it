@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const Expense = props => {
 
-  const expenseValue = !props.expense.value ? null : props.expense.value / 100
+  const expenseValue = !props.expense.value ? '' : props.expense.value / 100
 
   return (
     <div className='input-container expense'>

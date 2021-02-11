@@ -2,7 +2,13 @@ import React from "react";
 
 export const MoneyValue = props => {
 
-  const sign = props.value < 0 ? '-' : ''
+  let sign
+  let warningClass
+  if (props.value < 0) {
+    sign = '-'
+    warningClass = 'warning'
+  }
+
   const poundsValue = Math.abs(props.value / 100)
   let value
   if (props.value % 100 === 0 ) {
@@ -12,7 +18,7 @@ export const MoneyValue = props => {
   }
 
   return (
-    <span>
+    <span className={warningClass}>
       {sign}£{value}
     </span>
   )

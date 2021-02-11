@@ -7,7 +7,8 @@ import {
   savingsPerMonthSelector,
   spendingPerWeekSelector,
   timeToGoalSelector,
-  maxSavingPercentageSelector
+  maxSavingPercentageSelector,
+  sliderSavingPercentageSelector
 } from 'selectors/savingPlanSelectors'
 import { UPDATE_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
 
@@ -16,7 +17,7 @@ const mapStateToProps = state => {
     savingsPerMonth: savingsPerMonthSelector(state),
     spendingPerWeek: spendingPerWeekSelector(state),
     timeToGoal: timeToGoalSelector(state),
-    savingPercentage: state.savingPercentage !== null ? state.savingPercentage : 0,
+    savingPercentage: sliderSavingPercentageSelector(state),
     maxSavingPercentage: maxSavingPercentageSelector(state)
   }
 }
@@ -26,14 +27,13 @@ const mapDispatchToProps = dispatch => {
     updateSavingPercentage: event => {
       dispatch({ 
         type: UPDATE_SAVING_PERCENTAGE,
-        payload: event.target.value
+        payload: parseInt(event.target.value, 10)
       })
     }
   }
 }
 
 const SavingPercentageItem = props => {
-
   return (
     <div className='saving-percentage-card slider selected'>
       <div className='percentage flex-center'>
@@ -43,7 +43,7 @@ const SavingPercentageItem = props => {
         <input type="range" 
             min="0" 
             max={props.maxSavingPercentage}
-            step='1' 
+            step='1'
             value={props.savingPercentage} 
             className="slider-input" 
             onChange={props.updateSavingPercentage}/>

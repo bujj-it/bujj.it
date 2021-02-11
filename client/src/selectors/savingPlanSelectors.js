@@ -28,3 +28,10 @@ export const timeToGoalSelector = (state, savingPercentage = state.savingPercent
 export const maxSavingPercentageSelector = state => {
   return Math.floor((remainingPerMonthSelector(state) / state.income) * 100)
 }
+
+export const sliderSavingPercentageSelector = state => {
+  if (state.savingPercentage === null) {
+    return 0
+  }
+  return maxSavingPercentageSelector(state) === 0 ? 0 : state.savingPercentage
+}

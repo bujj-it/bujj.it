@@ -30,10 +30,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const SavingPercentageItem = props => {
+const SavingPercentageCard = props => {
+
+  const isCardAvailable = props.spendingPerWeek >= 0
+
+  const cardSelectedClass = props.isCardSelected ? 'selected' : ''
+  const cardAvailableClass = isCardAvailable ? '' : 'not-available'
 
   return (
-    <button className={`saving-percentage-card ${props.isCardSelected ? 'selected' : ''}`} onClick={props.onItemClick} disabled={props.isCardSelected}>
+    <button className={`saving-percentage-card ${cardSelectedClass} ${cardAvailableClass}`} onClick={props.onItemClick} disabled={props.isCardSelected || !isCardAvailable}>
       <div className='percentage flex-center'>
         {props.savingPercentage} %
       </div>
@@ -59,4 +64,4 @@ const SavingPercentageItem = props => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SavingPercentageItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SavingPercentageCard);
