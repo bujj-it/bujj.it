@@ -11,3 +11,7 @@ export const isSectionVisibleSelector = (state, section) => {
   const sectionIndex = budgetFlowSections.indexOf(section)
   return sectionIndex <= currentSectionIndex
 }
+
+export const isInitialSectionSelector = state => {
+  return budgetFlowSections.indexOf(state.budgetFlow) === 0
+}

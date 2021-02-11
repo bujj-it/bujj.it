@@ -10,7 +10,7 @@ const composeMiddleware = () => {
 
 const devData = {
   navMenu: null,
-  budgetFlow: 'SAVING_PERCENTAGE',
+  budgetFlow: 'CTA',
   savingGoal: {
     name: "A holiday",
     value: "42000"

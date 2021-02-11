@@ -4,7 +4,7 @@ import DropDownMenu from "./DropDownMenu";
 import NavMenuButton from 'components/elements/NavMenuButton'
 import {useLocation} from 'react-router-dom'
 
-const NavMenu = props => {
+const NavMenu = () => {
   const location = useLocation();
 
   const navMenuLinksData = [
