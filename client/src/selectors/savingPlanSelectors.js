@@ -29,9 +29,14 @@ export const maxSavingPercentageSelector = state => {
   return Math.floor((remainingPerMonthSelector(state) / state.income) * 100)
 }
 
+export const defaultCustomSavingPercentageSelector = state => {
+  const maxSavingPercentage = maxSavingPercentageSelector(state)
+  return maxSavingPercentage === 0 ? 0 : Math.floor(maxSavingPercentage / 2)
+}
+
 export const sliderSavingPercentageSelector = state => {
   if (state.savingPercentage === null) {
-    return 0
+    return defaultCustomSavingPercentageSelector(state)
   }
   return maxSavingPercentageSelector(state) === 0 ? 0 : state.savingPercentage
 }
