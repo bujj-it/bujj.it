@@ -1,5 +1,6 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
+@use "sass:color";
 
 .input-container {
   position: relative;
@@ -108,5 +109,18 @@
     max-height: 100%;
     padding: 20px;
     transition: margin 0.15s linear, opacity 0.1s linear, max-height 0.15s linear, padding 0.01s linear;
+  }
+}
+
+.money-input {
+  .number-input {
+    border-color: globals.$box-outline;
+    border-style: solid;
+    border-width: 1px;
+
+    &:focus {
+      box-shadow: 0 0 0pt 1pt color.change(globals.$theme-color, $alpha: 0.8); 
+      outline: none;
+    }
   }
 }

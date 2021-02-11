@@ -9,8 +9,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // background-color: globals.$background-color;
-  background-color: rgb(57, 187, 100);
-  // background-image: linear-gradient(to bottom right, rgb(57, 187, 100), rgb(214, 238, 76));
+  background-color: globals.$theme-color;
+  // background-image: linear-gradient(to bottom right, globals.$theme-color, rgb(214, 238, 76));
   // background-size: cover;
   // background-attachment: fixed;
 }
