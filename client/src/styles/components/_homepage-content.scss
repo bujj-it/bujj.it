@@ -6,7 +6,7 @@ $section-padding: 6px;
 
 .homepage-content {
   margin-top: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: margin-top globals.$section-transition-time;
 
   &.nav-offest {
