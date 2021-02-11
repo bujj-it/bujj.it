@@ -62,7 +62,7 @@ const NavTitleDynamic = () => {
   }, [loadInitialStyles])
 
   return (
-    <div className="nav-item dynamic">
+    <div className="nav-item nav-title dynamic">
       <div className="nav-title nav-title-homepage" ref={navTitleRef}>
         bujj.it
       </div>

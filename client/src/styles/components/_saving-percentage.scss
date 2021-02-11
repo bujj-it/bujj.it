@@ -1,5 +1,6 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
+@use "sass:color";
 
 $toggle-switch-height: 2.5em;
 $toggle-switch-margin: 0.5em;
@@ -91,6 +92,10 @@ $toggle-switch-margin: 0.5em;
   &.slider {
     max-width: min(75%, 400px);
     cursor: default;
+
+    &::after {
+      content: unset;
+    }
   }
 
   .slider-section {

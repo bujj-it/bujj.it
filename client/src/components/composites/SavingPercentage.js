@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import { connect } from 'react-redux';
 
-import ActionButton from 'components/elements/ActionButton';
+import SectionNavigationButtons from 'components/composites/SectionNavigationButtons';
 import SavingPercentageCard from 'components/elements/SavingPercentageCard';
 import SavingPercentageSlider from 'components/elements/SavingPercentageSlider';
 
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
   return {
     isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
     isSectionVisible: isSectionVisibleSelector(state, currentBudgetFlowSection),
-    isSavingPercentSelected: state.savingPercentage !== null,
+    isInputComplete: state.savingPercentage !== null,
     isSavingPercentageToggled: state.toggleSavingPercentage,
     isRecommendedSavingPercentagesAvailable: spendingPerWeekSelector(state, Math.min(...recommendedSavingPercentages)) >= 0,
     defaultCustomSavingPercentage: defaultCustomSavingPercentageSelector(state)
@@ -74,12 +74,10 @@ const Expenses = props => {
           </div>
         </div>
 
-        <div className='button-container'>
-          <ActionButton text='Complete Your Budget' 
-              currentSection={currentBudgetFlowSection} 
-              disabled={!props.isSavingPercentSelected}>
-          </ActionButton>
-        </div>
+        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+            previousButtonText={'Previous Section'}
+            nextButtonText={'Complete Budget'}
+            isInputComplete={props.isInputComplete}/>
       </div>
     </section>
   )
