@@ -5,6 +5,8 @@
 // Variables
 $sidebar-transition: 0.3s;
 $btn-hover-animation: 0.2s;
+$title-base-font-size: 30px;
+$title-dynamic-font-size: 65px;
 
 // Vendor
 @use '../vendor/hamburger' with(
@@ -67,6 +69,7 @@ $btn-hover-animation: 0.2s;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  font-size: $title-base-font-size;
 
   &.dynamic {
     height: fit-content;
@@ -79,20 +82,22 @@ $btn-hover-animation: 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .minimized {
-    font-size: 1em;
-    padding: 0;
-    transition: font-size 0.25s, padding 0.25s;
-  }
 } 
 
 .nav-title-homepage {
-  font-size: 65px;
-  box-sizing: border-box;
+  font-size: $title-dynamic-font-size;
   padding: 0;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+  width: 100%;
+  margin: ((globals.$nav-bar-height - $title-base-font-size)/2) 0;
+  line-height: 1em;
+  transition: font-size globals.$section-transition-time, padding globals.$section-transition-time;
+
+  &.minimized {
+    font-size: 1em;
+    padding: 0;
+  }
 }
 
 .nav-dropdown-menu {

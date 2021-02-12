@@ -45,7 +45,8 @@ const NavTitleDynamic = props => {
     window.requestAnimationFrame(() => {
       navTitleElement.style.paddingTop = `${newPadding}px`;
       navTitleElement.style.paddingBottom = `${newPadding}px`;
-      navTitleElement.style.fontSize = `${newFontSize}px`
+      navTitleElement.style.fontSize = `${newFontSize}px`;
+      navTitleElement.style.transition = 'unset';
     })
   }
 
@@ -75,6 +76,7 @@ const NavTitleDynamic = props => {
       navTitleElement.style.paddingTop = null
       navTitleElement.style.paddingBottom = null
       navTitleElement.style.fontSize = null
+      navTitleElement.style.transition = null
     })
     minimizeHeaderClass = 'minimized'
   } else {
@@ -83,7 +85,7 @@ const NavTitleDynamic = props => {
 
   return (
     <div className="nav-item nav-title dynamic">
-      <div className={`nav-title nav-title-homepage ${minimizeHeaderClass}`} ref={navTitleRef}>
+      <div className={`nav-title-homepage flex-center ${minimizeHeaderClass}`} ref={navTitleRef}>
         bujj.it
       </div>
     </div>

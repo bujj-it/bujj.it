@@ -9,7 +9,7 @@ const CallToAction = () => {
   return (
     <HomepageSection sectionClass='call-to-action-container' budgetFlowSection={currentBudgetFlowSection}>
 
-      <h2 className='cta-header'>Simple Budget Software</h2>
+      <h2 className='cta-header'>Budgeting Made Simple</h2>
 
       <div className='cta-subtitle'>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
