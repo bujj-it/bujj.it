@@ -3,27 +3,15 @@ import BurgerMenu from "./BurgerMenu";
 import DropDownMenu from "./DropDownMenu";
 import NavMenuButton from 'components/elements/NavMenuButton'
 import {useLocation} from 'react-router-dom'
+import { navMenuLinksData } from 'constants/navMenu.constants'
 
 const NavMenu = () => {
   const location = useLocation();
 
-  const navMenuLinksData = [
-    {
-      pathname: '/',
-      text: 'Home'
-    },
-    {
-      pathname: '/login',
-      text: 'Login'
-    }
-  ]
-
   const navMenuLinks = navMenuLinksData.map(link => {
     if (link.pathname !== location.pathname) {
       return (
-        <div className="nav-item" key={link.pathname}>
-          <NavMenuButton buttonLink={link.pathname} buttonText={link.text}/>
-        </div>
+        <NavMenuButton buttonLink={link.pathname} buttonText={link.text} key={link.pathname}/>
       )
     }
   })

@@ -81,13 +81,11 @@ $title-dynamic-font-size: 65px;
   @include nav-side-container;
   right: 0;
   margin-right: 10px;
-  flex-direction: row-reverse;
 }
 
 .nav-item {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   font-size: $title-base-font-size;
 }
 
@@ -172,6 +170,7 @@ $title-dynamic-font-size: 65px;
   @include nav-button-hover;
   display: none;
   height: globals.$nav-bar-height;
+  font-size: 25px;
 
   @include respond-to(tablet) {
     display: block;
