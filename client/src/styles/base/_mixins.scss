@@ -130,3 +130,12 @@ $breakpoints: (
   @include glassy-component;
   background: $glass-highlight-background;
 }
+
+@mixin nav-button-hover {
+  &:hover {
+    cursor: pointer;
+    background: color.change($glass-highlight-background, $alpha: 0.8) !important;
+    color: #000;
+    backdrop-filter: unset;
+  }
+}

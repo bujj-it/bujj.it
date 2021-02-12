@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <section className="nav-bar-container-section">
       <div className="nav-bar-container-responsive" >
-        <img src={logo} className="nav-logo nav-item" alt="bujj.it logo" />
+        <img src={logo} className="nav-logo nav-item nav-left" alt="bujj.it logo" />
         <Switch >
           <Route exact path='/' component={NavTitleDynamic} />
           <Route path='/' component={NavTitleStatic} />

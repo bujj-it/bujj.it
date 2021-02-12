@@ -29,13 +29,13 @@ const NavMenu = () => {
   })
   
   return (
-    <>
+    <div className='nav-item nav-right'>
       {navMenuLinks}
-      <div className="nav-item burger-menu">
+      <div className="burger-menu">
         <BurgerMenu />
       </div>
       <DropDownMenu />
-    </>
+    </div>
   )
 };
 

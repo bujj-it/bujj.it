@@ -16,7 +16,7 @@ const NavMenuButton = props => {
 
   return (
     <div className='nav-menu-button'>
-      <Link to={props.buttonLink} onClick={props.onClickNavMenu}>{props.buttonText}</Link>
+      <Link className='flex-center' to={props.buttonLink} onClick={props.onClickNavMenu}>{props.buttonText}</Link>
     </div>
   )
 };

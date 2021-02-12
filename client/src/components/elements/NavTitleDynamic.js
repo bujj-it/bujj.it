@@ -90,7 +90,7 @@ const NavTitleDynamic = props => {
   }
 
   return (
-    <div className="nav-item nav-title dynamic">
+    <div className="nav-item nav-title">
       <div className={`nav-title-homepage flex-center ${minimizeHeaderClass}`} ref={navTitleRef}>
         bujj.it
       </div>
