@@ -26,6 +26,8 @@ const Homepage = props => {
       <Expenses />
       <SavingPercentage/>
       <Dashboard />
+      <div className='side-blur left'></div>
+      <div className='side-blur right'></div>
     </div>
   )
 };
