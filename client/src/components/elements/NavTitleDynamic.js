@@ -35,12 +35,14 @@ const NavTitleDynamic = props => {
 
   const handleScroll = () => {
     const scrollTop = window.scrollY
-    const newPadding = Math.max(0, initialPaddingRef.current - (scrollTop / 3))
+    const newPadding = Math.trunc(Math.max(0, initialPaddingRef.current - (scrollTop / 3)))
 
     const sizeRatio = newPadding / initialPaddingRef.current
     const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current
     const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
     const navTitleElement = navTitleRef.current
+
+    console.log('handle scroll initialPaddingRef.current', initialPaddingRef.current)
 
     window.requestAnimationFrame(() => {
       navTitleElement.style.paddingTop = `${newPadding}px`;
@@ -51,15 +53,18 @@ const NavTitleDynamic = props => {
   }
 
   useEffect(() => {
-    const navTitleElement = navTitleRef.current
-    const navTitleStyle = getComputedStyle(navTitleElement) 
-    const navBarStyle = getComputedStyle(navTitleElement.parentElement)
-
-    setTargetFontSize(parseInt(navBarStyle.fontSize, 10))
-    setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
-    setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))    
-
+    if (!targetFontSizeRef.current) {
+      const navTitleElement = navTitleRef.current
+      const navTitleStyle = getComputedStyle(navTitleElement) 
+      const navBarStyle = getComputedStyle(navTitleElement.parentElement)
+  
+      setTargetFontSize(parseInt(navBarStyle.fontSize, 10))
+      setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
+      setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))    
+    }
+    
     if (props.isInitalSection) {
+      console.log('add event listner nav')
       window.addEventListener('scroll', handleScroll)
       return () => {
         window.removeEventListener('scroll', handleScroll)
@@ -70,6 +75,7 @@ const NavTitleDynamic = props => {
 
   let minimizeHeaderClass
   if (!props.isInitalSection) {
+    console.log('remove event listner nav')
     window.removeEventListener('scroll', handleScroll)
     const navTitleElement = navTitleRef.current
     window.requestAnimationFrame(() => {
