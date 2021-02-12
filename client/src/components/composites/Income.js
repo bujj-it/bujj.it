@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import {isInputCompleteSelector} from 'selectors/inputSelectors'
 import {UPDATE_INCOME} from 'constants/actionTypes'
 import HomepageSection from "components/elements/HomepageSection";
+import BudgetFlowSection from 'components/elements/BudgetFlowSection'
 
 const currentBudgetFlowSection = 'INCOME'
 
@@ -27,27 +27,26 @@ const Income = props => {
 
   return (
     <HomepageSection sectionClass='income' budgetFlowSection={currentBudgetFlowSection}>
-      <h2> ENTER YOUR INCOME </h2>
+      <BudgetFlowSection 
+          sectionTitle={'Enter Your Income'}
+          currentBudgetFlowSection={currentBudgetFlowSection}
+          isInputComplete={props.isInputComplete}>
 
-      <div className='input-container'>
-        <label className='label'>Your monthly income</label>
-        <div className='value'>
-          <span className='denominator'>£</span>
-          <input type="number" 
-              name="income-value" 
-              min="0" 
-              step="0.01" 
-              placeholder='1000' 
-              required 
-              value={props.income} 
-              onChange={props.onIncomeChange}/>
+        <div className='input-container'>
+          <label className='label'>Your monthly income</label>
+          <div className='value'>
+            <span className='denominator'>£</span>
+            <input type="number" 
+                name="income-value" 
+                min="0" 
+                step="0.01" 
+                placeholder='1000' 
+                required 
+                value={props.income} 
+                onChange={props.onIncomeChange}/>
+          </div>
         </div>
-      </div>
-
-      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-          previousButtonText={'Previous Section'}
-          nextButtonText={'Next Section'}
-          isInputComplete={props.isInputComplete}/>
+      </BudgetFlowSection>
     </HomepageSection>
   )
 }

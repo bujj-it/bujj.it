@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import Expense from 'components/elements/Expense';
 import { MoneyValue }  from 'components/elements/MoneyValue'
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
@@ -11,6 +10,7 @@ import {
   totalExpensesPerMonthSelector
 } from 'selectors/expensesSelectors'
 import HomepageSection from "components/elements/HomepageSection";
+import BudgetFlowSection from 'components/elements/BudgetFlowSection'
 
 const currentBudgetFlowSection = 'EXPENSES'
 
@@ -50,29 +50,28 @@ const Expenses = props => {
 
   return (
     <HomepageSection sectionClass='expenses' budgetFlowSection={currentBudgetFlowSection}>
-      <h2>EXPENSES</h2>
+      <BudgetFlowSection 
+          sectionTitle={'Add Expenses'}
+          currentBudgetFlowSection={currentBudgetFlowSection}
+          isInputComplete={props.isInputComplete}>
 
-      <div className='expenses-container'>
-        <div className='expenses'>
-          {expenseComponents}
-          <button className='expense-add-button' 
-              onClick={props.onAddNewExpense} 
-              disabled={!props.isInputComplete}>
-            + Add Expense
-          </button>
+        <div className='expenses-container'>
+          <div className='expenses'>
+            {expenseComponents}
+            <button className='expense-add-button' 
+                onClick={props.onAddNewExpense} 
+                disabled={!props.isInputComplete}>
+              + Add Expense
+            </button>
 
-          <div className='expenses-total'>
-            Total: <MoneyValue value={props.expenseTotal} />
-          </div>          
+            <div className='expenses-total'>
+              Total: <MoneyValue value={props.expenseTotal} />
+            </div>          
+          </div>
+
+          {warningMessage}
         </div>
-
-        {warningMessage}
-      </div>
-
-      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-          previousButtonText={'Previous Section'}
-          nextButtonText={'Next Section'}
-          isInputComplete={props.isInputComplete}/>
+      </BudgetFlowSection>
     </HomepageSection>
   )
 }

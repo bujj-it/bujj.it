@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import SectionNavigationButtons from 'components/composites/SectionNavigationButtons';
 import SavingPercentageCard from 'components/elements/SavingPercentageCard';
 import SavingPercentageSlider from 'components/elements/SavingPercentageSlider';
+import BudgetFlowSection from 'components/elements/BudgetFlowSection'
 
 import { TOGGLE_SAVING_PERCENTAGE, UPDATE_SAVING_PERCENTAGE, RESET_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
 import { spendingPerWeekSelector, defaultCustomSavingPercentageSelector } from 'selectors/savingPlanSelectors'
@@ -48,26 +48,26 @@ const Expenses = props => {
 
   return (
     <HomepageSection sectionClass='saving-percentage' budgetFlowSection={currentBudgetFlowSection}>
-      <h2>Select Saving Percentage</h2>
-
-      <div className='saving-percentages-selector'>
-        <div className={`saving-percentages-container left-toggle ${props.isSavingPercentageToggled ? '' : 'toggled'}`}>
-          {savingPercentageCards}
-        </div>
-        <div className={`saving-percentages-container right-toggle ${props.isSavingPercentageToggled ? 'toggled' : ''}`}>
-          <SavingPercentageSlider/>
-        </div>
-        <div className='toggle-switch-container flex-center'>
-          <button className='toggle-switch flex-center' onClick={handleToggleClick}>
-            {toggleText}
-          </button>
-        </div>
-      </div>
-
-      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-          previousButtonText={'Previous Section'}
+      <BudgetFlowSection 
+          sectionTitle={'Select Saving Percentage'}
           nextButtonText={'Complete Budget'}
-          isInputComplete={props.isInputComplete}/>
+          currentBudgetFlowSection={currentBudgetFlowSection}
+          isInputComplete={props.isInputComplete}>
+        
+        <div className='saving-percentages-selector'>
+          <div className={`saving-percentages-container left-toggle ${props.isSavingPercentageToggled ? '' : 'toggled'}`}>
+            {savingPercentageCards}
+          </div>
+          <div className={`saving-percentages-container right-toggle ${props.isSavingPercentageToggled ? 'toggled' : ''}`}>
+            <SavingPercentageSlider/>
+          </div>
+          <div className='toggle-switch-container flex-center'>
+            <button className='toggle-switch flex-center' onClick={handleToggleClick}>
+              {toggleText}
+            </button>
+          </div>
+        </div>
+      </BudgetFlowSection>
     </HomepageSection>
   )
 }
