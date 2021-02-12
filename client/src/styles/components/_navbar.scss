@@ -113,30 +113,52 @@ $title-dynamic-font-size: 65px;
 }
 
 .nav-dropdown-menu {
-  @include glassy-component-highlight;
   position: fixed;
   top: 0;
+  left: 0;
+  height: 0;
   width: 100%;
-  flex-direction: column;
-  left: 0px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: all 0.2s;
-  padding-top: globals.$nav-bar-height;
-  padding-bottom: 2px;
-  background-color: color.change(globals.$glass-highlight-background, $alpha: 0.9);
   z-index: -1;
-  border-radius: 0;
+  transition: z-index 0.2s step-end, height 0.2s step-end;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   @include respond-to(tablet) {
     display: none;
   }
 
+  .links {
+    width: 100%;
+    height: fit-content;
+    padding: globals.$nav-bar-height 0;
+    padding-bottom: 10px;
+    background-color: color.change(globals.$glass-highlight-background, $alpha: 0.97);
+    transition: all 0.2s;
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .screen-cover {
+    flex: 1 1 100%;
+    transition: all 0.2s;
+    opacity: 0;
+    background-color: #000;
+  }
+
   &.clicked {
-    opacity: 1;
-    max-height: 500px;
+    transition: unset;
     z-index: 2;
+    height: 100vh;
+
+    .links {
+      opacity: 1;
+      max-height: 500px;
+    }
+
+    .screen-cover {
+      opacity: 0.4;
+    }
   }
 }
 

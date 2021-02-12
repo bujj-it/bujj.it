@@ -25,7 +25,10 @@ const DropDownMenu = props => {
 
   return (
     <div className={`nav-dropdown-menu ${clickedClass}`}>
-      {navMenuLinks}
+      <div className='links'>
+        {navMenuLinks}
+      </div>
+      <div className='screen-cover'></div>
     </div>
   )
 };
