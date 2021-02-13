@@ -42,8 +42,6 @@ const NavTitleDynamic = props => {
     const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
     const navTitleElement = navTitleRef.current
 
-    console.log('handle scroll initialPaddingRef.current', initialPaddingRef.current)
-
     window.requestAnimationFrame(() => {
       navTitleElement.style.paddingTop = `${newPadding}px`;
       navTitleElement.style.paddingBottom = `${newPadding}px`;
@@ -78,12 +76,14 @@ const NavTitleDynamic = props => {
     console.log('remove event listner nav')
     window.removeEventListener('scroll', handleScroll)
     const navTitleElement = navTitleRef.current
-    window.requestAnimationFrame(() => {
-      navTitleElement.style.paddingTop = null
-      navTitleElement.style.paddingBottom = null
-      navTitleElement.style.fontSize = null
-      navTitleElement.style.transition = null
-    })
+    if (navTitleElement) {
+      window.requestAnimationFrame(() => {
+        navTitleElement.style.paddingTop = null
+        navTitleElement.style.paddingBottom = null
+        navTitleElement.style.fontSize = null
+        navTitleElement.style.transition = null
+      })
+    }
     minimizeHeaderClass = 'minimized'
   } else {
     minimizeHeaderClass = ''

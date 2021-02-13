@@ -7,11 +7,8 @@ export default (state = defaultSavingPercentage, action) => {
     case UPDATE_SAVING_PERCENTAGE:
       return action.payload;
     case UPDATE_INCOME:
-      return defaultSavingPercentage;
     case UPDATE_EXPENSE:
-      return defaultSavingPercentage;
     case REMOVE_EXPENSE:
-      return defaultSavingPercentage;
     case RESET_SAVING_PERCENTAGE:
       return defaultSavingPercentage;
     default:

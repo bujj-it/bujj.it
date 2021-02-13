@@ -10,7 +10,7 @@ const composeMiddleware = () => {
 
 const devData = {
   navMenu: null,
-  budgetFlow: 'CTA',
+  budgetFlow: 'DASHBOARD',
   savingGoal: {
     name: "A holiday",
     value: "42000"
@@ -21,7 +21,8 @@ const devData = {
       name: "Rent",
       value: 5000
     }
-  }
+  },
+  savingPercentage: 15
 }
 
 const preloadData = process.env.NODE_ENV !== 'production' ? devData : {}
