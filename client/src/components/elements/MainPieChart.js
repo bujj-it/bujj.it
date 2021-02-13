@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Expenses', value: 400 },
-  { name: 'Spending', value: 300 },
-  { name: 'Savings', value: 300 }
+  { name: 'Expenses', value: 400, fill: 'red' },
+  { name: 'Spending', value: 300, fill: 'green' },
+  { name: 'Savings', value: 300, fill: 'blue' }
 ];
 
 const renderActiveShape = props => {
@@ -22,7 +22,7 @@ const renderActiveShape = props => {
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill="#000">
         {payload.name}
       </text>
       <Sector
@@ -32,7 +32,7 @@ const renderActiveShape = props => {
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill={fill}
+        fill={payload.fill}
       />
       <Sector
         cx={cx}
@@ -41,14 +41,14 @@ const renderActiveShape = props => {
         endAngle={endAngle}
         innerRadius={outerRadius + 6}
         outerRadius={outerRadius + 10}
-        fill={fill}
+        fill={payload.fill}
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{payload.name}</text>
+      {/* <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(Rate ${(percent * 100).toFixed(2)}%)`}
-      </text>
+      </text> */}
     </g>
   );
 };

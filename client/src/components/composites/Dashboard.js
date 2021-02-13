@@ -4,7 +4,7 @@ import HomepageSection from "components/elements/HomepageSection";
 import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
 import { MoneyValue } from 'components/elements/MoneyValue'
 import { DurationValue } from 'components/elements/DurationValue'
-import Expense from 'components/elements/Expense';
+import IncomeInput from 'components/elements/IncomeInput';
 import MainPieChart from 'components/elements/MainPieChart'
 import {
   savingsPerMonthSelector,
@@ -50,6 +50,10 @@ const Dashboard = props => {
         <h2 className='header'> Dashboard </h2>
 
         {isMainPieChart}
+
+        <div className='income'>
+          <IncomeInput />
+        </div>
 
         <p className='saving-goal'>
           savingGoal: {props.savingGoal.name}
