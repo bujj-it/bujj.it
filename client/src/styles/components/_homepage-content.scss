@@ -58,7 +58,9 @@ $section-padding: 8px;
 
   .header {
     flex: 0 0 auto;
-    padding-top: 0.75em;
+    @include respond-to(tablet) {
+      padding-top: 0.75em;
+    }
   }
 }
 

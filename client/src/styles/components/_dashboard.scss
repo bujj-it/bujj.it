@@ -1,0 +1,18 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+@use "sass:color";
+
+.section-container.dashboard {
+  align-items: flex-start;
+
+  .header {
+    flex: 0 0 auto;
+    @include respond-to(tablet) {
+      padding-top: 0.75em;
+    }
+  }
+
+  .dashboard-content {
+    flex: 1 1 100%;
+  }
+}

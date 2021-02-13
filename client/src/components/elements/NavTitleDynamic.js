@@ -62,7 +62,6 @@ const NavTitleDynamic = props => {
     }
     
     if (props.isInitalSection) {
-      console.log('add event listner nav')
       window.addEventListener('scroll', handleScroll)
       return () => {
         window.removeEventListener('scroll', handleScroll)
@@ -73,7 +72,6 @@ const NavTitleDynamic = props => {
 
   let minimizeHeaderClass
   if (!props.isInitalSection) {
-    console.log('remove event listner nav')
     window.removeEventListener('scroll', handleScroll)
     const navTitleElement = navTitleRef.current
     if (navTitleElement) {
