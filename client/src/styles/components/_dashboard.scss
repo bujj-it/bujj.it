@@ -2,17 +2,73 @@
 @use '../base/mixins' as *;
 @use "sass:color";
 
-.section-container.dashboard {
+.dashboard .section-pane {
+  justify-content: flex-start;
   align-items: flex-start;
+}
 
-  .header {
-    flex: 0 0 auto;
-    @include respond-to(tablet) {
-      padding-top: 0.75em;
-    }
+.dashboard-grid {
+
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "header"
+    "main-piechart"
+    "income"
+    "saving-goal"
+    "saving-percentage"
+    "expenses"
+    "expenses-piechart"
+    "nav-buttons";
+
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-items: stretch;
+  align-items: stretch;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 50% 10% 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "header header header"
+      "main-piechart income income"
+      "main-piechart saving-goal saving-goal"
+      "main-piechart saving-percentage saving-percentage"
+      "expenses expenses expenses-piechart"
+      "nav-buttons nav-buttons nav-buttons";
   }
 
-  .dashboard-content {
-    flex: 1 1 100%;
+  .header {
+    grid-area: header;
+  }
+
+  .pie-chart-container.main {
+    grid-area: main-piechart;
+  }
+
+  .income {
+    grid-area: income;
+  }
+
+  .saving-goal {
+    grid-area: saving-goal;
+  }
+
+  .saving-percentage {
+    grid-area: saving-percentage;
+  }
+
+  .expenses {
+    grid-area: expenses;
+  }
+
+  .pie-chart-container.expenses {
+    grid-area: expenses-piechart;
+  }
+
+  .nav-buttons {
+    grid-area: nav-buttons;
   }
 }

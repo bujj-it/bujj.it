@@ -5,6 +5,7 @@ import SectionNavigationButtons from 'components/composites/SectionNavigationBut
 import { MoneyValue } from 'components/elements/MoneyValue'
 import { DurationValue } from 'components/elements/DurationValue'
 import Expense from 'components/elements/Expense';
+import MainPieChart from 'components/elements/MainPieChart'
 import {
   savingsPerMonthSelector,
   spendingPerWeekSelector,
@@ -14,10 +15,11 @@ import {
   totalExpensesPerMonthSelector
 } from 'selectors/expensesSelectors'
 import { expensesSelector } from "selectors/expensesSelectors";
+import { isCurrentSectionSelector } from 'selectors/budgetFlowSelectors'
 
 const currentBudgetFlowSection = 'DASHBOARD'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     income: state.income,
     savingsPerMonth: savingsPerMonthSelector(state),
@@ -25,7 +27,8 @@ const mapStateToProps = state => {
     timeToGoal: timeToGoalSelector(state),
     totalExpensesPerMonth: totalExpensesPerMonthSelector(state),
     expenses: expensesSelector(state),
-    savingGoal: state.savingGoal
+    savingGoal: state.savingGoal,
+    isCurrentSection: isCurrentSectionSelector(state, currentBudgetFlowSection),
   }
 }
 
@@ -38,34 +41,49 @@ const Dashboard = props => {
       </>
     )
   })
+  
+  const isMainPieChart = props.isCurrentSection ? <MainPieChart className='main' /> : ''
 
   return (
     <HomepageSection sectionClass='dashboard' budgetFlowSection={currentBudgetFlowSection}>
-      <h2 className='header'> Dashboard </h2>
-      <div className='dashboard-content'>
-        <p>
+      <div className='dashboard-grid'>
+        <h2 className='header'> Dashboard </h2>
+
+        {isMainPieChart}
+
+        <p className='saving-goal'>
+          savingGoal: {props.savingGoal.name}
+          <br></br>
+          savingGoal.value: <MoneyValue value={props.savingGoal.value} />
+        </p>
+
+        <p className='money'>
           Income: <MoneyValue value={props.income} />
           <br></br>
           savingsPerMonth: <MoneyValue value={props.savingsPerMonth} />
           <br></br>
           spendingPerWeek: <MoneyValue value={props.spendingPerWeek} />
-          <br></br>
-          timeToGoal: <DurationValue duration={props.timeToGoal} />
-          <br></br>
-          savingGoal: {props.savingGoal.name}
-          <br></br>
-          savingGoal.value: <MoneyValue value={props.savingGoal.value} />
-          <br></br>
-          totalExpensesPerMonth: <MoneyValue value={props.totalExpensesPerMonth} />
-          <br></br>
-          Expenses:
-          <br></br>
-          {expenseComponents}
         </p>
+
+        <div className='expenses'>
+          <p>
+            totalExpensesPerMonth: <MoneyValue value={props.totalExpensesPerMonth} />
+          </p>
+          <p>
+            Expenses:
+          </p>
+          <p>
+            {expenseComponents}
+          </p>
+        </div>
+
+        <div className='nav-buttons'>
+        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+          previousButtonText={'Previous Section'} />
+        </div>
       </div>
 
-      <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-        previousButtonText={'Previous Section'} />
+        
     </HomepageSection>
   )
 }
