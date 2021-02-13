@@ -29,12 +29,12 @@ describe('savingsPerMonthSelector', () => {
 
 describe('spendingPerWeekSelector', () => {
   it('positive integers', () => {
-    expect(spendingPerWeekSelector(testState)).toBe(920)
+    expect(spendingPerWeekSelector(testState)).toBe(903)
   })
 
   it('negative outcome', () => {
     testState.income = 4000
-    expect(spendingPerWeekSelector(testState)).toBe(-323)
+    expect(spendingPerWeekSelector(testState)).toBe(-316)
   })
 })
 
@@ -44,6 +44,6 @@ describe('timeToGoalSelector', () => {
   })
   it('days and months', () => {
     testState.savingGoal.value = 12500
-    expect(timeToGoalSelector(testState)).toMatchObject({months: 12, days: 15})
+    expect(timeToGoalSelector(testState)).toMatchObject({months: 12, days: 16})
   })
 })
