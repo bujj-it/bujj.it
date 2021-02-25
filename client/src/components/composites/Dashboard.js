@@ -2,11 +2,15 @@ import React from "react";
 import { connect } from 'react-redux';
 import HomepageSection from "components/elements/HomepageSection";
 import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
-import { MoneyValue } from 'components/elements/MoneyValue'
-import { DurationValue } from 'components/elements/DurationValue'
+import MoneyValue from 'components/elements/MoneyValue'
+import DurationValue from 'components/elements/DurationValue'
 import IncomeInput from 'components/elements/IncomeInput';
-import SavingGoalInput from 'components/elements/SavingGoalInput'
-// import Expenses from 'components/composites/Expenses'
+import SavingGoalInput from 'components/elements/dashboard/SavingGoalInput'
+import TimeToGoal from 'components/elements/dashboard/TimeToGoal'
+import SavingsPerMonth from 'components/elements/dashboard/SavingsPerMonth'
+import SpendingPerWeek from 'components/elements/dashboard/SpendingPerWeek'
+import SavingPercentageSlider from 'components/elements/dashboard/SavingPercentageSlider'
+import ExpensesInput from 'components/elements/ExpensesInput'
 import MainPieChart from 'components/elements/MainPieChart'
 import {
   savingsPerMonthSelector,
@@ -35,56 +39,57 @@ const mapStateToProps = (state) => {
 }
 
 const Dashboard = props => {
-  const expenseComponents = props.expenses.map(expense => {
-    return (
-      <>
-        <span key={expense.id}>Name: {expense.name} Value: <MoneyValue value={expense.value} /></span>
-        <br />
-      </>
-    )
-  })
   
-  const mainPieChart = props.isCurrentSection ? <MainPieChart className='main' /> : ''
+  const mainPieChart = props.isCurrentSection ? <MainPieChart className='summary' /> : ''
 
   return (
     <HomepageSection sectionClass='dashboard' budgetFlowSection={currentBudgetFlowSection}>
       <div className='dashboard-grid'>
-        <h2 className='header'> Dashboard </h2>
+        <h2 className='main-header'> Dashboard </h2>
 
-        {mainPieChart}
+        
 
-        <div className='income flex-center'>
+        <div className='saving-goal flex-center'>
+          <SavingGoalInput />
+        </div>
+        <div className='time-to-goal flex-center'>
+          <TimeToGoal />
+        </div>
+        <div className='saving-per-month flex-center'>
+          <SavingsPerMonth />
+        </div>
+
+        <div className='spending-per-week flex-center'>
+          <SpendingPerWeek />
+        </div>
+
+        
+
+        <div className='saving-percentage'>
+          <SavingPercentageSlider />
+        </div>
+
+        {/* <div className='income flex-center'>
           <IncomeInput />
         </div>
 
-        <p className='saving-goal flex-center'>
-          <SavingGoalInput />
-        </p>
+        {mainPieChart}
 
-        <p className='money flex-center'>
-          Income: <MoneyValue value={props.income} />
-          <br></br>
-          savingsPerMonth: <MoneyValue value={props.savingsPerMonth} />
-          <br></br>
-          spendingPerWeek: <MoneyValue value={props.spendingPerWeek} />
-        </p>
-
-        <div className='expenses flex-center'>
-          <p>
-            totalExpensesPerMonth: <MoneyValue value={props.totalExpensesPerMonth} />
-          </p>
-          <p>
-            Expenses:
-          </p>
-          <p>
-            {expenseComponents}
-          </p>
+        <div className='saving-percentage flex-center column'>
+          <label className='title'>Saving Percentage</label>
+          <SavingPercentageSlider />
         </div>
+
+        <div className='expenses flex-center column'>
+          <label className='title'>Expenses</label>
+          <ExpensesInput />
+        </div> */}
 
         <div className='nav-buttons'>
-        <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
-          previousButtonText={'Previous Section'} />
+          <SectionNavigationButtons currentBudgetFlowSection={currentBudgetFlowSection}
+              previousButtonText={'Previous Section'} />
         </div>
+
       </div>
 
         

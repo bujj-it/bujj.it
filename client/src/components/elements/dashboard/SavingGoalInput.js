@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => {
 const SavingGoalInput = props => {
 
   return (
-    <div className='input-container'>
-      <label className='label saving-goal-name-label'>Something To Aim For</label>
+    <div className='input-container dashboard-pane'>
+      <p className='title'>Saving Goal</p>
       <div className='name'>
         <input type="text"
             name="saving-goal-name" 

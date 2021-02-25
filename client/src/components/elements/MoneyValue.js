@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MoneyValue = props => {
+const MoneyValue = props => {
 
   let sign
   let warningClass
@@ -23,3 +23,5 @@ export const MoneyValue = props => {
     </span>
   )
 }
+
+export default MoneyValue

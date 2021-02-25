@@ -72,22 +72,25 @@ const MainPieChart = props => {
   const containerClass = `pie-chart-container ${props.className}`
 
   return (
-    <ResponsiveContainer width="100%" aspect={1} className={containerClass}>
-      <PieChart>
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={props.pieChartData}
-          cx="50%"
-          cy="50%"
-          innerRadius="30%"
-          outerRadius="50%"
-          fill="#8884d8"
-          dataKey="value"
-          onMouseEnter={onPieEnter}
-        />
-      </PieChart>
-    </ResponsiveContainer>
+    <div className={containerClass} >
+      <label className='title'>Expenses</label>
+      <ResponsiveContainer width="100%" aspect={1} className={containerClass}>
+        <PieChart>
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            data={props.pieChartData}
+            cx="50%"
+            cy="50%"
+            innerRadius="30%"
+            outerRadius="50%"
+            fill="#8884d8"
+            dataKey="value"
+            onMouseEnter={onPieEnter}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 

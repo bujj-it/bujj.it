@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import { MoneyValue }  from 'components/elements/MoneyValue'
-import { DurationValue } from 'components/elements/DurationValue'
+import MoneyValue  from 'components/elements/MoneyValue'
+import DurationValue from 'components/elements/DurationValue'
 import { 
   savingsPerMonthSelector,
   spendingPerWeekSelector,

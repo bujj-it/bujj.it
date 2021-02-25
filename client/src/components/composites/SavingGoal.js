@@ -25,7 +25,7 @@ const SavingGoal = props => {
           currentBudgetFlowSection={currentBudgetFlowSection}
           isInputComplete={props.isInputComplete}>
           <SavingGoalInput />
-        
+          
       </BudgetFlowSection>
     </HomepageSection>
   )

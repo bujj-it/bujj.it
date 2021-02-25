@@ -1,6 +1,6 @@
 import React from "react";
 
-export const DurationValue = props => {
+const DurationValue = props => {
 
   let months
   if (props.duration.months) {
@@ -20,3 +20,5 @@ export const DurationValue = props => {
     </span>
   )
 }
+
+export default DurationValue

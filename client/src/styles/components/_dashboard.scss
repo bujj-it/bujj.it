@@ -7,6 +7,8 @@
   align-items: flex-start;
 }
 
+$column-gap: 30px;
+
 .dashboard-grid {
 
   width: 100%;
@@ -14,50 +16,80 @@
   grid-template-columns: 100%;
   grid-template-rows: auto;
   grid-template-areas: 
-    "header"
-    "main-piechart"
-    "income"
+    "main-header"
     "saving-goal"
+    "time-to-goal"
+    "saving-per-month"
+    "spending-per-week"
     "saving-percentage"
+    "summary-header"
+    "summary-piechart"
+    "summary-breakdown"
+    "expenses-header"
     "expenses"
     "expenses-piechart"
     "nav-buttons";
 
-  column-gap: 10px;
-  row-gap: 10px;
+  column-gap: $column-gap;
+  row-gap: 30px;
   justify-items: stretch;
   align-items: stretch;
+  
 
   @include respond-to(tablet) {
-    grid-template-columns: 50% 10% 1fr;
+    padding: 30px;
+    grid-template-columns: calc(50% - (#{$column-gap}/2)) 15% 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
-      "header header header"
-      "main-piechart income income"
-      "main-piechart saving-goal saving-goal"
-      "main-piechart saving-percentage saving-percentage"
+      "main-header main-header main-header"
+      "saving-goal time-to-goal time-to-goal"
+      "saving-per-month spending-per-week spending-per-week"
+      "saving-percentage saving-percentage saving-percentage"
+      "summary-header summary-header summary-header"
+      "summary-piechart summary-breakdown summary-breakdown"
+      "expenses-header expenses-header expenses-header"
       "expenses expenses expenses-piechart"
       "nav-buttons nav-buttons nav-buttons";
   }
 
-  .header {
-    grid-area: header;
-  }
-
-  .pie-chart-container.main {
-    grid-area: main-piechart;
-  }
-
-  .income {
-    grid-area: income;
+  .main-header {
+    grid-area: main-header;
   }
 
   .saving-goal {
     grid-area: saving-goal;
   }
 
+  .time-to-goal {
+    grid-area: time-to-goal;
+  }
+
+  .saving-per-month {
+    grid-area: saving-per-month;
+  }
+
+  .spending-per-week {
+    grid-area: spending-per-week;
+  }
+
   .saving-percentage {
     grid-area: saving-percentage;
+  }
+
+  .summary-header {
+    grid-area: summary-header;
+  }
+
+  .summary-piechart {
+    grid-area: summary-piechart;
+  }
+
+  .summary-breakdown {
+    grid-area: summary-breakdown;
+  }
+
+  .expenses-header {
+    grid-area: expenses-header;
   }
 
   .expenses {
@@ -71,4 +103,20 @@
   .nav-buttons {
     grid-area: nav-buttons;
   }
+
+  .title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+
+.dashboard-pane {
+  @include glassy-component;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
 }
