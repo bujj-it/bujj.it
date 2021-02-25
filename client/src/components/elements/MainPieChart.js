@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import { mainPieChartDataSelector } from 'selectors/pieChartSelectors'
 
-const data = [
-  { name: 'Expenses', value: 400, fill: 'red' },
-  { name: 'Spending', value: 300, fill: 'green' },
-  { name: 'Savings', value: 300, fill: 'blue' }
-];
+const mapStateToProps = state => {
+  return {
+    pieChartData: mainPieChartDataSelector(state)
+  }
+}
 
 const renderActiveShape = props => {
   const RADIAN = Math.PI / 180;
@@ -20,10 +22,22 @@ const renderActiveShape = props => {
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
 
+
+  const poundsValue = Math.abs(payload.value / 100)
+  let moneyValue
+  if (payload.value % 100 === 0 ) {
+    moneyValue = poundsValue.toString()
+  } else {
+    moneyValue = poundsValue.toFixed(2).toString()
+  }
+
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill="#000">
+      <text x={cx} y={'46%'} dy={8} textAnchor="middle" fill="#000">
         {payload.name}
+      </text>
+      <text x={cx} y={'53%'} dy={8} textAnchor="middle" fill="#000">
+        £{moneyValue}
       </text>
       <Sector
         cx={cx}
@@ -63,7 +77,7 @@ const MainPieChart = props => {
         <Pie
           activeIndex={activeIndex}
           activeShape={renderActiveShape}
-          data={data}
+          data={props.pieChartData}
           cx="50%"
           cy="50%"
           innerRadius="30%"
@@ -77,4 +91,4 @@ const MainPieChart = props => {
   );
 }
 
-export default MainPieChart
+export default connect(mapStateToProps)(MainPieChart);

@@ -9,8 +9,12 @@ export const savingsPerMonthSelector = (state, savingPercentage = state.savingPe
   return Math.trunc(state.income * (savingPercentage / 100))
 }
 
+export const spendingPerMonthSelector = (state, savingPercentage = state.savingPercentage) => {
+  return remainingPerMonthSelector(state) - savingsPerMonthSelector(state, savingPercentage)
+}
+
 export const spendingPerWeekSelector = (state, savingPercentage = state.savingPercentage) => {
-  const remainingMonies = remainingPerMonthSelector(state) - savingsPerMonthSelector(state, savingPercentage)
+  const remainingMonies = spendingPerMonthSelector(state, savingPercentage)
   return Math.trunc((remainingMonies) / WEEKS_PER_MONTH)
 }
 
