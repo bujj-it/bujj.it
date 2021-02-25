@@ -29,10 +29,10 @@ const SavingPercentageSlider = props => {
   return (
     <div className='input-container dashboard-pane flex-center'>
       <p className='title'>Saving Percentage</p>
-      <div className='percentage'>
-        {props.savingPercentage} %
-      </div>
-      <div className='value slider-section'>
+      <div className='slider-section flex-center'>
+        <span className='percentage'>
+          {props.savingPercentage} %
+        </span>
         <input type="range"
             min="0"
             max={props.maxSavingPercentage}

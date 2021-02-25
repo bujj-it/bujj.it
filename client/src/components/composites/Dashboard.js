@@ -63,8 +63,6 @@ const Dashboard = props => {
           <SpendingPerWeek />
         </div>
 
-        
-
         <div className='saving-percentage'>
           <SavingPercentageSlider />
         </div>

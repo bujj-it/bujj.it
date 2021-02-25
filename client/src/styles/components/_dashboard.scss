@@ -74,6 +74,23 @@ $column-gap: 30px;
 
   .saving-percentage {
     grid-area: saving-percentage;
+
+    .slider-section {
+      width: 100%;
+
+      .percentage {
+        text-align: right;
+        min-width: 4ch;
+        text-align: center;
+      }
+
+      .slider-input {
+        flex: 1 1 50%;
+        max-width: min(50%, 300px);
+        margin-left: 20px;
+      }
+
+    }
   }
 
   .summary-header {
