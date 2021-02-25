@@ -7,7 +7,7 @@
   align-items: flex-start;
 }
 
-$column-gap: 30px;
+$column-gap: 40px;
 
 .dashboard-grid {
 
@@ -34,10 +34,11 @@ $column-gap: 30px;
   row-gap: 30px;
   justify-items: stretch;
   align-items: stretch;
+  padding: 10px;
   
 
   @include respond-to(tablet) {
-    padding: 30px;
+    padding: 30px 40px;
     grid-template-columns: calc(50% - (#{$column-gap}/2)) 15% 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
