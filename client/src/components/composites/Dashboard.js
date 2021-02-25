@@ -5,6 +5,8 @@ import SectionNavigationButtons from 'components/composites/SectionNavigationBut
 import { MoneyValue } from 'components/elements/MoneyValue'
 import { DurationValue } from 'components/elements/DurationValue'
 import IncomeInput from 'components/elements/IncomeInput';
+import SavingGoalInput from 'components/elements/SavingGoalInput'
+// import Expenses from 'components/composites/Expenses'
 import MainPieChart from 'components/elements/MainPieChart'
 import {
   savingsPerMonthSelector,
@@ -42,26 +44,24 @@ const Dashboard = props => {
     )
   })
   
-  const isMainPieChart = props.isCurrentSection ? <MainPieChart className='main' /> : ''
+  const mainPieChart = props.isCurrentSection ? <MainPieChart className='main' /> : ''
 
   return (
     <HomepageSection sectionClass='dashboard' budgetFlowSection={currentBudgetFlowSection}>
       <div className='dashboard-grid'>
         <h2 className='header'> Dashboard </h2>
 
-        {isMainPieChart}
+        {mainPieChart}
 
-        <div className='income'>
+        <div className='income flex-center'>
           <IncomeInput />
         </div>
 
-        <p className='saving-goal'>
-          savingGoal: {props.savingGoal.name}
-          <br></br>
-          savingGoal.value: <MoneyValue value={props.savingGoal.value} />
+        <p className='saving-goal flex-center'>
+          <SavingGoalInput />
         </p>
 
-        <p className='money'>
+        <p className='money flex-center'>
           Income: <MoneyValue value={props.income} />
           <br></br>
           savingsPerMonth: <MoneyValue value={props.savingsPerMonth} />
@@ -69,7 +69,7 @@ const Dashboard = props => {
           spendingPerWeek: <MoneyValue value={props.spendingPerWeek} />
         </p>
 
-        <div className='expenses'>
+        <div className='expenses flex-center'>
           <p>
             totalExpensesPerMonth: <MoneyValue value={props.totalExpensesPerMonth} />
           </p>

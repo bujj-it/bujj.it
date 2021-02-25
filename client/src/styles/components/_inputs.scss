@@ -19,6 +19,7 @@
   .label {
     position: relative;
     width: 100%;
+    margin-bottom: 15px;
 
     @include respond-to(tablet) {
       margin-bottom: 30px;
@@ -31,15 +32,14 @@
     position: relative;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    margin-top: 15px;
     padding: 0.3em 0.3em;
     border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 
     @include respond-to(tablet) {
       max-width: 70%;
       border-radius: 5px 0px 0px 5px;
       border-right: solid 1px rgb(185, 185, 185);
-      margin-top: 10px;
     }
 
     input {
@@ -57,16 +57,14 @@
     position: relative;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    margin-top: 10px;
     padding: 0.3em 0.3em;
     border-radius: 5px;
     display: flex;
     align-items: center;
 
     @include respond-to(tablet) {
-      max-width: 30%;
+      max-width: min(50%, 250px);
     }
-
 
     .denominator {
       padding-right: 5px;
@@ -86,8 +84,12 @@
 }
 
 .saving-goal .value {
+  border-radius: 0 0 5px 5px;
+  border-top: solid 1px rgb(185, 185, 185);
   @include respond-to(tablet) {
+    border-top: unset;
     border-radius: 0 5px 5px 0;
+    max-width: 30%;
   }
 }
 
