@@ -62,7 +62,7 @@ const Dashboard = props => {
         <div className='spending-per-week flex-center'>
           <SpendingPerWeek />
         </div>
-
+    
         <div className='saving-percentage'>
           <SavingPercentageSlider />
         </div>
