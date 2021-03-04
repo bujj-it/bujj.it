@@ -20,6 +20,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 const getClientEnvironment = require('./env');
@@ -488,6 +489,7 @@ module.exports = function (webpackEnv) {
         fix: true,
         emitWarning: true,
       }),
+      new StylelintPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {
