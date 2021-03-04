@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore, compose } from 'redux';
 import { createLogger } from 'redux-logger';
-import reducers from '../reducers';
+import reducers from 'reducers';
 
 const composeMiddleware = () => {
   if (process.env.NODE_ENV !== 'production') {
@@ -8,25 +8,28 @@ const composeMiddleware = () => {
   }
 };
 
-const devData = {
-  navMenu: null,
-  budgetFlow: 'DASHBOARD',
-  savingGoal: {
-    name: 'A holiday',
-    value: '42000',
-  },
-  income: 10000,
-  expenses: {
-    '448b0760-6bca-11eb-849d-47442d1e7d47': {
-      name: 'Rent',
-      value: 5000,
-    },
-  },
-  savingPercentage: 15,
-};
+const fetchPersistedState = () => {
+  try {
+    const persistedState = localStorage.getItem('reduxState')
+    return !!persistedState ? JSON.parse(persistedState) : {}
+  } catch(err) {
+    console.error('Error fetching application state:', err)
+    return {}
+  }
+}
 
-const preloadData = process.env.NODE_ENV !== 'production' ? devData : {};
+const saveState = () => {
+  try {
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+  } catch(err) {
+    console.error('Error saving application state:', err)
+  }
+}
 
-export const store = createStore(reducers, preloadData, compose(composeMiddleware()));
+const persistedState = fetchPersistedState()
+
+const store = createStore(reducers, persistedState, compose(composeMiddleware()));
+
+store.subscribe(saveState)
 
 export default store;
