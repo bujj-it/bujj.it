@@ -7,7 +7,7 @@ $breakpoint-desktop: 1192px;
 
 
 $nav-bar-height: 60px;
-$nav-title-offset: 174px;
+$nav-title-offset: 135px;
 
 $theme-color: rgb(57, 187, 100);
 $background-color: rgb(246, 246, 246);
@@ -19,3 +19,7 @@ $warning-color: rgb(172, 29, 29);
 $glass-layer-1: rgb(131, 205, 137);
 $glass-highlight-background: rgba(255, 255, 255, 0.85);
 $glassy-border-radius: 7px;
+
+
+// animations
+$section-transition-time: 0.3s;

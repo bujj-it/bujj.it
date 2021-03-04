@@ -1,57 +1,101 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
+
+$section-padding: 8px;
 
 .homepage-content {
-  margin-top: globals.$nav-title-offset;
+  margin-top: 0;
+  overflow: hidden;
+  transition: margin-top globals.$section-transition-time;
+
+  &.nav-offest {
+    margin-top: globals.$nav-title-offset;
+  }
 }
 
-$container-padding: 6px;
-
 .section-container {
-  position: relative;
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  padding: $container-padding;
   box-sizing: border-box;
-  margin-top: 20px;
+  display: flex;
+  height: fit-content;
   justify-content: center;
+  left: 0;
   min-height: calc(100vh - #{globals.$nav-bar-height});
-
-  &.secondary {
-    display: none;
-  }
-
-  &.visible {
-    display: flex !important;
-  }
+  padding: $section-padding;
+  position: absolute;
+  top: 0;
+  transition: left globals.$section-transition-time;
+  width: 100%;
 
   @include respond-to(tablet) {
-    padding: $container-padding + 10px;
+    padding: $section-padding + 10px;
+  }
+
+  &.current-section {
+    position: relative;
   }
 }
 
 .section-pane {
   @include glassy-panel;
-  position: relative;
-  width: 100%;
-  min-height: 50vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  height: auto;
+  justify-content: center;
   justify-content: space-evenly;
-  padding: 5px;
-  box-sizing: border-box;
+  min-height: 50vh;
   overflow-x: hidden;
+  padding: 5px;
+  width: 100%;
+}
+
+.budget-flow-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .header {
+    flex: 0 0 auto;
+    @include respond-to(tablet) {
+      padding-top: 0.75em;
+    }
+  }
+}
+
+.budget-flow-content {
+  align-items: center;
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .section-navigation-container {
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
   align-items: center;
-  margin: 40px 0px 20px;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-evenly;
+  margin: 3em 0;
+  width: 100%;
+}
+
+.side-blur {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 3px;
+  z-index: 2;
+
+  &.left {
+    background: linear-gradient(to right, rgba(globals.$theme-color, 1) 0%, rgba(globals.$theme-color, 0) 100%);
+    left: 0;
+  }
+
+  &.right {
+    background: linear-gradient(to left, rgba(globals.$theme-color, 1) 0%, rgba(globals.$theme-color, 0) 100%);
+    right: 0;
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order"
+  ],
+  "basedir": "src/styles",
+  "rules": {
+    "selector-max-id": 1,
+    "max-nesting-depth": 3,
+    "color-named": null,
+    "selector-max-compound-selectors": 4
+  }
+}

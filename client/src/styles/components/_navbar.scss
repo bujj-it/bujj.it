@@ -1,10 +1,12 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
 
 // Variables
 $sidebar-transition: 0.3s;
 $btn-hover-animation: 0.2s;
+$title-base-font-size: 30px;
+$title-dynamic-font-size: 65px;
 
 // Vendor
 @use '../vendor/hamburger' with(
@@ -21,36 +23,36 @@ $btn-hover-animation: 0.2s;
   $length_scale: 0.96
 );
 
-.hamburger_container {
+.hamburger-container {
+  @include standard-button;
   align-self: flex-start;
-  padding-top: globals.$nav-bar-height - 55px;
   box-sizing: border-box;
+  display: flex;
 }
 
 .nav-bar-container-section {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  min-height: globals.$nav-bar-height;
-  display: flex;
-  justify-content: center;
-  z-index: 999;
-  font-size: 2em;
+  backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 
   background: color.change(globals.$glass-layer-1, $alpha: 0.8);
-  box-shadow: 0px 7px 8px 0px rgba(16, 18, 22, 0.18);
-  backdrop-filter: blur( 5px );
-  -webkit-backdrop-filter: blur( 5px );
+  box-shadow: 0 7px 8px 0 rgba(16, 18, 22, 0.18);
+  display: flex;
+  font-size: 2em;
+  justify-content: center;
+  left: 0;
+  min-height: globals.$nav-bar-height;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
 }
 
 .nav-bar-container-responsive {
-  width: 100%;
-  min-width: 200px;
   display: flex;
-  justify-content: center;
-  padding: 0px 5px;
   font-size: 30px;
+  justify-content: center;
+  min-width: 200px;
+  width: 100%;
 
   @include respond-to(desktop) {
     max-width: globals.$breakpoint-desktop;
@@ -62,66 +64,103 @@ $btn-hover-animation: 0.2s;
   }
 }
 
+@mixin nav-side-container {
+  align-items: center;
+  display: flex;
+  height: globals.$nav-bar-height;
+  position: absolute;
+  top: 0;
+}
+
+.nav-left {
+  @include nav-side-container;
+  left: 5px;
+  margin-left: 10px;
+}
+
+.nav-right {
+  @include nav-side-container;
+  margin-right: 10px;
+  right: 0;
+}
+
 .nav-item {
   display: flex;
+  font-size: $title-base-font-size;
   justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-
-  &.dynamic {
-    height: fit-content;
-    min-height: 100%;
-  }
 }
 
 .nav-title {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  flex: 1 1 100%;
+  justify-content: center;
 } 
 
 .nav-title-homepage {
-  font-size: 65px;
-  box-sizing: border-box;
+  font-size: $title-dynamic-font-size;
+  line-height: 1em;
+  margin: ((globals.$nav-bar-height - $title-base-font-size)/2) 0;
   padding: 0;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.nav-dropdown-menu {
-  @include glassy-component-highlight;
-  position: absolute;
-  top: globals.$nav-bar-height;
+  padding-bottom: 44px;
+  padding-top: 44px;
+  transition: font-size globals.$section-transition-time, padding globals.$section-transition-time;
   width: 100%;
-  box-sizing: border-box;
-  flex-direction: column;
-  border-radius: 0;
-  left: 0px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: all 0.2s;
 
-  &.clicked {
-    opacity: 1;
-    max-height: 500px;
+  &.minimized {
+    font-size: 1em;
+    padding: 0;
   }
 }
 
-.drop-down-button {
-  @include button-hover;
+.nav-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  transition: z-index 0.2s step-end, height 0.2s step-end;
   width: 100%;
+  z-index: -1;
 
-  a {
-    display: block;
+  @include respond-to(tablet) {
+    display: none;
+  }
+
+  .links {
+    background-color: color.change(globals.$glass-highlight-background, $alpha: 0.97);
+    height: fit-content;
+    max-height: 0;
+    opacity: 0;
+    padding: globals.$nav-bar-height 0;
+    padding-bottom: 10px;
+    transition: all 0.2s;
     width: 100%;
-    position: relative;
-    text-align: center;
-    padding: 8px 0px;
-    color: black;
-    text-decoration: none;
-    padding: 0.25em 1em;
+  }
+
+  .screen-cover {
+    @include standard-button;
+    background-color: #000;
+    flex: 1 1 100%;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  &.clicked {
+    height: 100vh;
+    transition: unset;
+    z-index: 2;
+
+    .links {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .screen-cover {
+      opacity: 0.4;
+    }
   }
 }
 
@@ -131,9 +170,43 @@ $btn-hover-animation: 0.2s;
   }
 }
 
+.drop-down-button {
+  width: 100%;
+
+  a {
+    @include button-hover;
+    color: black;
+    display: block;
+    padding: 8px 0;
+    padding: 0.25em 1em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  + .drop-down-button {
+    margin-top: 3px;
+  }
+}
+
 .nav-menu-button {
+  @include nav-button-hover;
   display: none;
+  font-size: 25px;
+  height: globals.$nav-bar-height;
+
   @include respond-to(tablet) {
     display: block;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    color: #000;
+    height: 100%;
+    padding: 0 0.5em;
+    text-decoration: none;
+    width: 100%;
   }
 }

@@ -2,17 +2,13 @@
 @use '../base/mixins' as *;
 
 body {
-  margin: 0;
+  background-color: globals.$theme-color;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // background-color: globals.$background-color;
-  background-color: globals.$theme-color;
-  // background-image: linear-gradient(to bottom right, globals.$theme-color, rgb(214, 238, 76));
-  // background-size: cover;
-  // background-attachment: fixed;
+  margin: 0;
 }
 
 code {
@@ -20,29 +16,21 @@ code {
     monospace;
 }
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
 .page {
-  position: relative;
-  margin-top: globals.$nav-bar-height;
-  width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
-  box-sizing: border-box;
+  margin-top: globals.$nav-bar-height;
+  position: relative;
+  width: 100%;
 }
 
 .reading-pane {
-  width: 100%;
-  min-width: 200px;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
+  min-width: 200px;
+  width: 100%;
 
   @include respond-to(desktop) {
     max-width: globals.$breakpoint-desktop;
@@ -50,11 +38,15 @@ code {
 }
 
 .flex-center {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+
+  &.column {
+    flex-direction: column;
+  }
 }
 
 .warning {
-  color: globals.$warning-color
+  color: globals.$warning-color;
 }

@@ -1,9 +1,7 @@
-import React from "react";
+import React from 'react';
 
-export const Login = () => {
-  return (
-    <section className="floating-form">
+const Login = () => (
+  <section className="floating-form" />
+);
 
-    </section>
-  );
-};
+export default Login;

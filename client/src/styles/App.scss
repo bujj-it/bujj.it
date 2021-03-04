@@ -14,11 +14,13 @@ Sass Styles
 |   |   ┴
 |   |
 |   |– components/
-|   |   |– _buttons.scss          # Buttons
-|   |   |– _navbar.scss           # Global navbar
-|   |   |– _call-to-action.scss   # CTA section styles
-|   |   |– _inputs.scss           # input boxes
-|   |   |– _expenses.scss         # expenses boxes
+|   |   |– _buttons.scss            # Buttons
+|   |   |– _navbar.scss             # Global navbar
+|   |   |– _call-to-action.scss     # CTA section styles
+|   |   |– _inputs.scss             # input boxes
+|   |   |– _expenses.scss           # expenses boxes
+|   |   |– _saving-percentage.scss  # saving percentage section
+|   |   |– _dashboard.scss          # dashboard
 |   |   ┴
 |   |
 |   |– vendor/
@@ -41,6 +43,8 @@ Sass Styles
 @use 'components/call-to-action';
 @use 'components/inputs';
 @use 'components/expenses';
-@use 'components/saving-percentage'
+@use 'components/saving-percentage';
+@use 'components/dashboard';
+@use 'components/slider';
 
 // Site Wide Vendor

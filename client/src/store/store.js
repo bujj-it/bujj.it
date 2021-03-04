@@ -1,10 +1,10 @@
 import { applyMiddleware, createStore, compose } from 'redux';
-import { createLogger } from 'redux-logger'
-import reducers from '../reducers';
+import { createLogger } from 'redux-logger';
+import reducers from 'reducers';
 
 const composeMiddleware = () => {
   if (process.env.NODE_ENV !== 'production') {
-    return compose(applyMiddleware(createLogger()))
+    return compose(applyMiddleware(createLogger()));
   }
 };
 
@@ -32,7 +32,4 @@ const store = createStore(reducers, persistedState, compose(composeMiddleware())
 
 store.subscribe(saveState)
 
-export { store }
-
-
-
+export default store;

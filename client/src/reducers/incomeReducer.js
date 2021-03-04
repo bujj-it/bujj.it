@@ -1,12 +1,11 @@
-import { UPDATE_INCOME } from '../constants/actionTypes.js';
+import { UPDATE_INCOME } from 'constants/actionTypes';
 
-const defaultState = null
+const defaultState = null;
 
 export default (state = defaultState, action) => {
   switch (action.type) {
     case UPDATE_INCOME:
-      let newValue = action.payload.length ? parseFloat(action.payload, 10) * 100 : null
-      return newValue
+      return (action.payload.length ? parseFloat(action.payload, 10) * 100 : null);
     default:
       return state;
   }

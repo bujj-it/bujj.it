@@ -1,0 +1,32 @@
+@use '../base/globals';
+@use '../base/mixins' as *;
+@use 'sass:color';
+
+.slider-input {
+  appearance: none;
+  height: 1.5em;
+  opacity: 0.8;
+  outline: none;
+  padding: 0 5px;
+  width: 75%;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    appearance: none;
+    background: #4caf50;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+  }
+  
+  &::-moz-range-thumb {
+    background: #4caf50;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+  }
+}

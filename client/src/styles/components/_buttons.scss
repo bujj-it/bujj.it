@@ -6,21 +6,22 @@
   @include standard-button;
   @include button-hover;
   @include glassy-component-highlight;
-  padding: 0.8em 1em;
-  margin: 0 5px;
+  flex: 1 1 50%;
   font-size: 1.3em;
   font-weight: 600;
-  transition: opacity 0.1s ease;
-  flex: 1 1 50%;
+  margin: 0 5px;
   max-width: fit-content;
+  padding: 0.8em 1em;
+  transition: opacity 0.1s ease;
 
   @include respond-to(desktop) {
     padding: 1em 1.2em;
   }
 
   &:disabled {
-    opacity: 0.3;
     cursor: default;
+    opacity: 0.3;
+
     &:hover {
       background: globals.$glass-highlight-background;
       color: inherit;
@@ -35,7 +36,7 @@
 .expense-add-button {
   @include standard-button;
   @include expense-action-button;
+  border-radius: 7px 0;
 
   right: 0;
-  border-radius: 7px 0 7px 0;
 }

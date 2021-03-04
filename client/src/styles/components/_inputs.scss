@@ -1,14 +1,14 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
 
 .input-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
   font-size: 1.5em;
+  justify-content: center;
+  position: relative;
   width: 80%;
 
   @include respond-to(tablet) {
@@ -17,6 +17,7 @@
   }
 
   .label {
+    margin-bottom: 15px;
     position: relative;
     width: 100%;
 
@@ -28,22 +29,21 @@
 
 
   .name {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
+    padding: 0.3em;
     position: relative;
     width: 100%;
-    background-color: rgb(255, 255, 255);
-    margin-top: 15px;
-    padding: 0.3em 0.3em;
-    border-radius: 5px;
 
     @include respond-to(tablet) {
-      max-width: 70%;
-      border-radius: 5px 0px 0px 5px;
+      border-radius: 5px 0 0 5px;
       border-right: solid 1px rgb(185, 185, 185);
-      margin-top: 10px;
+      max-width: 70%;
     }
 
     input {
-      border: none;
+      border: unset;
       overflow-x: scroll;
       width: 100%;
 
@@ -54,29 +54,27 @@
   }
 
   .value {
-    position: relative;
-    width: 100%;
+    align-items: center;
     background-color: rgb(255, 255, 255);
-    margin-top: 10px;
-    padding: 0.3em 0.3em;
     border-radius: 5px;
     display: flex;
-    align-items: center;
+    padding: 0.3em;
+    position: relative;
+    width: 100%;
 
     @include respond-to(tablet) {
-      max-width: 30%;
+      max-width: min(50%, 250px);
     }
 
-
     .denominator {
-      padding-right: 5px;
       line-height: 1.15em;
+      padding-right: 5px;
     }
 
     input {
-      width: 100%;
+      border: unset;
       overflow-x: scroll;
-      border: none;
+      width: 100%;
 
       &:focus {
         outline: none;
@@ -86,27 +84,31 @@
 }
 
 .saving-goal .value {
+  border-radius: 0 0 5px 5px;
+  border-top: solid 1px rgb(185, 185, 185);
   @include respond-to(tablet) {
     border-radius: 0 5px 5px 0;
+    border-top: unset;
+    max-width: 30%;
   }
 }
 
 .warning-message {
   @include glassy-component-highlight;
-  width: 100%;
-  padding: 0px 20px;
   margin-top: 0;
-  text-align: center;
-  opacity: 0;
   
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
+  padding: 0 20px;
+  text-align: center;
   transition: margin 0.15s linear, opacity 0.1s linear, max-height 0.15s linear, padding 0.1s linear;
+  width: 100%;
 
   &.visible {
-    opacity: 1;
     margin-top: 10px;
     max-height: 100%;
+    opacity: 1;
     padding: 20px;
     transition: margin 0.15s linear, opacity 0.1s linear, max-height 0.15s linear, padding 0.01s linear;
   }
@@ -119,7 +121,7 @@
     border-width: 1px;
 
     &:focus {
-      box-shadow: 0 0 0pt 1pt color.change(globals.$theme-color, $alpha: 0.8); 
+      box-shadow: 0 0 0 1pt color.change(globals.$theme-color, $alpha: 0.8);
       outline: none;
     }
   }
