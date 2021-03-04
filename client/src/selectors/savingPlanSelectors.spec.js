@@ -1,8 +1,8 @@
-import {savingsPerMonthSelector, spendingPerWeekSelector, timeToGoalSelector} from './savingPlanSelectors.js'
+import { savingsPerMonthSelector, spendingPerWeekSelector, timeToGoalSelector } from './savingPlanSelectors.js';
 
 // money values in pennies
 
-let testState
+let testState;
 
 beforeEach(() => {
   testState = {
@@ -10,40 +10,40 @@ beforeEach(() => {
     savingPercentage: 10,
     savingGoal: {
       name: 'saving goal one',
-      value: 20000
+      value: 20000,
     },
     expenses: {
       expenseIdOne: {
         name: 'expense one',
-        value: 5000
-      }
-    }
-  }
-})
+        value: 5000,
+      },
+    },
+  };
+});
 
 describe('savingsPerMonthSelector', () => {
   it('returns savings value', () => {
-    expect(savingsPerMonthSelector(testState)).toBe(1000)
-  })
-})
+    expect(savingsPerMonthSelector(testState)).toBe(1000);
+  });
+});
 
 describe('spendingPerWeekSelector', () => {
   it('positive integers', () => {
-    expect(spendingPerWeekSelector(testState)).toBe(903)
-  })
+    expect(spendingPerWeekSelector(testState)).toBe(903);
+  });
 
   it('negative outcome', () => {
-    testState.income = 4000
-    expect(spendingPerWeekSelector(testState)).toBe(-316)
-  })
-})
+    testState.income = 4000;
+    expect(spendingPerWeekSelector(testState)).toBe(-316);
+  });
+});
 
 describe('timeToGoalSelector', () => {
   it('months only', () => {
-    expect(timeToGoalSelector(testState)).toMatchObject({months: 20, days: 0})
-  })
+    expect(timeToGoalSelector(testState)).toMatchObject({ months: 20, days: 0 });
+  });
   it('days and months', () => {
-    testState.savingGoal.value = 12500
-    expect(timeToGoalSelector(testState)).toMatchObject({months: 12, days: 16})
-  })
-})
+    testState.savingGoal.value = 12500;
+    expect(timeToGoalSelector(testState)).toMatchObject({ months: 12, days: 16 });
+  });
+});

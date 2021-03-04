@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import navMenu from './navMenuReducer';
-import budgetFlow from './budgetFlowReducer'; 
-import savingGoal from './savingGoalReducer'
-import income from './incomeReducer'
-import expenses from './expensesReducer'
-import savingPercentage from './savingPercentageReducer'
-import toggleSavingPercentage from './toggleSavingPercentageReducer'
+import budgetFlow from './budgetFlowReducer';
+import savingGoal from './savingGoalReducer';
+import income from './incomeReducer';
+import expenses from './expensesReducer';
+import savingPercentage from './savingPercentageReducer';
+import toggleSavingPercentage from './toggleSavingPercentageReducer';
 
 export default combineReducers({
   navMenu,
@@ -14,5 +14,5 @@ export default combineReducers({
   income,
   expenses,
   savingPercentage,
-  toggleSavingPercentage
+  toggleSavingPercentage,
 });

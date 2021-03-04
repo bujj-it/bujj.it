@@ -1,6 +1,8 @@
-import { UPDATE_SAVING_PERCENTAGE, UPDATE_INCOME, UPDATE_EXPENSE, REMOVE_EXPENSE, RESET_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
+import {
+  UPDATE_SAVING_PERCENTAGE, UPDATE_INCOME, UPDATE_EXPENSE, REMOVE_EXPENSE, RESET_SAVING_PERCENTAGE,
+} from 'constants/actionTypes.js';
 
-const defaultSavingPercentage = null
+const defaultSavingPercentage = null;
 
 export default (state = defaultSavingPercentage, action) => {
   switch (action.type) {

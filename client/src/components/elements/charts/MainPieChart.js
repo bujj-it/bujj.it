@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
-import { mainPieChartDataSelector } from 'selectors/pieChartSelectors'
+import {
+  PieChart, Pie, Sector, ResponsiveContainer,
+} from 'recharts';
+import { mainPieChartDataSelector } from 'selectors/pieChartSelectors';
 
-const mapStateToProps = state => {
-  return {
-    pieChartData: mainPieChartDataSelector(state)
-  }
-}
+const mapStateToProps = state => ({
+  pieChartData: mainPieChartDataSelector(state),
+});
 
 const renderActiveShape = props => {
   const RADIAN = Math.PI / 180;
-  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+  const {
+    cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value,
+  } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
@@ -22,22 +24,22 @@ const renderActiveShape = props => {
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
 
-
-  const poundsValue = Math.abs(payload.value / 100)
-  let moneyValue
-  if (payload.value % 100 === 0 ) {
-    moneyValue = poundsValue.toString()
+  const poundsValue = Math.abs(payload.value / 100);
+  let moneyValue;
+  if (payload.value % 100 === 0) {
+    moneyValue = poundsValue.toString();
   } else {
-    moneyValue = poundsValue.toFixed(2).toString()
+    moneyValue = poundsValue.toFixed(2).toString();
   }
 
   return (
     <g>
-      <text x={cx} y={'46%'} dy={8} textAnchor="middle" fill="#000">
+      <text x={cx} y="46%" dy={8} textAnchor="middle" fill="#000">
         {payload.name}
       </text>
-      <text x={cx} y={'53%'} dy={8} textAnchor="middle" fill="#000">
-        £{moneyValue}
+      <text x={cx} y="53%" dy={8} textAnchor="middle" fill="#000">
+        £
+        {moneyValue}
       </text>
       <Sector
         cx={cx}
@@ -62,18 +64,17 @@ const renderActiveShape = props => {
 };
 
 const MainPieChart = props => {
-
-  const [activeIndex, setActiveIndex ] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const onPieEnter = (_, index) => {
-    setActiveIndex(index)
+    setActiveIndex(index);
   };
 
-  const containerClass = `pie-chart-container ${props.className}`
+  const containerClass = `pie-chart-container ${props.className}`;
 
   return (
-    <div className={containerClass} >
-      <label className='title'>Expenses</label>
+    <div className={containerClass}>
+      <span className="title">Expenses</span>
       <ResponsiveContainer width="100%" aspect={1} className={containerClass}>
         <PieChart>
           <Pie
@@ -92,6 +93,6 @@ const MainPieChart = props => {
       </ResponsiveContainer>
     </div>
   );
-}
+};
 
 export default connect(mapStateToProps)(MainPieChart);

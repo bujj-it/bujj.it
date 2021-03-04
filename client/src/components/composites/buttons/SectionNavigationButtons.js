@@ -1,36 +1,37 @@
-import React from "react";
+import React from 'react';
 
 import ActionButton from 'components/elements/buttons/ActionButton';
 
 const SectionNavigationButtons = props => {
-
-  let previousButton
-  if (!!props.previousButtonText) {
+  let previousButton;
+  if (props.previousButtonText) {
     previousButton = (
-      <ActionButton 
+      <ActionButton
         text={props.previousButtonText}
         currentSection={props.currentBudgetFlowSection}
-        isFlowDirectionForward={false}/>
-    )
+        isFlowDirectionForward={false}
+      />
+    );
   }
 
-  let nextButton
-  if (!!props.nextButtonText) {
+  let nextButton;
+  if (props.nextButtonText) {
     nextButton = (
-      <ActionButton 
-          text={props.nextButtonText}
-          currentSection={props.currentBudgetFlowSection}
-          disabled={!props.isInputComplete}
-          isFlowDirectionForward={true}/>
-    )
+      <ActionButton
+        text={props.nextButtonText}
+        currentSection={props.currentBudgetFlowSection}
+        disabled={!props.isInputComplete}
+        isFlowDirectionForward
+      />
+    );
   }
 
   return (
-    <div className='section-navigation-container'>
-       {previousButton}
-       {nextButton}
+    <div className="section-navigation-container">
+      {previousButton}
+      {nextButton}
     </div>
-  )
-}
+  );
+};
 
-export default SectionNavigationButtons
+export default SectionNavigationButtons;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function NavTitleStatic() {
   return (
@@ -6,4 +6,4 @@ export default function NavTitleStatic() {
       bujj.it
     </div>
   );
-};
+}

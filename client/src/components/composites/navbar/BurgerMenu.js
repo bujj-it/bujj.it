@@ -1,37 +1,37 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
-import { TOGGLE_NAV_MENU } from 'constants/actionTypes'
+import { TOGGLE_NAV_MENU } from 'constants/actionTypes';
 
 const mapDispatchToProps = dispatch => ({
-  onClickNavMenu: () =>
-    dispatch({ type: TOGGLE_NAV_MENU })
+  onClickNavMenu: () => dispatch({ type: TOGGLE_NAV_MENU }),
 });
 
-const mapStateToProps = state => {
-  return {
-    navMenu: state.navMenu
-  };
-}
+const mapStateToProps = state => ({
+  navMenu: state.navMenu,
+});
 
-const BurgerMenu = (props) => {
-
-  let clickedClass
+const BurgerMenu = props => {
+  let clickedClass;
   if (props.navMenu === true) {
-    clickedClass = 'clicked'
+    clickedClass = 'clicked';
   } else if (props.navMenu === false) {
-    clickedClass = "reset_animation"
+    clickedClass = 'reset_animation';
   } else {
-    clickedClass = ''
+    clickedClass = '';
   }
 
   return (
-    <div className={`hamburger_container ${clickedClass}`} onClick={props.onClickNavMenu}>
+    <button
+      className={`hamburger_container ${clickedClass}`}
+      type="button"
+      onClick={props.onClickNavMenu}
+    >
       <div className="hamburger">
-        <div className="hamburger_bar" id="hamburger_crown"></div>
-        <div className="hamburger_bar" id="hamburger_patty"></div>
-        <div className="hamburger_bar" id="hamburger_heel"></div>
+        <div className="hamburger_bar" id="hamburger_crown" />
+        <div className="hamburger_bar" id="hamburger_patty" />
+        <div className="hamburger_bar" id="hamburger_heel" />
       </div>
-    </div>
+    </button>
   );
 };
 

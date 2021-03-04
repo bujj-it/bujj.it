@@ -1,14 +1,16 @@
-export const navMenuLinksData = [
+const navMenuLinksData = [
   {
     pathname: '/',
-    text: 'Home'
+    text: 'Home',
   },
   {
     pathname: '/signup',
-    text: 'Signup'
+    text: 'Signup',
   },
   {
     pathname: '/login',
-    text: 'Login'
-  }
-]
+    text: 'Login',
+  },
+];
+
+export default navMenuLinksData;

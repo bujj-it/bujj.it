@@ -1,16 +1,13 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import {isInitialSectionSelector} from 'selectors/budgetFlowSelectors'
+import { isInitialSectionSelector } from 'selectors/budgetFlowSelectors';
 
-const mapStateToProps = state => {
-  return {
-    isInitalSection: isInitialSectionSelector(state)
-  };
-}
+const mapStateToProps = state => ({
+  isInitalSection: isInitialSectionSelector(state),
+});
 
 const NavTitleDynamic = props => {
-
-  const navTitleRef = useRef(null)
+  const navTitleRef = useRef(null);
 
   const [targetFontSize, _setTargetFontSize] = useState(null);
   const targetFontSizeRef = React.useRef(targetFontSize);
@@ -34,57 +31,56 @@ const NavTitleDynamic = props => {
   };
 
   const handleScroll = () => {
-    const scrollTop = window.scrollY
-    const newPadding = Math.trunc(Math.max(0, initialPaddingRef.current - (scrollTop / 3)))
+    const scrollTop = window.scrollY;
+    const newPadding = Math.trunc(Math.max(0, initialPaddingRef.current - (scrollTop / 3)));
 
-    const sizeRatio = newPadding / initialPaddingRef.current
-    const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current
-    const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current
-    const navTitleElement = navTitleRef.current
+    const sizeRatio = newPadding / initialPaddingRef.current;
+    const fontSizeDifference = initialFontSizeRef.current - targetFontSizeRef.current;
+    const newFontSize = Math.trunc(sizeRatio * fontSizeDifference) + targetFontSizeRef.current;
+    const navTitleElement = navTitleRef.current;
 
     window.requestAnimationFrame(() => {
       navTitleElement.style.paddingTop = `${newPadding}px`;
       navTitleElement.style.paddingBottom = `${newPadding}px`;
       navTitleElement.style.fontSize = `${newFontSize}px`;
       navTitleElement.style.transition = 'unset';
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     if (!targetFontSizeRef.current) {
-      const navTitleElement = navTitleRef.current
-      const navTitleStyle = getComputedStyle(navTitleElement) 
-      const navBarStyle = getComputedStyle(navTitleElement.parentElement)
-  
-      setTargetFontSize(parseInt(navBarStyle.fontSize, 10))
-      setInitialPadding(parseInt(navTitleStyle.paddingTop, 10))
-      setInitialFontSize(parseInt(navTitleStyle.fontSize, 10))    
+      const navTitleElement = navTitleRef.current;
+      const navTitleStyle = getComputedStyle(navTitleElement);
+      const navBarStyle = getComputedStyle(navTitleElement.parentElement);
+
+      setTargetFontSize(parseInt(navBarStyle.fontSize, 10));
+      setInitialPadding(parseInt(navTitleStyle.paddingTop, 10));
+      setInitialFontSize(parseInt(navTitleStyle.fontSize, 10));
     }
-    
+
     if (props.isInitalSection) {
-      window.addEventListener('scroll', handleScroll)
+      window.addEventListener('scroll', handleScroll);
       return () => {
-        window.removeEventListener('scroll', handleScroll)
-      }
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
-  }, [props.isInitalSection])
+  }, [props.isInitalSection]);
 
-
-  let minimizeHeaderClass
+  let minimizeHeaderClass;
   if (!props.isInitalSection) {
-    window.removeEventListener('scroll', handleScroll)
-    const navTitleElement = navTitleRef.current
+    window.removeEventListener('scroll', handleScroll);
+    const navTitleElement = navTitleRef.current;
     if (navTitleElement) {
       window.requestAnimationFrame(() => {
-        navTitleElement.style.paddingTop = null
-        navTitleElement.style.paddingBottom = null
-        navTitleElement.style.fontSize = null
-        navTitleElement.style.transition = null
-      })
+        navTitleElement.style.paddingTop = null;
+        navTitleElement.style.paddingBottom = null;
+        navTitleElement.style.fontSize = null;
+        navTitleElement.style.transition = null;
+      });
     }
-    minimizeHeaderClass = 'minimized'
+    minimizeHeaderClass = 'minimized';
   } else {
-    minimizeHeaderClass = ''
+    minimizeHeaderClass = '';
   }
 
   return (
@@ -93,8 +89,7 @@ const NavTitleDynamic = props => {
         bujj.it
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 export default connect(mapStateToProps)(NavTitleDynamic);

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "jest",
-    "start:dev": "node scripts/start.js"
+    "start:dev": "node scripts/start.js",
+    "lint": "eslint --fix ./src"
   },
   "dependencies": {
     "@babel/core": "7.9.0",
@@ -27,14 +28,7 @@
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
-    "eslint": "^6.6.0",
-    "eslint-config-react-app": "^5.2.1",
-    "eslint-loader": "3.0.3",
-    "eslint-plugin-flowtype": "4.6.0",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-webpack-plugin": "^2.5.2",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
@@ -59,6 +53,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "recharts": "^2.0.6",
+    "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
@@ -66,19 +61,23 @@
     "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
-    "terser-webpack-plugin": "2.3.5",
+    "terser-webpack-plugin": "^3.0.0",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
+    "uuid": "^8.3.2",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.10.4"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "@babel/preset-env": "^7.10.4",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "browserslist": {
     "production": [
