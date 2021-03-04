@@ -1,32 +1,32 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
 
 .slider-input {
-  width: 75%;
-  -webkit-appearance: none;
+  appearance: none;
   height: 1.5em;
-  outline: none;
   opacity: 0.8;
+  outline: none;
   padding: 0 5px;
+  width: 75%;
 
   &:hover {
     opacity: 1;
   }
 
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
+    appearance: none;
+    background: #4caf50;
     cursor: pointer;
+    height: 25px;
+    width: 25px;
   }
   
   &::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
+    background: #4caf50;
     cursor: pointer;
+    height: 25px;
+    width: 25px;
   }
 }

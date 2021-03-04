@@ -1,35 +1,38 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
 
 $toggle-switch-height: 2.5em;
 $toggle-switch-margin: 0.5em;
 
 .saving-percentages-selector {
-  display: flex;
-  width: 200%;
-  justify-content: center;
-  flex-wrap: wrap;
   align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 200%;
 }
 
 .saving-percentages-container {
-  display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  justify-content: space-evenly;
   transition: left 0.35s cubic-bezier(0.4, 0.1, 0.7, 0.99);
+  width: 50%;
 
   &.left-toggle {
     left: -25%;
+
     &.toggled {
       left: 25%;
     }
   }
+
   &.right-toggle {
-    left: 25%;
     align-self: flex-end;
+    left: 25%;
+
     &.toggled {
       left: -25%;
     }
@@ -43,10 +46,10 @@ $toggle-switch-margin: 0.5em;
   @include button-selected;
   display: flex;
   flex-wrap: wrap;
-  min-width: 200px;
-  max-width: min(30%, 300px);
-  padding: 20px 10px;
   margin: 15px 5px;
+  max-width: min(30%, 300px);
+  min-width: 200px;
+  padding: 20px 10px;
 
   &.not-available {
     cursor: default;
@@ -58,31 +61,31 @@ $toggle-switch-margin: 0.5em;
   }
 
   .percentage {
-    width: 100%;
     font-size: 2.5em;
-    text-align: center;
     padding: 10px;
+    text-align: center;
+    width: 100%;
   }
 
   .time {
+    font-size: 0.9em;
     height: auto;
     width: 100%;
-    font-size: 0.9em;
   }
 
   .heading {
-    width: 100%;
-    text-align: center;
     font-size: 0.8em;
     margin-top: 1em;
+    text-align: center;
+    width: 100%;
   }
 
   .value {
-    width: 100%;
-    text-align: center;
+    line-height: 1em;
     margin-top: 0.4em;
     min-height: 1em;
-    line-height: 1em;
+    text-align: center;
+    width: 100%;
   }
 
   .half-width {
@@ -90,8 +93,8 @@ $toggle-switch-margin: 0.5em;
   }
 
   &.slider {
-    max-width: min(75%, 400px);
     cursor: default;
+    max-width: min(75%, 400px);
 
     &::after {
       content: unset;
@@ -109,12 +112,13 @@ $toggle-switch-margin: 0.5em;
 
 .toggle-switch-container {
   width: 100%;
+
   .toggle-switch {
     @include standard-button;
     @include glassy-component-highlight;
     @include button-hover;
-    margin-top: $toggle-switch-margin;
     height: $toggle-switch-height;
+    margin-top: $toggle-switch-margin;
     padding: 0 1em;
   }
 }

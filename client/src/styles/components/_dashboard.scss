@@ -1,56 +1,56 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
-@use "sass:color";
+@use 'sass:color';
 
 .dashboard .section-pane {
-  justify-content: flex-start;
   align-items: flex-start;
+  justify-content: flex-start;
 }
 
 $column-gap: 40px;
 
 .dashboard-grid {
-
-  width: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    "main-header"
-    "saving-goal"
-    "time-to-goal"
-    "saving-per-month"
-    "spending-per-week"
-    "saving-percentage"
-    "summary-header"
-    "summary-piechart"
-    "summary-breakdown"
-    "expenses-header"
-    "expenses"
-    "expenses-piechart"
-    "nav-buttons";
+  align-items: stretch;
 
   column-gap: $column-gap;
-  row-gap: 30px;
+  display: grid;
+  grid-template-areas: 
+    'main-header'
+    'saving-goal'
+    'time-to-goal'
+    'saving-per-month'
+    'spending-per-week'
+    'saving-percentage'
+    'summary-header'
+    'summary-piechart'
+    'summary-breakdown'
+    'expenses-header'
+    'expenses'
+    'expenses-piechart'
+    'nav-buttons';
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
   justify-items: stretch;
-  align-items: stretch;
   padding: 10px;
+  row-gap: 30px;
+
+  width: 100%;
   
 
   @include respond-to(tablet) {
-    padding: 30px 40px;
+    grid-template-areas: 
+      'main-header main-header main-header'
+      'saving-goal time-to-goal time-to-goal'
+      'saving-per-month spending-per-week spending-per-week'
+      'saving-percentage saving-percentage saving-percentage'
+      'summary-header summary-header summary-header'
+      'summary-piechart summary-breakdown summary-breakdown'
+      'expenses-header expenses-header expenses-header'
+      'expenses expenses expenses-piechart'
+      'nav-buttons nav-buttons nav-buttons';
     grid-template-columns: calc(50% - (#{$column-gap}/2)) 15% 1fr;
     grid-template-rows: auto;
-    grid-template-areas: 
-      "main-header main-header main-header"
-      "saving-goal time-to-goal time-to-goal"
-      "saving-per-month spending-per-week spending-per-week"
-      "saving-percentage saving-percentage saving-percentage"
-      "summary-header summary-header summary-header"
-      "summary-piechart summary-breakdown summary-breakdown"
-      "expenses-header expenses-header expenses-header"
-      "expenses expenses expenses-piechart"
-      "nav-buttons nav-buttons nav-buttons";
+    padding: 30px 40px;
   }
 
   .main-header {
@@ -80,15 +80,15 @@ $column-gap: 40px;
       width: 100%;
 
       .percentage {
-        text-align: right;
         min-width: 4ch;
+        text-align: right;
         text-align: center;
       }
 
       .slider-input {
         flex: 1 1 50%;
-        max-width: min(50%, 300px);
         margin-left: 20px;
+        max-width: min(50%, 300px);
       }
 
     }
@@ -123,18 +123,18 @@ $column-gap: 40px;
   }
 
   .title {
-    margin-top: 0;
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: center;
     font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+    text-align: center;
+    width: 100%;
   }
 }
 
 
 .dashboard-pane {
   @include glassy-component;
-  padding: 20px;
   height: 100%;
+  padding: 20px;
   width: 100%;
 }

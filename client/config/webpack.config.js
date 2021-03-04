@@ -489,7 +489,9 @@ module.exports = function (webpackEnv) {
         fix: true,
         emitWarning: true,
       }),
-      new StylelintPlugin(),
+      new StylelintPlugin({
+        fix: true
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         {

@@ -8,9 +8,9 @@
 
   .cta-header {
     font-size: 3.2em;
-    text-align: center;
-    margin: 0em;
+    margin: 0;
     padding-top: 1em;
+    text-align: center;
 
     @include respond-to(desktop) {
       font-size: 4.5em;
@@ -20,10 +20,10 @@
 
 .cta-subtitle {
   font-size: 1.4em;
-  text-align: center;
-  margin-top: 1em;
   line-height: 1.6em;
+  margin-top: 1em;
   max-width: 35ch;
+  text-align: center;
 }
 
 .cta-button-container {
@@ -39,12 +39,12 @@
 }
 
 .cta-pitches {
-  margin-top: 3em;
-  position: relative;
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 3em;
+  position: relative;
+  width: 100%;
 
   @include respond-to(tablet) {
     flex-wrap: nowrap;
@@ -52,10 +52,10 @@
 }
 
 .cta-pitch {
-  position: relative;
-  flex: 1 1 100%;
   box-sizing: border-box;
-  padding: 2em 0em 0em 0em;
+  flex: 1 1 100%;
+  padding: 2em 0 0;
+  position: relative;
 
   @include respond-to(tablet) {
     max-width: 33.3%;
@@ -64,24 +64,24 @@
 }
 
 .cta-icon {
+  align-items: center;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding: 20px;
 
   position: relative;
   width: 100%;
-  box-sizing: border-box;
-  padding: 20px;
 
   img {
-    width: 100%;
     object-fit: contain;
+    width: 100%;
   }
 }
 
 .cta-copy {
-  text-align: center;
   font-size: 1.4em;
+  padding: 0 20px;
+  text-align: center;
   width: 100%;
-  padding: 0px 20px;
 }

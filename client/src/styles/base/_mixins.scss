@@ -1,5 +1,5 @@
 @use './globals' as *;
-@use "sass:color";
+@use 'sass:color';
 
 $breakpoints: (
   'tablet' : ( min-width: $breakpoint-tablet ),
@@ -13,8 +13,8 @@ $breakpoints: (
     }
   }
   @else {
-    @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. "
-        + "Please make sure it is defined in `$breakpoints` map.";
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoints}`. '
+      + 'Please make sure it is defined in `$breakpoints` map.';
   }
 
 }
@@ -29,102 +29,103 @@ $breakpoints: (
 
 
 @mixin standard-button {
-  text-rendering: auto;
-  color: black;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: block;
-  text-align: center;
   align-items: flex-start;
-  cursor: pointer;
-  box-sizing: border-box;
-  margin: 0em;
-  font: inherit;
-  border-style: none;
   background: inherit;
+  border-style: none;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  letter-spacing: normal;
+  margin: 0;
+  text-align: center;
+  text-indent: 0;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  word-spacing: normal;
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     outline: none;
   }
 }
 
 
 @mixin expense-action-button {
-  position: absolute;
-  bottom: 0;
-  padding: 0.6em 1em;
-  margin-top: 10px;
-  font-weight: 300;
+  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   background: $glass-highlight-background;
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
+  bottom: 0;
+  font-weight: 300;
+  margin-top: 10px;
+  padding: 0.6em 1em;
+  position: absolute;
   transition: all 0.25s ease;
   width: calc(50% - 0.35em);
 
   &:disabled {
-    color: rgb(150, 150, 150);
     background: color.change($glass-highlight-background, $alpha: 0.5);
+    color: rgb(150, 150, 150);
     cursor: default;
   }
 }
 
 @mixin button-hover {
   &:hover {
-    cursor: pointer;
+    backdrop-filter: unset;
     background: color.change($glass-highlight-background, $alpha: 1) !important;
     color: #000;
-    backdrop-filter: unset;
+    cursor: pointer;
 
     &::after {
+      border-radius: $glassy-border-radius;
+      box-shadow: 0 0 10px 2px color.adjust($theme-color, $lightness: -30%, $alpha: -0.85);
       content: '';
-      position: absolute;
-      width: 100%;
       height: 100%;
       left: 0;
+      position: absolute;
       top: 0;
-      box-shadow: 0 0px 10px 2px color.adjust($theme-color, $lightness: -30%, $alpha: -0.85);
-      border-radius: $glassy-border-radius;
+      width: 100%;
     }
   }
 }
 
 @mixin button-selected {
   &.selected {
+    backdrop-filter: unset;
     background: color.change($glass-highlight-background, $alpha: 1) !important;
     color: #000;
-    backdrop-filter: unset;
 
     &::after {
+      border-radius: $glassy-border-radius;
+      box-shadow: 0 0 20px 5px color.adjust($theme-color, $lightness: -30%, $saturation: +20%, $alpha: -0.4);
       content: '';
-      position: absolute;
-      width: 100%;
       height: 100%;
       left: 0;
+      position: absolute;
       top: 0;
-      box-shadow: 0 0px 20px 5px color.adjust($theme-color, $lightness: -30%, $saturation: +20%, $alpha: -0.4);
-      border-radius: $glassy-border-radius;
+      width: 100%;
     }
   }
 }
 
 @mixin glassy-panel {
-  // background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 15px 2px rgba( 31, 38, 135, 0.37 );
+  background-color: $glass-layer-1;
   // backdrop-filter: blur( 4px );
   // -webkit-backdrop-filter: blur( 4px );
   border-radius: $glassy-border-radius;
-  background-color: $glass-layer-1;
+  // background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 15px 2px rgba(31, 38, 135, 0.37);
 }
 
 @mixin glassy-component {
+  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.34);
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px rgba(212, 250, 181, 0.33);
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
   border-radius: $glassy-border-radius;
+  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px rgba(212, 250, 181, 0.33);
 }
 
 @mixin glassy-component-highlight {
@@ -134,9 +135,9 @@ $breakpoints: (
 
 @mixin nav-button-hover {
   &:hover {
-    cursor: pointer;
+    backdrop-filter: unset;
     background: color.change($glass-highlight-background, $alpha: 0.8) !important;
     color: #000;
-    backdrop-filter: unset;
+    cursor: pointer;
   }
 }
