@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import { ADD_EXPENSE } from 'constants/actionTypes.js';
-import MoneyValue  from 'components/elements/MoneyValue'
-import Expense from 'components/elements/Expense'
+import MoneyValue  from 'components/elements/values/MoneyValue'
+import Expense from 'components/elements/inputs/ExpenseInput'
 
 import {
   expensesSelector,

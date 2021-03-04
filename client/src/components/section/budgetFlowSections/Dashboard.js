@@ -1,17 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
-import HomepageSection from "components/elements/HomepageSection";
-import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
-import MoneyValue from 'components/elements/MoneyValue'
-import DurationValue from 'components/elements/DurationValue'
-import IncomeInput from 'components/elements/IncomeInput';
+import HomepageSection from "components/composites/sectionWrappers/HomepageSection";
+import SectionNavigationButtons from 'components/composites/buttons/SectionNavigationButtons'
+import MoneyValue from 'components/elements/values/MoneyValue'
+import DurationValue from 'components/elements/values/DurationValue'
+import IncomeInput from 'components/elements/inputs/IncomeInput';
 import SavingGoalInput from 'components/elements/dashboard/SavingGoalInput'
 import TimeToGoal from 'components/elements/dashboard/TimeToGoal'
 import SavingsPerMonth from 'components/elements/dashboard/SavingsPerMonth'
 import SpendingPerWeek from 'components/elements/dashboard/SpendingPerWeek'
 import SavingPercentageSlider from 'components/elements/dashboard/SavingPercentageSlider'
-import ExpensesInput from 'components/elements/ExpensesInput'
-import MainPieChart from 'components/elements/MainPieChart'
+import ExpensesInput from 'components/elements/inputs/ExpensesInput'
+import MainPieChart from 'components/elements/charts/MainPieChart'
 import {
   savingsPerMonthSelector,
   spendingPerWeekSelector,

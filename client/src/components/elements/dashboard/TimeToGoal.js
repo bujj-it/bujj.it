@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import { timeToGoalSelector } from 'selectors/savingPlanSelectors'
-import DurationValue from 'components/elements/DurationValue'
+import DurationValue from 'components/elements/values/DurationValue'
 
 const mapStateToProps = state => {
   return {

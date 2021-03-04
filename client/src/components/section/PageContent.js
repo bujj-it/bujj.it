@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import CallToAction from '../composites/CallToAction'
-import SavingGoal from '../composites/SavingGoal'
-import Income from '../composites/Income'
-import Expenses from '../composites/Expenses'
-import Dashboard from "../composites/Dashboard";
-import SavingPercentage from "../composites/SavingPercentage";
+import CallToAction from 'components/section/budgetFlowSections/CallToAction'
+import SavingGoal from 'components/section/budgetFlowSections/SavingGoal'
+import Income from 'components/section/budgetFlowSections/Income'
+import Expenses from 'components/section/budgetFlowSections/Expenses'
+import Dashboard from "components/section/budgetFlowSections/Dashboard";
+import SavingPercentage from "components/section/budgetFlowSections/SavingPercentage";
 
 import { budgetFlowSections } from 'constants/budgetFlowSections'
 import { isCurrentSectionSelector } from "selectors/budgetFlowSelectors";
@@ -17,7 +17,7 @@ const mapStateToProps = state => {
   }
 }
 
-const Homepage = props => {
+const PageContent = props => {
   return (
     <div className={`homepage-content reading-pane ${props.navOffsetClass}`}>
       <CallToAction />
@@ -32,4 +32,4 @@ const Homepage = props => {
   )
 };
 
-export default connect(mapStateToProps)(Homepage);
+export default connect(mapStateToProps)(PageContent);

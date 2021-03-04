@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "assets/chubby_budgie.jpeg";
-import ActionButton from 'components/elements/ActionButton';
-import HomepageSection from 'components/elements/HomepageSection'
+import ActionButton from 'components/elements/buttons/ActionButton';
+import HomepageSection from 'components/composites/sectionWrappers/HomepageSection'
 
 const currentBudgetFlowSection = 'CTA'
 

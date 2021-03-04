@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import { isInputCompleteSelector } from 'selectors/inputSelectors'
-import HomepageSection from "components/elements/HomepageSection";
-import BudgetFlowSection from 'components/elements/BudgetFlowSection'
-import SavingGoalInput from 'components/elements/SavingGoalInput'
+import HomepageSection from "components/composites/sectionWrappers/HomepageSection";
+import BudgetFlowSection from 'components/composites/sectionWrappers/BudgetFlowSection'
+import SavingGoalInput from 'components/elements/inputs/SavingGoalInput'
 
 const currentBudgetFlowSection = 'SAVING_GOAL'
 

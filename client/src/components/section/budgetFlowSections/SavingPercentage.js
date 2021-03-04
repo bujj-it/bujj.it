@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import SavingPercentageCard from 'components/elements/SavingPercentageCard';
-import SavingPercentageSlider from 'components/elements/SavingPercentageSlider';
-import BudgetFlowSection from 'components/elements/BudgetFlowSection'
+import SavingPercentageCard from 'components/elements/inputs/SavingPercentageCard';
+import SavingPercentageSlider from 'components/elements/inputs/SavingPercentageSlider';
+import BudgetFlowSection from 'components/composites/sectionWrappers/BudgetFlowSection'
 
 import { TOGGLE_SAVING_PERCENTAGE, UPDATE_SAVING_PERCENTAGE, RESET_SAVING_PERCENTAGE } from 'constants/actionTypes.js';
 import { spendingPerWeekSelector, defaultCustomSavingPercentageSelector } from 'selectors/savingPlanSelectors'
-import HomepageSection from "components/elements/HomepageSection";
+import HomepageSection from "components/composites/sectionWrappers/HomepageSection";
 
 const currentBudgetFlowSection = 'SAVING_PERCENTAGE'
 

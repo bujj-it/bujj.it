@@ -1,7 +1,8 @@
 import React from "react"
+import { useLocation } from 'react-router-dom'
 import { connect } from 'react-redux';
-import DropDownButton from "../elements/DropDownButton"
-import {useLocation} from 'react-router-dom'
+
+import DropDownButton from "components/elements/buttons/DropDownButton"
 import { navMenuLinksData } from 'constants/navMenu.constants'
 import { TOGGLE_NAV_MENU } from 'constants/actionTypes'
 

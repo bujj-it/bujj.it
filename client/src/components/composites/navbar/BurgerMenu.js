@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { TOGGLE_NAV_MENU } from '../../constants/actionTypes'
+import { TOGGLE_NAV_MENU } from 'constants/actionTypes'
 
 const mapDispatchToProps = dispatch => ({
   onClickNavMenu: () =>

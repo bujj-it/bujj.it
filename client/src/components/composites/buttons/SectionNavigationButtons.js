@@ -1,6 +1,6 @@
 import React from "react";
 
-import ActionButton from 'components/elements/ActionButton';
+import ActionButton from 'components/elements/buttons/ActionButton';
 
 const SectionNavigationButtons = props => {
 

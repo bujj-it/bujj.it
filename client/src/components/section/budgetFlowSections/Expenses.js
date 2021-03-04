@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import ExpensesInput from 'components/elements/ExpensesInput'
+import ExpensesInput from 'components/elements/inputs/ExpensesInput'
 
 import { areExpensesFilledInSelector } from 'selectors/expensesSelectors'
-import HomepageSection from "components/elements/HomepageSection";
-import BudgetFlowSection from 'components/elements/BudgetFlowSection'
+import HomepageSection from "components/composites/sectionWrappers/HomepageSection";
+import BudgetFlowSection from 'components/composites/sectionWrappers/BudgetFlowSection'
 
 const currentBudgetFlowSection = 'EXPENSES'
 

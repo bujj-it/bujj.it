@@ -1,6 +1,6 @@
 import React from "react";
 
-import SectionNavigationButtons from 'components/composites/SectionNavigationButtons'
+import SectionNavigationButtons from 'components/composites/buttons/SectionNavigationButtons'
 
 const BudgetFlowSection = props => {
 

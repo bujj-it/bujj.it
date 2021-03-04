@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import {isInputCompleteSelector} from 'selectors/inputSelectors'
-import HomepageSection from "components/elements/HomepageSection";
-import BudgetFlowSection from 'components/elements/BudgetFlowSection'
-import IncomeInput from 'components/elements/IncomeInput';
+import HomepageSection from "components/composites/sectionWrappers/HomepageSection";
+import BudgetFlowSection from 'components/composites/sectionWrappers/BudgetFlowSection'
+import IncomeInput from 'components/elements/inputs/IncomeInput';
 
 const currentBudgetFlowSection = 'INCOME'
 

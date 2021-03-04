@@ -1,8 +1,9 @@
 import React from "react";
-import BurgerMenu from "./BurgerMenu";
-import DropDownMenu from "./DropDownMenu";
-import NavMenuButton from 'components/elements/NavMenuButton'
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+
+import BurgerMenu from "components/composites/navbar/BurgerMenu";
+import DropDownMenu from "components/composites/navbar/DropDownMenu";
+import NavMenuButton from 'components/elements/buttons/NavMenuButton'
 import { navMenuLinksData } from 'constants/navMenu.constants'
 
 const NavMenu = () => {

@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 import NavBar from "./components/section/NavBar";
-import Homepage from "./components/section/Homepage";
-import {Login} from './components/section/Login';
+import PageContent from "./components/section/PageContent";
+import { Login } from './components/section/Login';
 
 import "./styles/App.scss";
 
@@ -20,7 +20,7 @@ class App extends Component {
             </header>
             <main className='page'>
               <Switch>
-                <Route exact path="/" component={Homepage} />
+                <Route exact path="/" component={PageContent} />
                 <Route path='/login' component={Login} />
                 <Route path='/'>
                   <Redirect to='/' />

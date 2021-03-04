@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 
 import { spendingPerWeekSelector } from 'selectors/savingPlanSelectors'
-import MoneyValue from 'components/elements/MoneyValue'
+import MoneyValue from 'components/elements/values/MoneyValue'
 
 const mapStateToProps = state => {
   return {

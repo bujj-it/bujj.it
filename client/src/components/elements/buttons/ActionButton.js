@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { NEXT_SECTION, PREVIOUS_SECTION } from '../../constants/actionTypes'
+import { NEXT_SECTION, PREVIOUS_SECTION } from 'constants/actionTypes'
 
 const mapDispatchToProps = dispatch => ({
   updateSection: (currentSection, isFlowDirectionForward) => {

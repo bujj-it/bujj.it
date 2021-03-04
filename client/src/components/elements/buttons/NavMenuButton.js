@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import { RESET_NAV_MENU } from 'constants/actionTypes'
 
 const mapDispatchToProps = dispatch => ({
