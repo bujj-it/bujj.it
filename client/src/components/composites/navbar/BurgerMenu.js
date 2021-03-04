@@ -22,14 +22,14 @@ const BurgerMenu = props => {
 
   return (
     <button
-      className={`hamburger_container ${clickedClass}`}
+      className={`hamburger-container ${clickedClass}`}
       type="button"
       onClick={props.onClickNavMenu}
     >
       <div className="hamburger">
-        <div className="hamburger_bar" id="hamburger_crown" />
-        <div className="hamburger_bar" id="hamburger_patty" />
-        <div className="hamburger_bar" id="hamburger_heel" />
+        <div className="hamburger-bar" id="hamburger-crown" />
+        <div className="hamburger-bar" id="hamburger-patty" />
+        <div className="hamburger-bar" id="hamburger-heel" />
       </div>
     </button>
   );

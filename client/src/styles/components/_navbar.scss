@@ -23,9 +23,10 @@ $title-dynamic-font-size: 65px;
   $length_scale: 0.96
 );
 
-.hamburger_container {
+.hamburger-container{
+  @include standard-button;
+  display: flex;
   align-self: flex-start;
-  padding-top: globals.$nav-bar-height - 55px;
   box-sizing: border-box;
 }
 
@@ -140,6 +141,7 @@ $title-dynamic-font-size: 65px;
   }
 
   .screen-cover {
+    @include standard-button;
     flex: 1 1 100%;
     transition: all 0.2s;
     opacity: 0;
