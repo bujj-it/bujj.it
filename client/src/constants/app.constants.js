@@ -1,0 +1,1 @@
+export const STATE_TTL = 1209600000 // 14 days (ms)
