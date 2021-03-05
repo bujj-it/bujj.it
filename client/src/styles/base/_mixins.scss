@@ -55,7 +55,6 @@ $breakpoints: (
 
 @mixin expense-action-button {
   backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
   background: $glass-highlight-background;
   bottom: 0;
   font-weight: 300;
@@ -113,17 +112,12 @@ $breakpoints: (
 
 @mixin glassy-panel {
   background-color: $glass-layer-1;
-  // backdrop-filter: blur( 4px );
-  // -webkit-backdrop-filter: blur( 4px );
   border-radius: $glassy-border-radius;
-  // background: rgba( 255, 255, 255, 0.25 );
   box-shadow: 0 8px 15px 2px rgba(31, 38, 135, 0.37);
 }
 
 @mixin glassy-component {
-  backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.34);
+  background-color: $glass-layer-2;
   border-radius: $glassy-border-radius;
   box-shadow: 8px 8px 20px #0d275029, -8px -8px 20px rgba(212, 250, 181, 0.27);
 }
