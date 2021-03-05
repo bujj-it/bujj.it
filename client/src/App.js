@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Route, BrowserRouter as Router, Switch, Redirect,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store/store';
 
-import NavBar from './components/section/NavBar';
-import PageContent from './components/section/PageContent';
-import Login from './components/section/Login';
+import NavBar from 'components/section/page/NavBar';
+import PageContent from 'components/section/page/PageContent';
+import Login from 'components/section/page/Login';
 
-import './styles/App.scss';
+import 'styles/App.scss';
 
 const App = props => {
   return (
