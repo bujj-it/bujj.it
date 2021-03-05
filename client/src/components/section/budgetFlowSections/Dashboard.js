@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import HomepageSection from 'components/composites/sectionWrappers/HomepageSection';
 import SectionNavigationButtons from 'components/composites/buttons/SectionNavigationButtons';
+import Sidebar from 'components/composites/dashboard/Sidebar';
+
 import MoneyValue from 'components/elements/values/MoneyValue';
 import DurationValue from 'components/elements/values/DurationValue';
 import IncomeInput from 'components/elements/inputs/IncomeInput';
@@ -44,10 +47,11 @@ const Dashboard = props => {
     <HomepageSection sectionClass="dashboard" budgetFlowSection={currentBudgetFlowSection}>
       <div className="dashboard-grid">
 
-        <nav className="sidebar">
-          sidebar
-        </nav>
-        <h2 className="main-header"> Dashboard </h2>
+        <Sidebar />
+
+        <h2 className="main-header">
+          Your Budget
+        </h2>
 
         <div className="saving-goal flex-center">
           <SavingGoalInput />

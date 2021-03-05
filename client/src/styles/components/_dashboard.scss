@@ -8,7 +8,7 @@
   padding: 0;
 }
 
-$dashboard-grid-column-gap: 20px;
+$dashboard-grid-column-gap: 30px;
 $dashboard-grid-sidebar-width: 175px;
 
 .dashboard-grid {
@@ -34,6 +34,7 @@ $dashboard-grid-sidebar-width: 175px;
   grid-template-columns: 100%;
   grid-template-rows: auto;
   justify-items: stretch;
+  line-height: 1em;
   padding: 10px;
   row-gap: 30px;
 
@@ -51,16 +52,17 @@ $dashboard-grid-sidebar-width: 175px;
       'sidebar expenses-header expenses-header expenses-header'
       'sidebar expenses expenses expenses-piechart'
       'sidebar nav-buttons nav-buttons nav-buttons';
-    grid-template-columns: $dashboard-grid-sidebar-width calc(50% - #{$dashboard-grid-column-gap/2} - #{$dashboard-grid-sidebar-width*0.5}) calc(10% - #{$dashboard-grid-sidebar-width*0.1}) 1fr;
+    grid-template-columns: auto 5fr 1fr 4fr;
     grid-template-rows: auto;
     padding: 0 $dashboard-grid-column-gap 0 0;
   }
 
 
-
-
+  
   .main-header {
     grid-area: main-header;
+    margin: 30px 0 0;
+    text-align: left;
   }
 
   .saving-goal {
@@ -145,7 +147,10 @@ $dashboard-grid-sidebar-width: 175px;
   width: 100%;
 }
 
-.dashboard-grid .sidebar {
+
+
+
+.dashboard .sidebar {
   @include glassy-component;
   display: flex;
   grid-area: sidebar;
@@ -156,5 +161,40 @@ $dashboard-grid-sidebar-width: 175px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     flex-direction: column;
+    padding: 0;
+  }
+
+  .section-title {
+    align-items: center;
+    display: flex;
+    font-size: 1.2em;
+    font-weight: 700;
+    line-height: 1em;
+    padding: 20px;
+  }
+
+  .icon + .text {
+    margin-left: 10px;
+    margin-top: -2px;
+  }
+
+  .icon {
+    font-size: 1.2em;
+  }
+
+  .sidebar-button {
+    @include standard-button;
+    align-items: center;
+    background: unset;
+    background-color: rbga(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    line-height: 1em;
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+      color: rgba(0, 0, 0, 1);
+    }
   }
 }
