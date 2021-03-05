@@ -40,10 +40,10 @@ $toggle-switch-margin: 0.5em;
 }
 
 .saving-percentage-card {
-  @include glassy-component-highlight;
   @include standard-button;
   @include button-hover;
   @include button-selected;
+  @include glassy-component-highlight;
   display: flex;
   flex-wrap: wrap;
   margin: 15px 5px;
