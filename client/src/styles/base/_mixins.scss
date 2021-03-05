@@ -125,7 +125,7 @@ $breakpoints: (
   backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.34);
   border-radius: $glassy-border-radius;
-  box-shadow: 28px 28px 50px #0d275029, -23px -23px 45px rgba(212, 250, 181, 0.33);
+  box-shadow: 8px 8px 20px #0d275029, -8px -8px 20px rgba(212, 250, 181, 0.27);
 }
 
 @mixin glassy-component-highlight {

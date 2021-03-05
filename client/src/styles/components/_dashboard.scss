@@ -5,16 +5,19 @@
 .dashboard .section-pane {
   align-items: flex-start;
   justify-content: flex-start;
+  padding: 0;
 }
 
-$column-gap: 40px;
+$dashboard-grid-column-gap: 20px;
+$dashboard-grid-sidebar-width: 175px;
 
 .dashboard-grid {
   align-items: stretch;
 
-  column-gap: $column-gap;
+  column-gap: $dashboard-grid-column-gap;
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
+    'sidebar'
     'main-header'
     'saving-goal'
     'time-to-goal'
@@ -38,20 +41,23 @@ $column-gap: 40px;
   
 
   @include respond-to(tablet) {
-    grid-template-areas: 
-      'main-header main-header main-header'
-      'saving-goal time-to-goal time-to-goal'
-      'saving-per-month spending-per-week spending-per-week'
-      'saving-percentage saving-percentage saving-percentage'
-      'summary-header summary-header summary-header'
-      'summary-piechart summary-breakdown summary-breakdown'
-      'expenses-header expenses-header expenses-header'
-      'expenses expenses expenses-piechart'
-      'nav-buttons nav-buttons nav-buttons';
-    grid-template-columns: calc(50% - (#{$column-gap}/2)) 15% 1fr;
+    grid-template-areas:
+      'sidebar main-header main-header main-header'
+      'sidebar saving-goal time-to-goal time-to-goal'
+      'sidebar saving-per-month spending-per-week spending-per-week'
+      'sidebar saving-percentage saving-percentage saving-percentage'
+      'sidebar summary-header summary-header summary-header'
+      'sidebar summary-piechart summary-breakdown summary-breakdown'
+      'sidebar expenses-header expenses-header expenses-header'
+      'sidebar expenses expenses expenses-piechart'
+      'sidebar nav-buttons nav-buttons nav-buttons';
+    grid-template-columns: $dashboard-grid-sidebar-width calc(50% - #{$dashboard-grid-column-gap/2} - #{$dashboard-grid-sidebar-width*0.5}) calc(10% - #{$dashboard-grid-sidebar-width*0.1}) 1fr;
     grid-template-rows: auto;
-    padding: 30px 40px;
+    padding: 0 $dashboard-grid-column-gap 0 0;
   }
+
+
+
 
   .main-header {
     grid-area: main-header;
@@ -137,4 +143,18 @@ $column-gap: 40px;
   height: 100%;
   padding: 20px;
   width: 100%;
+}
+
+.dashboard-grid .sidebar {
+  @include glassy-component;
+  display: flex;
+  grid-area: sidebar;
+  height: 100%;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    flex-direction: column;
+  }
 }

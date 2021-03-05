@@ -43,6 +43,10 @@ const Dashboard = props => {
   return (
     <HomepageSection sectionClass="dashboard" budgetFlowSection={currentBudgetFlowSection}>
       <div className="dashboard-grid">
+
+        <nav className="sidebar">
+          sidebar
+        </nav>
         <h2 className="main-header"> Dashboard </h2>
 
         <div className="saving-goal flex-center">
