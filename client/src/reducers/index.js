@@ -6,6 +6,7 @@ import income from './incomeReducer';
 import expenses from './expensesReducer';
 import savingPercentage from './savingPercentageReducer';
 import toggleSavingPercentage from './toggleSavingPercentageReducer';
+import dashboardSection from './dashboardSectionReducer';
 
 export default combineReducers({
   navMenu,
@@ -15,4 +16,5 @@ export default combineReducers({
   expenses,
   savingPercentage,
   toggleSavingPercentage,
+  dashboardSection,
 });
