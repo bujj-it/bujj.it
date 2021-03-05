@@ -1,10 +1,10 @@
-import { VIEW_YOUR_BUDGET } from 'constants/actionTypes';
+import { UPDATE_DASHBOARD_SECTION } from 'constants/actionTypes';
 import { YOUR_BUDGET } from 'constants/dashboardSections.constants';
 
 export default (state = YOUR_BUDGET, action) => {
   switch (action.type) {
-    case VIEW_YOUR_BUDGET:
-      return YOUR_BUDGET;
+    case UPDATE_DASHBOARD_SECTION:
+      return action.payload;
     default:
       return state;
   }

@@ -164,13 +164,15 @@ $dashboard-grid-sidebar-width: 175px;
     padding: 0;
   }
 
-  .section-title {
+  .sidebar-title {
     align-items: center;
     display: flex;
     font-size: 1.2em;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: -0.01ch;
     line-height: 1em;
     padding: 20px;
+    text-transform: uppercase;
   }
 
   .icon + .text {
@@ -180,6 +182,18 @@ $dashboard-grid-sidebar-width: 175px;
 
   .icon {
     font-size: 1.2em;
+  }
+
+  .section-title {
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: -0.01ch;
+    padding: 15px 20px;
+    text-transform: uppercase;
+
+    &.offset {
+      margin-top: 75px;
+    }
   }
 
   .sidebar-button {
