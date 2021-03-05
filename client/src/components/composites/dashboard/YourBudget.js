@@ -8,11 +8,14 @@ import SpendingPerWeek from 'components/elements/dashboard/SpendingPerWeek';
 import SavingPercentageSlider from 'components/elements/dashboard/SavingPercentageSlider';
 import ExpensesInput from 'components/elements/inputs/ExpensesInput';
 import MainPieChart from 'components/elements/charts/MainPieChart';
+import InfoCard from 'components/elements/dashboard/InfoCard';
+
+import SavingGoalValue from 'components/elements/dashboard/SavingGoalValue';
 
 const currentBudgetFlowSection = 'DASHBOARD';
 
 const YourBudget = props => {
-  const mainPieChart = props.isCurrentSection ? <MainPieChart className="summary" /> : '';
+  // const mainPieChart = props.isCurrentSection ? <MainPieChart className="summary" /> : '';
 
   return (
     <>
@@ -20,8 +23,26 @@ const YourBudget = props => {
         Your Budget
       </h2>
 
-      <div className="saving-goal flex-center">
-        <SavingGoalInput />
+      <div className="info-cards-container">
+        <InfoCard title="Saving Goal">
+          <SavingGoalValue />
+        </InfoCard>
+
+        <InfoCard title="Saving Goal">
+          <SavingGoalValue />
+        </InfoCard>
+
+        <InfoCard title="Saving Goal">
+          <SavingGoalValue />
+        </InfoCard>
+
+        <InfoCard title="Saving Goal">
+          <SavingGoalValue />
+        </InfoCard>
+      </div>
+
+      {/* <div className="saving-goal flex-center">
+
       </div>
       <div className="time-to-goal flex-center">
         <TimeToGoal />
@@ -34,7 +55,7 @@ const YourBudget = props => {
         <SpendingPerWeek />
       </div>
 
-      {/* <div className="saving-percentage">
+      <div className="saving-percentage">
         <SavingPercentageSlider />
       </div>
 

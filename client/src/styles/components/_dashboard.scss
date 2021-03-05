@@ -13,17 +13,12 @@ $dashboard-grid-sidebar-width: 175px;
 
 .dashboard-grid {
   align-items: stretch;
-
   column-gap: $dashboard-grid-column-gap;
   display: grid;
   grid-template-areas:
     'sidebar'
     'main-header'
-    'saving-goal'
-    'time-to-goal'
-    'saving-per-month'
-    'spending-per-week'
-    'saving-percentage'
+    'info-cards'
     'summary-header'
     'summary-piechart'
     'summary-breakdown'
@@ -34,7 +29,6 @@ $dashboard-grid-sidebar-width: 175px;
   grid-template-columns: 100%;
   grid-template-rows: auto;
   height: 100%;
-  justify-items: stretch;
   line-height: 1em;
   padding: 10px;
   row-gap: 30px;
@@ -44,16 +38,14 @@ $dashboard-grid-sidebar-width: 175px;
   @include respond-to(tablet) {
     grid-template-areas:
       'sidebar main-header main-header main-header'
-      'sidebar saving-goal time-to-goal time-to-goal'
-      'sidebar saving-per-month spending-per-week spending-per-week'
-      'sidebar saving-percentage saving-percentage saving-percentage'
+      'sidebar info-cards info-cards info-cards'
       'sidebar summary-header summary-header summary-header'
       'sidebar summary-piechart summary-breakdown summary-breakdown'
       'sidebar expenses-header expenses-header expenses-header'
       'sidebar expenses expenses expenses-piechart'
       'sidebar nav-buttons nav-buttons nav-buttons';
     grid-template-columns: auto 5fr 1fr 4fr;
-    grid-template-rows: auto;
+    grid-template-rows: max-content;
     padding: 0 $dashboard-grid-column-gap 0 0;
   }
 
@@ -61,6 +53,7 @@ $dashboard-grid-sidebar-width: 175px;
   
   .main-header {
     grid-area: main-header;
+    line-height: 1em;
     margin: 40px 0 0;
     text-align: left;
   }
@@ -139,17 +132,6 @@ $dashboard-grid-sidebar-width: 175px;
   }
 }
 
-
-.dashboard-pane {
-  @include glassy-component;
-  height: 100%;
-  padding: 20px;
-  width: 100%;
-}
-
-
-
-
 .dashboard .sidebar {
   @include glassy-component;
   display: flex;
@@ -221,5 +203,27 @@ $dashboard-grid-sidebar-width: 175px;
       top: 0;
       width: 0.5ch;
     }
+  }
+}
+
+.info-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: info-cards;
+}
+
+.info-card {
+  @include glassy-component;
+  background: white;
+  flex: 1 1 25%;
+  margin: 5px;
+  max-width: max-content;
+  min-height: 200px;
+  min-width: 25%;
+  padding: 20px;
+  width: fit-content;
+
+  .goal-value {
+    padding-left: 1ch;
   }
 }
