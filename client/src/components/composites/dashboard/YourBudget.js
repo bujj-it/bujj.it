@@ -10,8 +10,6 @@ import ExpensesInput from 'components/elements/inputs/ExpensesInput';
 import MainPieChart from 'components/elements/charts/MainPieChart';
 import InfoCard from 'components/elements/dashboard/InfoCard';
 
-import SavingGoalValue from 'components/elements/dashboard/SavingGoalValue';
-
 const currentBudgetFlowSection = 'DASHBOARD';
 
 const YourBudget = props => {
@@ -25,19 +23,19 @@ const YourBudget = props => {
 
       <div className="info-cards-container">
         <InfoCard title="Saving Goal">
-          <SavingGoalValue />
+          <SavingGoalInput />
         </InfoCard>
 
-        <InfoCard title="Saving Goal">
-          <SavingGoalValue />
+        <InfoCard title="Time to Goal">
+          <TimeToGoal />
         </InfoCard>
 
-        <InfoCard title="Saving Goal">
-          <SavingGoalValue />
+        <InfoCard title="Savings Per Month">
+          <SavingsPerMonth />
         </InfoCard>
 
-        <InfoCard title="Saving Goal">
-          <SavingGoalValue />
+        <InfoCard title="Saving Percentage">
+          <SavingPercentageSlider />
         </InfoCard>
       </div>
 

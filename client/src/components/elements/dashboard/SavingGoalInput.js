@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import { connect } from 'react-redux';
 
 import { UPDATE_SAVING_GOAL_NAME, UPDATE_SAVING_GOAL_VALUE } from 'constants/actionTypes.js';
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const SavingGoalInput = props => (
-  <div className="input-container dashboard-pane">
+  <div className="input-container dashboard-pane saving-goal">
     <p className="title">Saving Goal</p>
     <div className="name">
       <input
@@ -29,6 +30,9 @@ const SavingGoalInput = props => (
         value={props.savingGoalName}
         onChange={props.onSavingGoalNameChange}
       />
+      <div className="icon">
+        <FaExternalLinkAlt />
+      </div>
     </div>
     <div className="value">
       <span className="denominator">£</span>
