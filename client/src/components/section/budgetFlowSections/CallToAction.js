@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from 'assets/chubby_budgie.jpeg';
+import logo from 'assets/chubby-budgie.png';
 import ActionButton from 'components/elements/buttons/ActionButton';
 import HomepageSection from 'components/composites/sectionWrappers/HomepageSection';
 

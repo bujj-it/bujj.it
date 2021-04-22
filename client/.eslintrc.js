@@ -37,6 +37,7 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'react/destructuring-assignment': 0,
     'array-callback-return': 0,
-    'consistent-return': 0
+    'consistent-return': 0,
+    'no-debugger': 0
   },
 };

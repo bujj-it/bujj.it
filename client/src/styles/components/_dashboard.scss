@@ -214,10 +214,10 @@ $dashboard-grid-sidebar-width: 175px;
 
 .info-card {
   @include glassy-component;
-  background: white;
+  background: color.change(globals.$glass-highlight-background, $alpha: 0.95);
   flex: 1 1 25%;
   margin: 5px;
-  max-width: max-content;
+  max-width: 50%;
   min-height: 200px;
   min-width: 25%;
   padding: 20px;
