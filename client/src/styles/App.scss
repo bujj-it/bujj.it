@@ -13,20 +13,10 @@ Sass Styles
 |   |   |– _page.scss         # General page structure
 |   |   ┴
 |   |
-|   |– components/
-|   |   |– _buttons.scss            # Buttons
-|   |   |– _navbar.scss             # Global navbar
-|   |   |– _call-to-action.scss     # CTA section styles
-|   |   |– _inputs.scss             # input boxes
-|   |   |– _expenses.scss           # expenses boxes
-|   |   |– _saving-percentage.scss  # saving percentage section
-|   |   |– _dashboard.scss          # dashboard
-|   |   ┴
-|   |
 |   |– vendor/
 |   |   |– normalize.css      # Normalize.css https://github.com/necolas/normalize.css
 |   |   ┴
-┴   ┴
+┴  ┴
 */
 
 // Application Partials
@@ -35,16 +25,3 @@ Sass Styles
 @use 'base/mixins';
 @use 'base/typography';
 @use 'base/page';
-
-// Application Components
-@use 'components/buttons';
-@use 'components/navbar';
-@use 'components/homepage-content';
-@use 'components/call-to-action';
-@use 'components/inputs';
-@use 'components/expenses';
-@use 'components/saving-percentage';
-@use 'components/dashboard';
-@use 'components/slider';
-
-// Site Wide Vendor

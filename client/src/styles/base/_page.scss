@@ -1,52 +1,61 @@
 @use '../base/globals';
 @use '../base/mixins' as *;
 
+html {
+  font-size: 1em;
+  height: 100%;
+}
+
 body {
-  background-color: globals.$theme-color;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
+  height: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.page {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  margin-top: globals.$nav-bar-height;
-  position: relative;
-  width: 100%;
-}
-
-.reading-pane {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-width: 200px;
-  width: 100%;
-
-  @include respond-to(desktop) {
-    max-width: globals.$breakpoint-desktop;
-  }
+#root {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .flex-center {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-
-  &.column {
-    flex-direction: column;
-  }
 }
 
-.warning {
-  color: globals.$warning-color;
+header {
+  width: 100%;
+}
+
+h1 {
+  font-size: 3rem;
+  width: fit-content;
+}
+
+main {
+  min-height: 65vh;
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo {
+  animation: spin 20s linear infinite;
+  height: 55vh;
+  object-fit: contain;
+  object-position: center;
+}
+
+.main-text {
+  font-size: 2rem;
+  padding-top: 30px;
+}
+
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg); 
+  } 
 }

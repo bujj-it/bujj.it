@@ -1,36 +1,24 @@
-import React, { Component } from 'react';
-import {
-  Route, BrowserRouter as Router, Switch, Redirect,
-} from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from 'store/store';
+import React from 'react';
 
-import NavBar from './components/section/NavBar';
-import PageContent from './components/section/PageContent';
-import Login from './components/section/Login';
+import logo from 'assets/logo.png';
 
-import './styles/App.scss';
+import 'styles/App.scss';
 
-const App = props => {
+const App = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <div className="App">
-          <header className="header">
-            <NavBar />
-          </header>
-          <main className="page">
-            <Switch>
-              <Route exact path="/" component={PageContent} />
-              <Route path="/login" component={Login} />
-              <Route path="/">
-                <Redirect to="/" />
-              </Route>
-            </Switch>
-          </main>
+    <>
+      <header className="flex-center">
+        <h1>
+          Bujj.it
+        </h1>
+      </header>
+      <main className="flex-center">
+        <img src={logo} className="logo" alt="bujjit" />
+        <div className="main-text">
+          coming soon
         </div>
-      </Router>
-    </Provider>
+      </main>
+    </>
   );
 };
 
