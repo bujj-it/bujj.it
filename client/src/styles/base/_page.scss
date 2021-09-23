@@ -38,15 +38,20 @@ h1 {
 
 main {
   min-height: 65vh;
-  overflow: hidden;
   width: 100%;
+}
+
+.logo-container {
+  height: 50vh;
 }
 
 .logo {
   animation: spin 20s linear infinite;
-  height: 55vh;
+  height: 50vh;
+  left: -25vh;
   object-fit: contain;
   object-position: center;
+  position: absolute;
 }
 
 .main-text {
