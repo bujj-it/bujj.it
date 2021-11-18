@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import NavTitleDynamic from 'components/elements/navbar/NavTitleDynamic';
 import NavTitleStatic from 'components/elements/navbar/NavTitleStatic';
-import logo from 'assets/chubby_budgie.jpeg';
+import logo from 'assets/chubby_budgie.png';
 import NavMenu from 'components/composites/navbar/NavMenu';
 
 const NavBar = () => (
